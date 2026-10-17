@@ -34,338 +34,71 @@ body{
 }
 body.home-active { padding: 0 !important; display: block !important; overflow-y: auto; }
 
-#homeScreen {
-  display: none;
-  width: 100%;
-  min-height: 100vh;
-  flex-direction: column;
-  align-items: center;
-  background: radial-gradient(circle at 20% 20%, #1e3a5f 0%, #0f172a 45%, #020617 100%);
-}
+#homeScreen { display: none; width: 100%; min-height: 100vh; flex-direction: column; align-items: center; background: radial-gradient(circle at 20% 20%, #1e3a5f 0%, #0f172a 45%, #020617 100%); }
 #homeScreen.active { display: flex; }
-#boardScreen {
-  display: none;
-  width: 100%;
-  flex-direction: column;
-  align-items: center;
-}
+#boardScreen { display: none; width: 100%; flex-direction: column; align-items: center; }
 #boardScreen.active { display: flex; }
 
-.home-hero {
-  width: 100%;
-  padding: 40px 20px 28px;
-  text-align: center;
-  background: linear-gradient(135deg, rgba(59,130,246,0.15) 0%, rgba(34,197,94,0.1) 100%);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-  position: relative;
-  overflow: hidden;
-}
-.home-hero::before {
-  content: '';
-  position: absolute; inset: 0;
-  background:
-    radial-gradient(circle at 20% 30%, rgba(59,130,246,0.2) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(34,197,94,0.15) 0%, transparent 50%);
-  pointer-events: none;
-}
-.home-hero h1 {
-  font-size: clamp(24px, 5vw, 44px);
-  margin: 0 0 8px;
-  background: linear-gradient(135deg, #60a5fa 0%, #34d399 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-  letter-spacing: -0.5px;
-  position: relative;
-}
-.home-hero .tagline {
-  color: var(--text-secondary);
-  font-size: clamp(13px, 1.5vw, 15px);
-  margin: 0;
-  position: relative;
-}
-.home-hero .author {
-  display: inline-block;
-  margin-top: 10px;
-  padding: 4px 12px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: var(--radius-full);
-  color: var(--text-secondary);
-  font-size: 12px;
-  position: relative;
-}
+.home-hero { width: 100%; padding: 40px 20px 28px; text-align: center; background: linear-gradient(135deg, rgba(59,130,246,0.15) 0%, rgba(34,197,94,0.1) 100%); border-bottom: 1px solid rgba(255,255,255,0.08); position: relative; overflow: hidden; }
+.home-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 20% 30%, rgba(59,130,246,0.2) 0%, transparent 50%), radial-gradient(circle at 80% 70%, rgba(34,197,94,0.15) 0%, transparent 50%); pointer-events: none; }
+.home-hero h1 { font-size: clamp(24px, 5vw, 44px); margin: 0 0 8px; background: linear-gradient(135deg, #60a5fa 0%, #34d399 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; letter-spacing: -0.5px; position: relative; }
+.home-hero .tagline { color: var(--text-secondary); font-size: clamp(13px, 1.5vw, 15px); margin: 0; position: relative; }
+.home-hero .author { display: inline-block; margin-top: 10px; padding: 4px 12px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); border-radius: var(--radius-full); color: var(--text-secondary); font-size: 12px; position: relative; }
 
-.home-content {
-  width: 100%;
-  max-width: 900px;
-  padding: 20px 16px 60px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
+.home-content { width: 100%; max-width: 900px; padding: 20px 16px 60px; display: flex; flex-direction: column; gap: 16px; }
 
-.home-hint {
-  display: flex;
-  gap: 10px;
-  align-items: flex-start;
-  padding: 12px 14px;
-  background: rgba(59,130,246,0.08);
-  border: 1px solid rgba(59,130,246,0.2);
-  border-radius: var(--radius-md);
-  font-size: 12.5px;
-  color: var(--text-secondary);
-  line-height: 1.5;
-}
+.home-hint { display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; background: rgba(59,130,246,0.08); border: 1px solid rgba(59,130,246,0.2); border-radius: var(--radius-md); font-size: 12.5px; color: var(--text-secondary); line-height: 1.5; }
 .home-hint .hint-icon { font-size: 18px; flex-shrink: 0; }
 
-.home-section {
-  background: rgba(30,41,59,0.55);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: var(--radius-lg);
-  padding: 16px 18px;
-}
-.home-section h2 {
-  font-size: 14px;
-  margin: 0 0 12px;
-  color: var(--text-primary);
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-weight: 700;
-  letter-spacing: 0.2px;
-}
-.home-section h2 small {
-  font-size: 11px;
-  color: var(--text-muted);
-  font-weight: 400;
-  margin-left: auto;
-}
+.home-section { background: rgba(30,41,59,0.55); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.08); border-radius: var(--radius-lg); padding: 16px 18px; }
+.home-section h2 { font-size: 14px; margin: 0 0 12px; color: var(--text-primary); display: flex; align-items: center; gap: 6px; font-weight: 700; letter-spacing: 0.2px; }
+.home-section h2 small { font-size: 11px; color: var(--text-muted); font-weight: 400; margin-left: auto; }
 
-.sport-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-  gap: 8px;
-}
-.sport-card {
-  background: rgba(51,65,85,0.5);
-  border: 2px solid transparent;
-  border-radius: var(--radius-md);
-  padding: 12px 6px;
-  cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-  color: var(--text-primary);
-  transition: all 200ms cubic-bezier(0.4,0,0.2,1);
-  font-family: inherit;
-}
-.sport-card:hover {
-  background: rgba(51,65,85,0.85);
-  transform: translateY(-2px);
-}
-.sport-card.active {
-  background: rgba(59,130,246,0.18);
-  border-color: var(--primary);
-  box-shadow: 0 0 0 1px rgba(59,130,246,0.3), 0 8px 20px rgba(59,130,246,0.2);
-  transform: translateY(-2px);
-}
+.sport-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 8px; }
+.sport-card { background: rgba(51,65,85,0.5); border: 2px solid transparent; border-radius: var(--radius-md); padding: 12px 6px; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--text-primary); transition: all 200ms cubic-bezier(0.4,0,0.2,1); font-family: inherit; }
+.sport-card:hover { background: rgba(51,65,85,0.85); transform: translateY(-2px); }
+.sport-card.active { background: rgba(59,130,246,0.18); border-color: var(--primary); box-shadow: 0 0 0 1px rgba(59,130,246,0.3), 0 8px 20px rgba(59,130,246,0.2); transform: translateY(-2px); }
 .sport-card .emoji { font-size: 28px; line-height: 1; }
 .sport-card .label { font-size: 12px; font-weight: 700; }
 
-.player-grid {
-  display: grid;
-  grid-template-columns: repeat(11, 1fr);
-  gap: 5px;
-}
-.player-btn {
-  aspect-ratio: 1;
-  min-height: 40px;
-  background: rgba(51,65,85,0.5);
-  border: 2px solid transparent;
-  border-radius: var(--radius-sm);
-  color: var(--text-primary);
-  font-size: 15px;
-  font-weight: 700;
-  cursor: pointer;
-  transition: all 150ms;
-  font-family: inherit;
-}
+.player-grid { display: grid; grid-template-columns: repeat(11, 1fr); gap: 5px; }
+.player-btn { aspect-ratio: 1; min-height: 40px; background: rgba(51,65,85,0.5); border: 2px solid transparent; border-radius: var(--radius-sm); color: var(--text-primary); font-size: 15px; font-weight: 700; cursor: pointer; transition: all 150ms; font-family: inherit; }
 .player-btn:hover { background: rgba(51,65,85,0.85); }
-.player-btn.active {
-  background: var(--primary);
-  border-color: #fff;
-  box-shadow: 0 4px 12px rgba(59,130,246,0.5);
-  transform: translateY(-1px);
-}
-@media (max-width: 500px) {
-  .player-grid { grid-template-columns: repeat(6, 1fr); }
-  .player-btn { min-height: 42px; }
-}
+.player-btn.active { background: var(--primary); border-color: #fff; box-shadow: 0 4px 12px rgba(59,130,246,0.5); transform: translateY(-1px); }
+@media (max-width: 500px) { .player-grid { grid-template-columns: repeat(6, 1fr); } .player-btn { min-height: 42px; } }
 
-.option-tiles {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-  gap: 8px;
-}
-.option-tile {
-  background: rgba(51,65,85,0.5);
-  border: 2px solid transparent;
-  border-radius: var(--radius-md);
-  padding: 10px 12px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--text-primary);
-  transition: all 150ms;
-  user-select: none;
-  font-family: inherit;
-  font-size: 13px;
-}
+.option-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; }
+.option-tile { background: rgba(51,65,85,0.5); border: 2px solid transparent; border-radius: var(--radius-md); padding: 10px 12px; cursor: pointer; display: flex; align-items: center; gap: 8px; color: var(--text-primary); transition: all 150ms; user-select: none; font-family: inherit; font-size: 13px; }
 .option-tile:hover { background: rgba(51,65,85,0.85); }
-.option-tile.active {
-  background: rgba(34,197,94,0.12);
-  border-color: var(--success);
-}
+.option-tile.active { background: rgba(34,197,94,0.12); border-color: var(--success); }
 .option-tile .opt-icon { font-size: 18px; flex-shrink: 0; }
 .option-tile .opt-label { flex: 1; font-weight: 600; text-align: left; }
-.option-tile .opt-check {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  border: 2px solid rgba(255,255,255,0.25);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 11px;
-  color: #fff;
-  flex-shrink: 0;
-  transition: all 150ms;
-}
-.option-tile.active .opt-check {
-  background: var(--success);
-  border-color: var(--success);
-}
+.option-tile .opt-check { width: 18px; height: 18px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.25); display: flex; align-items: center; justify-content: center; font-size: 11px; color: #fff; flex-shrink: 0; transition: all 150ms; }
+.option-tile.active .opt-check { background: var(--success); border-color: var(--success); }
 
-.device-row {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
-  gap: 6px;
-}
-.device-btn {
-  padding: 10px 8px;
-  background: rgba(51,65,85,0.5);
-  border: 2px solid transparent;
-  border-radius: var(--radius-md);
-  color: var(--text-primary);
-  font-weight: 600;
-  font-size: 12px;
-  cursor: pointer;
-  transition: all 150ms;
-  font-family: inherit;
-}
+.device-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 6px; }
+.device-btn { padding: 10px 8px; background: rgba(51,65,85,0.5); border: 2px solid transparent; border-radius: var(--radius-md); color: var(--text-primary); font-weight: 600; font-size: 12px; cursor: pointer; transition: all 150ms; font-family: inherit; }
 .device-btn:hover { background: rgba(51,65,85,0.85); }
-.device-btn.active {
-  background: rgba(59,130,246,0.18);
-  border-color: var(--primary);
-}
+.device-btn.active { background: rgba(59,130,246,0.18); border-color: var(--primary); }
 
-.home-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 4px;
-}
+.home-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
 
-.btn-home-continue {
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  color: #fff;
-  border: none;
-  padding: 16px 24px;
-  border-radius: var(--radius-lg);
-  font-size: 15px;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: 0 6px 20px rgba(16,185,129,0.35);
-  transition: all 200ms;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  font-family: inherit;
-  width: 100%;
-}
+.btn-home-continue { background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: #fff; border: none; padding: 16px 24px; border-radius: var(--radius-lg); font-size: 15px; font-weight: 700; cursor: pointer; box-shadow: 0 6px 20px rgba(16,185,129,0.35); transition: all 200ms; display: flex; align-items: center; justify-content: center; gap: 10px; font-family: inherit; width: 100%; }
 .btn-home-continue:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(16,185,129,0.5); }
-.btn-home-continue:active { transform: translateY(0); }
 
-.btn-home-primary {
-  background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-  color: #fff;
-  border: none;
-  padding: 18px 24px;
-  border-radius: var(--radius-lg);
-  font-size: 17px;
-  font-weight: 700;
-  cursor: pointer;
-  box-shadow: 0 8px 24px rgba(59,130,246,0.4);
-  transition: all 200ms;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  letter-spacing: 0.3px;
-  font-family: inherit;
-  width: 100%;
-}
+.btn-home-primary { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); color: #fff; border: none; padding: 18px 24px; border-radius: var(--radius-lg); font-size: 17px; font-weight: 700; cursor: pointer; box-shadow: 0 8px 24px rgba(59,130,246,0.4); transition: all 200ms; display: flex; align-items: center; justify-content: center; gap: 10px; letter-spacing: 0.3px; font-family: inherit; width: 100%; }
 .btn-home-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(59,130,246,0.5); }
-.btn-home-primary:active { transform: translateY(0); }
 
-.btn-home-secondary {
-  background: rgba(51,65,85,0.5);
-  color: var(--text-primary);
-  border: 1px solid rgba(255,255,255,0.1);
-  padding: 13px 20px;
-  border-radius: var(--radius-md);
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 150ms;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  font-family: inherit;
-  width: 100%;
-}
+.btn-home-secondary { background: rgba(51,65,85,0.5); color: var(--text-primary); border: 1px solid rgba(255,255,255,0.1); padding: 13px 20px; border-radius: var(--radius-md); font-size: 14px; font-weight: 600; cursor: pointer; transition: all 150ms; display: flex; align-items: center; justify-content: center; gap: 10px; font-family: inherit; width: 100%; }
 .btn-home-secondary:hover { background: rgba(51,65,85,0.9); transform: translateY(-1px); }
 
-.home-footer {
-  width: 100%;
-  max-width: 900px;
-  padding: 20px 16px 28px;
-  text-align: center;
-  color: var(--text-muted);
-  font-size: 11px;
-  border-top: 1px solid rgba(255,255,255,0.05);
-  margin-top: auto;
-}
+.home-footer { width: 100%; max-width: 900px; padding: 20px 16px 28px; text-align: center; color: var(--text-muted); font-size: 11px; border-top: 1px solid rgba(255,255,255,0.05); margin-top: auto; }
 
-h2{font-size:clamp(20px,4vw,28px);letter-spacing:0.5px;margin:5px 0 10px;
-  text-shadow:0 4px 8px rgba(0,0,0,0.6);text-align:center}
+h2{font-size:clamp(20px,4vw,28px);letter-spacing:0.5px;margin:5px 0 10px;text-shadow:0 4px 8px rgba(0,0,0,0.6);text-align:center}
 h2 small{font-size:clamp(12px,2vw,16px);color:var(--text-secondary);font-weight:normal}
 
-.mobile-topbar{display:none;position:sticky;top:0;z-index:150;width:100%;
-  padding:8px 10px;background:var(--bg-surface);border-bottom:1px solid var(--border-subtle);
-  gap:8px;align-items:center;box-shadow:var(--shadow-md);
-  padding-top:max(8px,env(safe-area-inset-top))}
-.mobile-topbar button{min-height:44px;min-width:44px;border-radius:var(--radius-md);
-  border:none;font-weight:600;font-size:14px;cursor:pointer;display:flex;
-  align-items:center;justify-content:center;gap:6px;padding:0 12px;color:#fff;
-  transition:all var(--transition-fast)}
+.mobile-topbar{display:none;position:sticky;top:0;z-index:150;width:100%;padding:8px 10px;background:var(--bg-surface);border-bottom:1px solid var(--border-subtle);gap:8px;align-items:center;box-shadow:var(--shadow-md);padding-top:max(8px,env(safe-area-inset-top))}
+.mobile-topbar button{min-height:44px;min-width:44px;border-radius:var(--radius-md);border:none;font-weight:600;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;padding:0 12px;color:#fff;transition:all var(--transition-fast)}
 .mobile-topbar .mob-icon{background:var(--bg-elevated)}
 .mobile-topbar .mob-home{background:var(--info)}
 .mobile-topbar .mob-sim{flex:1;background:var(--success)}
@@ -373,13 +106,8 @@ h2 small{font-size:clamp(12px,2vw,16px);color:var(--text-secondary);font-weight:
 .mobile-topbar .mob-rec.recording{background:var(--danger)}
 .mobile-topbar button:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
 
-.panel{background:var(--panel-bg);padding:10px 15px;border-radius:12px;
-  display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:center;
-  border:1px solid var(--border-subtle);box-shadow:var(--shadow-md);
-  width:100%;margin-bottom:8px;position:relative}
-.panel select,.panel button{padding:8px 14px;cursor:pointer;border:none;border-radius:var(--radius-sm);
-  font-weight:600;font-size:clamp(12px,1.2vw,14px);transition:all var(--transition-fast);
-  color:#fff;min-height:38px;touch-action:manipulation}
+.panel{background:var(--panel-bg);padding:10px 15px;border-radius:12px;display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:center;border:1px solid var(--border-subtle);box-shadow:var(--shadow-md);width:100%;margin-bottom:8px;position:relative}
+.panel select,.panel button{padding:8px 14px;cursor:pointer;border:none;border-radius:var(--radius-sm);font-weight:600;font-size:clamp(12px,1.2vw,14px);transition:all var(--transition-fast);color:#fff;min-height:38px;touch-action:manipulation}
 .panel select{background:#444}
 .panel button{background:var(--bg-elevated)}
 .panel select:hover,.panel button:hover:not(:disabled){transform:translateY(-1px);filter:brightness(1.1);box-shadow:var(--shadow-md)}
@@ -398,30 +126,25 @@ h2 small{font-size:clamp(12px,2vw,16px);color:var(--text-secondary);font-weight:
 .btn-rotate{background:var(--info)!important}
 .btn-home{background:var(--info)!important}
 
-.panel-close{display:none;position:absolute;top:12px;right:12px;width:40px;height:40px;
-  background:var(--danger);color:#fff;border:none;border-radius:var(--radius-full);
-  font-size:18px;cursor:pointer;z-index:201;align-items:center;justify-content:center;
-  padding:0;box-shadow:var(--shadow-md);min-height:40px!important}
-.panel-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);
-  z-index:199;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}
+.panel-close{display:none;position:absolute;top:12px;right:12px;width:40px;height:40px;background:var(--danger);color:#fff;border:none;border-radius:var(--radius-full);font-size:18px;cursor:pointer;z-index:201;align-items:center;justify-content:center;padding:0;box-shadow:var(--shadow-md);min-height:40px!important}
+.panel-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:199;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}
 .panel-backdrop.active{display:block}
 
-.checkbox-group{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;
-  font-size:clamp(12px,1.2vw,14px);background:var(--bg-elevated);padding:6px 10px;border-radius:var(--radius-sm)}
+.checkbox-group{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;font-size:clamp(12px,1.2vw,14px);background:var(--bg-elevated);padding:6px 10px;border-radius:var(--radius-sm)}
 .checkbox-group label{display:flex;align-items:center;gap:4px;cursor:pointer;min-height:32px}
 .checkbox-group input[type=checkbox]{width:18px;height:18px;cursor:pointer;accent-color:var(--primary)}
 
+#rivalCountWrap{display:none;align-items:center;gap:4px;background:var(--bg-elevated);padding:6px 10px;border-radius:var(--radius-sm)}
+#rivalCountWrap span{color:var(--text-secondary);font-weight:600;font-size:clamp(12px,1.2vw,14px)}
+#rivalCountWrap select{background:#444;color:#fff;border:2px solid var(--border-strong);padding:4px 10px;border-radius:var(--radius-sm);font-weight:600;min-height:32px;cursor:pointer;outline:none}
+
 .sport-selector{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
 .sport-selector span{color:var(--text-secondary);font-weight:600;font-size:clamp(12px,1.2vw,14px)}
-.sport-selector select{background:#444;color:#fff;border:2px solid var(--border-strong);
-  padding:6px 10px;border-radius:var(--radius-full);font-weight:600;
-  font-size:clamp(12px,1.2vw,14px);outline:none;min-height:38px;cursor:pointer}
+.sport-selector select{background:#444;color:#fff;border:2px solid var(--border-strong);padding:6px 10px;border-radius:var(--radius-full);font-weight:600;font-size:clamp(12px,1.2vw,14px);outline:none;min-height:38px;cursor:pointer}
 .sport-selector select:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(59,130,246,0.2)}
 
 .tool-group{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
-.btn-line,.btn-eraser,.btn-grid{background:var(--bg-elevated);color:#fff;border:2px solid var(--border-strong);
-  padding:8px 12px;border-radius:var(--radius-full);font-size:clamp(11px,1vw,13px);
-  cursor:pointer;transition:all var(--transition-fast);min-height:36px;font-weight:600}
+.btn-line,.btn-eraser,.btn-grid{background:var(--bg-elevated);color:#fff;border:2px solid var(--border-strong);padding:8px 12px;border-radius:var(--radius-full);font-size:clamp(11px,1vw,13px);cursor:pointer;transition:all var(--transition-fast);min-height:36px;font-weight:600}
 .btn-line:hover,.btn-eraser:hover,.btn-grid:hover{background:#444;transform:translateY(-1px)}
 .btn-line.active{background:var(--primary);border-color:#fff;box-shadow:0 0 12px rgba(59,130,246,0.6)}
 .btn-line.off{background:var(--danger);border-color:var(--danger)}
@@ -429,206 +152,122 @@ h2 small{font-size:clamp(12px,2vw,16px);color:var(--text-secondary);font-weight:
 .btn-grid.active{background:#fbbf24;color:#000;border-color:#fff}
 .btn-line:focus-visible,.btn-eraser:focus-visible,.btn-grid:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
 
-#pitch-wrapper{width:100%;position:relative;overflow:auto;
-  border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,0.8);margin:6px 0;
-  touch-action:pan-x pan-y;overscroll-behavior:contain;
-  -webkit-overflow-scrolling:touch}
+#pitch-wrapper{width:100%;position:relative;overflow:auto;border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,0.8);margin:6px 0;touch-action:pan-x pan-y;overscroll-behavior:contain;-webkit-overflow-scrolling:touch}
 #pitch-sizer{position:relative;overflow:hidden;margin:0}
-#pitch-container{position:absolute;top:0;left:0;width:2000px;height:900px;
-  background:linear-gradient(180deg,#15803d 0%,#166534 50%,#15803d 100%);
-  border:3px solid rgba(255,255,255,0.15);transform-origin:top left;
-  transition:background .5s;cursor:default;touch-action:pan-x pan-y;user-select:none;-webkit-user-select:none;
-  box-shadow:inset 0 0 60px rgba(0,0,0,0.15),0 10px 40px rgba(0,0,0,0.6)}
+#pitch-container{position:absolute;top:0;left:0;width:2000px;height:900px;background:linear-gradient(180deg,#15803d 0%,#166534 50%,#15803d 100%);border:3px solid rgba(255,255,255,0.15);transform-origin:top left;transition:background .5s;cursor:default;touch-action:pan-x pan-y;user-select:none;-webkit-user-select:none;box-shadow:inset 0 0 60px rgba(0,0,0,0.15),0 10px 40px rgba(0,0,0,0.6)}
 #pitch-container.drawing-mode{touch-action:none}
 
-.pitch-exit-btn{display:none;position:fixed;top:max(12px,env(safe-area-inset-top));
-  right:max(12px,env(safe-area-inset-right));z-index:600;width:44px;height:44px;
-  background:var(--danger);color:#fff;border:none;border-radius:var(--radius-full);
-  font-size:20px;cursor:pointer;box-shadow:var(--shadow-lg);
-  align-items:center;justify-content:center;padding:0}
+.pitch-exit-btn{display:none;position:fixed;top:max(12px,env(safe-area-inset-top));right:max(12px,env(safe-area-inset-right));z-index:600;width:44px;height:44px;background:var(--danger);color:#fff;border:none;border-radius:var(--radius-full);font-size:20px;cursor:pointer;box-shadow:var(--shadow-lg);align-items:center;justify-content:center;padding:0}
 
 .line{position:absolute;border:3px solid var(--line-white);pointer-events:none;box-sizing:border-box}
 .grass-area{position:absolute;border-radius:50%;background:#15803d;pointer-events:none;z-index:1}
 
-.draggable{position:absolute;cursor:grab;display:flex;align-items:center;justify-content:center;
-  touch-action:none;user-select:none;-webkit-user-select:none;z-index:10;transition:none}
+.draggable{position:absolute;cursor:grab;display:flex;align-items:center;justify-content:center;touch-action:none;user-select:none;-webkit-user-select:none;z-index:10;transition:none}
 .draggable:active{cursor:grabbing;z-index:100}
 .draggable-eq{box-shadow:0 4px 8px rgba(0,0,0,0.4);z-index:10}
 .draggable-eq:hover{filter:brightness(1.1);z-index:15}
 .draggable.selected{outline:3px solid var(--select);outline-offset:3px;z-index:15}
 
-.player{width:54px;height:54px;border:3px solid #fff;border-radius:50%;
-  font-weight:700;font-size:15px;color:#fff;box-shadow:0 6px 10px rgba(0,0,0,0.5);
-  text-align:center;overflow:hidden;word-break:break-all;line-height:1.2;padding:4px;
-  background:#333;z-index:20}
+.player{width:54px;height:54px;border:3px solid #fff;border-radius:50%;font-weight:700;font-size:15px;color:#fff;box-shadow:0 6px 10px rgba(0,0,0,0.5);text-align:center;overflow:hidden;word-break:break-all;line-height:1.2;padding:4px;background:#333;z-index:20}
 .home{background:var(--home-team)}
 .away{background:var(--away-team)}
-.hockey-player::after{content:"🏑";position:absolute;bottom:-18px;right:-18px;
-  font-size:32px;z-index:20;text-shadow:0 2px 6px rgba(0,0,0,0.9);transform:rotate(-15deg)}
+.hockey-player::after{content:"🏑";position:absolute;bottom:-18px;right:-18px;font-size:32px;z-index:20;text-shadow:0 2px 6px rgba(0,0,0,0.9);transform:rotate(-15deg)}
 
-.ball{width:36px;height:36px;background:radial-gradient(circle at 30% 30%,#fff,#dcdcdc);
-  border-radius:50%;border:2px solid #333;z-index:25;
-  box-shadow:2px 5px 12px rgba(0,0,0,0.6);transition:width .3s,height .3s}
-.ball::before{position:absolute;pointer-events:none;font-size:22px;top:50%;left:50%;
-  transform:translate(-50%,-50%)}
+.ball{width:36px;height:36px;background:radial-gradient(circle at 30% 30%,#fff,#dcdcdc);border-radius:50%;border:2px solid #333;z-index:25;box-shadow:2px 5px 12px rgba(0,0,0,0.6);transition:width .3s,height .3s}
+.ball::before{position:absolute;pointer-events:none;font-size:22px;top:50%;left:50%;transform:translate(-50%,-50%)}
 .ball.sport-football::before{content:'⚽';font-size:24px}
 .ball.sport-volleyball::before{content:'🏐';font-size:24px}
 .ball.sport-basketball::before{content:'🏀';font-size:28px}
-.ball.sport-handball{background:radial-gradient(circle at 30% 30%,#f57c00,#e65100);
-  border:2px solid #333;width:38px;height:38px}
-.ball.sport-handball::after{content:'';position:absolute;width:100%;height:100%;
-  background:repeating-linear-gradient(45deg,transparent 0 4px,rgba(255,255,255,0.6) 4px 6px);
-  border-radius:50%;top:0;left:0}
+.ball.sport-handball{background:radial-gradient(circle at 30% 30%,#f57c00,#e65100);border:2px solid #333;width:38px;height:38px}
+.ball.sport-handball::after{content:'';position:absolute;width:100%;height:100%;background:repeating-linear-gradient(45deg,transparent 0 4px,rgba(255,255,255,0.6) 4px 6px);border-radius:50%;top:0;left:0}
 .ball.sport-hockey{background:#fff;border:1px solid #aaa;width:26px!important;height:26px!important}
-.ball.sport-hockey::after{content:'';position:absolute;width:8px;height:8px;background:#ddd;
-  border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%)}
+.ball.sport-hockey::after{content:'';position:absolute;width:8px;height:8px;background:#ddd;border-radius:50%;top:50%;left:50%;transform:translate(-50%,-50%)}
 .ball.sport-basketball{width:44px;height:44px}
 
 .line-item{z-index:5}
 
-#equipment-palette{width:100%;min-height:80px;background:var(--palette-bg);
-  border:2px solid var(--border-subtle);border-radius:8px;margin:6px 0;padding:8px 10px;
-  display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-start;gap:8px;
-  box-shadow:inset 0 0 20px rgba(0,0,0,0.3);overflow-x:auto}
-#equipment-palette .palette-label{font-size:clamp(12px,1.2vw,14px);font-weight:700;
-  color:#fbbf24;background:var(--bg-elevated);padding:4px 12px;border-radius:var(--radius-full);
-  white-space:nowrap;margin-right:8px}
-.palette-item{width:56px;height:68px;display:flex;flex-direction:column;align-items:center;
-  justify-content:center;background:#2a3a52;border:2px solid transparent;border-radius:var(--radius-md);
-  cursor:pointer;transition:all var(--transition-fast);flex-shrink:0;padding:4px}
-.palette-item:hover{border-color:var(--warning);background:#374a66;transform:translateY(-3px);
-  box-shadow:0 8px 16px rgba(0,0,0,0.5)}
+#equipment-palette{width:100%;min-height:80px;background:var(--palette-bg);border:2px solid var(--border-subtle);border-radius:8px;margin:6px 0;padding:8px 10px;display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-start;gap:8px;box-shadow:inset 0 0 20px rgba(0,0,0,0.3);overflow-x:auto}
+#equipment-palette .palette-label{font-size:clamp(12px,1.2vw,14px);font-weight:700;color:#fbbf24;background:var(--bg-elevated);padding:4px 12px;border-radius:var(--radius-full);white-space:nowrap;margin-right:8px}
+.palette-item{width:56px;height:68px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#2a3a52;border:2px solid transparent;border-radius:var(--radius-md);cursor:pointer;transition:all var(--transition-fast);flex-shrink:0;padding:4px}
+.palette-item:hover{border-color:var(--warning);background:#374a66;transform:translateY(-3px);box-shadow:0 8px 16px rgba(0,0,0,0.5)}
 .palette-item .eq-container{transform:scale(0.8)}
 .palette-item span{font-size:9px;color:var(--text-secondary);margin-top:2px;text-align:center;line-height:1.3}
 
-.eq-mannequin{position:relative;width:24px;height:36px;background:var(--eq-color);
-  border-radius:20px 20px 0 0/40px 40px 0 0;border:2px solid #fff}
-.eq-mannequin::before{content:'';position:absolute;top:-16px;left:-4px;width:32px;height:20px;
-  background:var(--eq-color);border-radius:50%;border:2px solid #fff}
-.eq-cone{width:0;height:0;border-left:20px solid transparent;border-right:20px solid transparent;
-  border-bottom:36px solid var(--eq-color);filter:drop-shadow(0 4px 2px rgba(0,0,0,0.3));position:relative}
-.eq-cone::after{content:'';position:absolute;bottom:-10px;left:-14px;width:28px;height:10px;
-  background:rgba(255,255,255,0.3);border-radius:50%}
-.eq-ring{width:44px;height:44px;border:8px solid var(--eq-color);background:rgba(255,255,255,0.05);
-  border-radius:50%;box-sizing:border-box}
+.eq-mannequin{position:relative;width:24px;height:36px;background:var(--eq-color);border-radius:20px 20px 0 0/40px 40px 0 0;border:2px solid #fff}
+.eq-mannequin::before{content:'';position:absolute;top:-16px;left:-4px;width:32px;height:20px;background:var(--eq-color);border-radius:50%;border:2px solid #fff}
+.eq-cone{width:0;height:0;border-left:20px solid transparent;border-right:20px solid transparent;border-bottom:36px solid var(--eq-color);filter:drop-shadow(0 4px 2px rgba(0,0,0,0.3));position:relative}
+.eq-cone::after{content:'';position:absolute;bottom:-10px;left:-14px;width:28px;height:10px;background:rgba(255,255,255,0.3);border-radius:50%}
+.eq-ring{width:44px;height:44px;border:8px solid var(--eq-color);background:rgba(255,255,255,0.05);border-radius:50%;box-sizing:border-box}
 .eq-hurdle{width:40px;height:30px;position:relative}
-.eq-hurdle::before,.eq-hurdle::after{content:'';position:absolute;bottom:0;width:6px;height:30px;
-  background:var(--eq-color);border-radius:4px;border:1px solid rgba(255,255,255,0.5)}
+.eq-hurdle::before,.eq-hurdle::after{content:'';position:absolute;bottom:0;width:6px;height:30px;background:var(--eq-color);border-radius:4px;border:1px solid rgba(255,255,255,0.5)}
 .eq-hurdle::before{left:0}
 .eq-hurdle::after{right:0}
-.eq-hurdle>div{position:absolute;top:4px;left:-6px;width:52px;height:8px;
-  background:var(--eq-color);border-radius:4px;border:1px solid rgba(255,255,255,0.5)}
-.eq-ladder{width:24px;height:50px;border:3px solid var(--eq-color);border-radius:4px;
-  background:repeating-linear-gradient(to bottom,transparent 0 4px,var(--eq-color) 4px 6px)}
-.eq-goal-arch{width:48px;height:48px;border:5px solid var(--eq-color);border-top:none;
-  border-left:5px solid var(--eq-color);border-right:5px solid var(--eq-color);
-  border-bottom:5px solid var(--eq-color);border-radius:0 0 48px 48px;
-  transform:rotate(90deg);background:transparent;box-sizing:border-box}
-.eq-goal-net{width:34px;height:26px;border:3px solid var(--eq-color);
-  background:repeating-linear-gradient(45deg,transparent 0 6px,rgba(255,255,255,0.15) 6px 8px)}
-.eq-barrier{width:32px;height:22px;background:var(--eq-color);border:2px solid #fff;
-  border-radius:4px;box-shadow:2px 2px 6px rgba(0,0,0,0.5)}
-.eq-pole{width:8px;height:36px;background:var(--eq-color);border:2px solid #fff;
-  border-radius:4px;box-shadow:0 4px 6px rgba(0,0,0,0.4)}
-.eq-pole::after{content:'';position:absolute;bottom:-6px;left:-8px;width:24px;height:6px;
-  background:rgba(0,0,0,0.3);border-radius:50%}
-.eq-tire{width:32px;height:32px;border:10px solid var(--eq-color);border-radius:50%;
-  background:transparent;box-sizing:border-box}
-.eq-block{width:30px;height:30px;background:var(--eq-color);border:2px solid #fff;
-  border-radius:6px;box-shadow:inset -4px -4px 10px rgba(0,0,0,0.4)}
+.eq-hurdle>div{position:absolute;top:4px;left:-6px;width:52px;height:8px;background:var(--eq-color);border-radius:4px;border:1px solid rgba(255,255,255,0.5)}
+.eq-ladder{width:24px;height:50px;border:3px solid var(--eq-color);border-radius:4px;background:repeating-linear-gradient(to bottom,transparent 0 4px,var(--eq-color) 4px 6px)}
+.eq-goal-arch{width:48px;height:48px;border:5px solid var(--eq-color);border-top:none;border-left:5px solid var(--eq-color);border-right:5px solid var(--eq-color);border-bottom:5px solid var(--eq-color);border-radius:0 0 48px 48px;transform:rotate(90deg);background:transparent;box-sizing:border-box}
+.eq-goal-net{width:34px;height:26px;border:3px solid var(--eq-color);background:repeating-linear-gradient(45deg,transparent 0 6px,rgba(255,255,255,0.15) 6px 8px)}
+.eq-barrier{width:32px;height:22px;background:var(--eq-color);border:2px solid #fff;border-radius:4px;box-shadow:2px 2px 6px rgba(0,0,0,0.5)}
+.eq-pole{width:8px;height:36px;background:var(--eq-color);border:2px solid #fff;border-radius:4px;box-shadow:0 4px 6px rgba(0,0,0,0.4)}
+.eq-pole::after{content:'';position:absolute;bottom:-6px;left:-8px;width:24px;height:6px;background:rgba(0,0,0,0.3);border-radius:50%}
+.eq-tire{width:32px;height:32px;border:10px solid var(--eq-color);border-radius:50%;background:transparent;box-sizing:border-box}
+.eq-block{width:30px;height:30px;background:var(--eq-color);border:2px solid #fff;border-radius:6px;box-shadow:inset -4px -4px 10px rgba(0,0,0,0.4)}
 .eq-yellow{--eq-color:#fbc02d}.eq-blue{--eq-color:#1976d2}
 .eq-red{--eq-color:#d32f2f}.eq-green{--eq-color:#4caf50}
 .eq-orange{--eq-color:#f57c00}.eq-purple{--eq-color:#9c27b0}
 .eq-white{--eq-color:#ffffff}
 
-#trash-bin{position:absolute;bottom:20px;right:40px;width:100px;height:80px;
-  background:rgba(15,23,42,0.95);border:3px dashed var(--danger);border-radius:var(--radius-md);
-  display:none;flex-direction:column;align-items:center;justify-content:center;
-  z-index:500;color:var(--danger);font-size:28px;font-weight:700;
-  box-shadow:var(--shadow-lg);pointer-events:auto;
-  transform:scale(var(--trash-inv,1));transform-origin:bottom right;
-  transition:background .2s,border-color .2s,color .2s}
+#trash-bin{position:absolute;bottom:20px;right:40px;width:100px;height:80px;background:rgba(15,23,42,0.95);border:3px dashed var(--danger);border-radius:var(--radius-md);display:none;flex-direction:column;align-items:center;justify-content:center;z-index:500;color:var(--danger);font-size:28px;font-weight:700;box-shadow:var(--shadow-lg);pointer-events:auto;transform:scale(var(--trash-inv,1));transform-origin:bottom right;transition:background .2s,border-color .2s,color .2s}
 #trash-bin span{font-size:12px;margin-top:2px;color:#fca5a5;font-weight:normal}
-#trash-bin.drag-over{background:rgba(239,68,68,0.8);border-color:#fff;
-  transform:scale(calc(var(--trash-inv,1) * 1.05));color:#fff;box-shadow:0 0 30px rgba(239,68,68,0.7)}
+#trash-bin.drag-over{background:rgba(239,68,68,0.8);border-color:#fff;transform:scale(calc(var(--trash-inv,1) * 1.05));color:#fff;box-shadow:0 0 30px rgba(239,68,68,0.7)}
 
-#playback-controls{display:none;background:var(--bg-surface);padding:8px 16px;border-radius:12px;
-  margin-top:8px;border:1px solid var(--border-subtle);align-items:center;gap:10px;
-  flex-wrap:wrap;justify-content:center;box-shadow:var(--shadow-md)}
-#playback-controls button{padding:6px 14px;border-radius:var(--radius-sm);border:none;
-  cursor:pointer;font-weight:600;background:var(--bg-elevated);color:#fff;
-  font-size:clamp(12px,1vw,14px);min-height:36px;transition:all var(--transition-fast)}
+#playback-controls{display:none;background:var(--bg-surface);padding:8px 16px;border-radius:12px;margin-top:8px;border:1px solid var(--border-subtle);align-items:center;gap:10px;flex-wrap:wrap;justify-content:center;box-shadow:var(--shadow-md)}
+#playback-controls button{padding:6px 14px;border-radius:var(--radius-sm);border:none;cursor:pointer;font-weight:600;background:var(--bg-elevated);color:#fff;font-size:clamp(12px,1vw,14px);min-height:36px;transition:all var(--transition-fast)}
 #playback-controls button:hover{background:#475569;transform:translateY(-1px)}
 #playback-controls button.active{background:var(--warning)}
 #playback-controls button:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
 #playback-controls .playback-status{color:var(--text-secondary);font-size:13px}
 #playback-controls .btn-restart{background:var(--success);display:none}
 
-.scenario-container{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;
-  width:100%;margin:6px 0}
+.scenario-container{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;width:100%;margin:6px 0}
 .scenario-box{display:flex;gap:6px;flex-wrap:wrap}
-.scenario-btn{background:var(--bg-elevated);color:#fff;border:2px solid transparent;
-  width:42px;height:42px;border-radius:var(--radius-sm);font-size:16px;font-weight:700;
-  cursor:pointer;transition:all var(--transition-fast)}
+.scenario-btn{background:var(--bg-elevated);color:#fff;border:2px solid transparent;width:42px;height:42px;border-radius:var(--radius-sm);font-size:16px;font-weight:700;cursor:pointer;transition:all var(--transition-fast)}
 .scenario-btn:hover{background:#475569;transform:translateY(-1px)}
-.scenario-btn.active{background:var(--warning);border-color:#fff;transform:translateY(-2px);
-  box-shadow:0 4px 12px rgba(245,158,11,0.4)}
+.scenario-btn.active{background:var(--warning);border-color:#fff;transform:translateY(-2px);box-shadow:0 4px 12px rgba(245,158,11,0.4)}
 .scenario-btn:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
-.btn-add-scenario{background:var(--primary);color:#fff;width:42px;height:42px;
-  border-radius:50%;font-size:22px;display:flex;align-items:center;justify-content:center;
-  border:none;cursor:pointer;transition:all var(--transition-fast);font-weight:700}
+.btn-add-scenario{background:var(--primary);color:#fff;width:42px;height:42px;border-radius:50%;font-size:22px;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer;transition:all var(--transition-fast);font-weight:700}
 .btn-add-scenario:hover{background:#2563eb;transform:translateY(-1px)}
 .scenario-item{display:flex;align-items:center;gap:2px}
-.scenario-del{background:transparent;border:none;color:var(--danger);cursor:pointer;
-  font-size:16px;padding:0 2px;line-height:1}
+.scenario-del{background:transparent;border:none;color:var(--danger);cursor:pointer;font-size:16px;padding:0 2px;line-height:1}
 .scenario-del:hover{color:#f87171}
 
-.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;
-  background:rgba(15,23,42,0.7);z-index:1000;justify-content:center;align-items:center;
-  padding:20px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(15,23,42,0.7);z-index:1000;justify-content:center;align-items:center;padding:20px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .modal-overlay.active{display:flex}
-.modal-box{background:#1e293b;border-radius:var(--radius-lg);padding:20px;max-width:600px;
-  width:100%;max-height:80vh;overflow-y:auto;border:1px solid var(--border-subtle);
-  box-shadow:var(--shadow-lg);animation:modalIn 250ms cubic-bezier(0.34,1.56,0.64,1)}
+.modal-box{background:#1e293b;border-radius:var(--radius-lg);padding:20px;max-width:600px;width:100%;max-height:80vh;overflow-y:auto;border:1px solid var(--border-subtle);box-shadow:var(--shadow-lg);animation:modalIn 250ms cubic-bezier(0.34,1.56,0.64,1)}
 @keyframes modalIn{from{opacity:0;transform:scale(0.9) translateY(-20px)}to{opacity:1;transform:none}}
 .modal-box h3{margin-top:0;border-bottom:1px solid var(--border-subtle);padding-bottom:10px}
-.modal-close{float:right;background:var(--danger);border:none;color:#fff;padding:6px 16px;
-  border-radius:var(--radius-full);cursor:pointer;min-height:32px;font-weight:600}
-.modal-box input[type=text],.modal-box textarea{width:100%;padding:10px;background:var(--bg-elevated);
-  color:#fff;border:1px solid var(--border-strong);border-radius:var(--radius-md);font-size:14px;
-  font-family:inherit;outline:none;box-sizing:border-box;transition:all var(--transition-fast)}
-.modal-box input[type=text]:focus,.modal-box textarea:focus{border-color:var(--primary);
-  box-shadow:0 0 0 3px rgba(59,130,246,0.2)}
+.modal-close{float:right;background:var(--danger);border:none;color:#fff;padding:6px 16px;border-radius:var(--radius-full);cursor:pointer;min-height:32px;font-weight:600}
+.modal-box input[type=text],.modal-box textarea{width:100%;padding:10px;background:var(--bg-elevated);color:#fff;border:1px solid var(--border-strong);border-radius:var(--radius-md);font-size:14px;font-family:inherit;outline:none;box-sizing:border-box;transition:all var(--transition-fast)}
+.modal-box input[type=text]:focus,.modal-box textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(59,130,246,0.2)}
 .modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:16px;flex-wrap:wrap}
-.modal-actions button{padding:10px 20px;border-radius:var(--radius-md);border:none;
-  cursor:pointer;font-weight:600;font-size:14px;min-height:40px;transition:all var(--transition-fast)}
+.modal-actions button{padding:10px 20px;border-radius:var(--radius-md);border:none;cursor:pointer;font-weight:600;font-size:14px;min-height:40px;transition:all var(--transition-fast)}
 .modal-actions button:hover{transform:translateY(-1px);box-shadow:var(--shadow-md)}
 .modal-actions .btn-primary{background:var(--primary);color:#fff}
 .modal-actions .btn-danger{background:var(--danger);color:#fff}
 .modal-actions .btn-cancel{background:var(--bg-elevated);color:#fff}
-.progress-bar{width:100%;height:8px;background:var(--bg-elevated);border-radius:4px;
-  overflow:hidden;margin:12px 0}
+.progress-bar{width:100%;height:8px;background:var(--bg-elevated);border-radius:4px;overflow:hidden;margin:12px 0}
 .progress-fill{height:100%;background:var(--success);transition:width .2s;width:0%}
-.file-list-item{background:var(--bg-elevated);padding:12px 14px;margin:6px 0;
-  border-radius:var(--radius-md);display:flex;justify-content:space-between;align-items:center;
-  gap:8px;transition:all var(--transition-fast);flex-wrap:wrap}
+.file-list-item{background:var(--bg-elevated);padding:12px 14px;margin:6px 0;border-radius:var(--radius-md);display:flex;justify-content:space-between;align-items:center;gap:8px;transition:all var(--transition-fast);flex-wrap:wrap}
 .file-list-item:hover{background:#475569}
 .file-list-item .name{font-weight:700;cursor:pointer;flex:1;min-width:100px}
 .file-list-item .date{color:var(--text-secondary);font-size:.8rem}
 .file-list-item .actions{display:flex;gap:4px}
-.file-list-item .actions button{background:var(--bg-surface);border:none;color:#fff;
-  padding:6px 10px;border-radius:var(--radius-sm);cursor:pointer;font-size:12px;min-height:32px;
-  transition:all var(--transition-fast)}
+.file-list-item .actions button{background:var(--bg-surface);border:none;color:#fff;padding:6px 10px;border-radius:var(--radius-sm);cursor:pointer;font-size:12px;min-height:32px;transition:all var(--transition-fast)}
 .file-list-item .actions button:hover{background:#64748b}
 .file-list-item .actions .del{background:var(--danger)}
 .empty-msg{color:var(--text-muted);text-align:center;padding:20px}
 
-#toast-container{position:fixed;bottom:20px;right:20px;z-index:9999;display:flex;
-  flex-direction:column;gap:8px;pointer-events:none;max-width:calc(100vw - 40px)}
-.toast{background:var(--toast-bg);color:#fff;padding:12px 20px;border-radius:var(--radius-md);
-  font-size:14px;box-shadow:var(--shadow-lg);border-left:4px solid var(--warning);
-  transform:translateX(120%);transition:transform .4s ease,opacity .4s;opacity:0;
-  pointer-events:auto;max-width:400px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+#toast-container{position:fixed;bottom:20px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none;max-width:calc(100vw - 40px)}
+.toast{background:var(--toast-bg);color:#fff;padding:12px 20px;border-radius:var(--radius-md);font-size:14px;box-shadow:var(--shadow-lg);border-left:4px solid var(--warning);transform:translateX(120%);transition:transform .4s ease,opacity .4s;opacity:0;pointer-events:auto;max-width:400px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .toast.show{transform:translateX(0);opacity:1}
 .toast.success{border-left-color:var(--success)}
 .toast.error{border-left-color:var(--danger)}
@@ -637,14 +276,11 @@ h2 small{font-size:clamp(12px,2vw,16px);color:var(--text-secondary);font-weight:
 
 .edit-controls{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:15px 0}
 .dir-group{display:grid;grid-template-columns:repeat(3,44px);gap:4px}
-.dir-group button{width:44px;height:44px;font-size:20px;background:var(--bg-elevated);
-  color:#fff;border:1px solid var(--border-strong);border-radius:var(--radius-sm);cursor:pointer}
+.dir-group button{width:44px;height:44px;font-size:20px;background:var(--bg-elevated);color:#fff;border:1px solid var(--border-strong);border-radius:var(--radius-sm);cursor:pointer}
 .dir-group button:hover{background:#475569}
 .dir-group .spacer{visibility:hidden}
 .size-group{display:flex;flex-wrap:wrap;gap:4px}
-.size-group button{padding:8px 14px;background:var(--bg-elevated);color:#fff;
-  border:1px solid var(--border-strong);border-radius:var(--radius-sm);cursor:pointer;
-  font-weight:600;font-size:13px;min-height:40px}
+.size-group button{padding:8px 14px;background:var(--bg-elevated);color:#fff;border:1px solid var(--border-strong);border-radius:var(--radius-sm);cursor:pointer;font-weight:600;font-size:13px;min-height:40px}
 .size-group button:hover{background:#475569}
 .size-group button.active{background:var(--warning);border-color:#fff}
 
@@ -654,50 +290,21 @@ h2 small{font-size:clamp(12px,2vw,16px);color:var(--text-secondary);font-weight:
 
 .btn-paste.has-clip{background:var(--success)!important;box-shadow:0 0 12px rgba(34,197,94,0.6)}
 
-.tooltip-hint{font-size:clamp(11px,1vw,13px);color:var(--text-secondary);
-  background:var(--bg-surface);padding:6px 14px;border-radius:var(--radius-full);
-  display:inline-block;margin:4px 0;text-align:center;border:1px solid var(--border-subtle)}
+.tooltip-hint{font-size:clamp(11px,1vw,13px);color:var(--text-secondary);background:var(--bg-surface);padding:6px 14px;border-radius:var(--radius-full);display:inline-block;margin:4px 0;text-align:center;border:1px solid var(--border-subtle)}
 .tooltip-hint a{color:var(--warning);text-decoration:none;font-weight:700}
 
-body.fullscreen-pitch .panel,
-body.fullscreen-pitch .mobile-topbar,
-body.fullscreen-pitch h2,
-body.fullscreen-pitch .scenario-container,
-body.fullscreen-pitch .tooltip-hint,
-body.fullscreen-pitch #equipment-palette{
-  display:none!important;
-}
-body.fullscreen-pitch #pitch-wrapper{
-  position:fixed!important;inset:0!important;z-index:500!important;
-  border-radius:0!important;margin:0!important;max-width:none!important;
-  width:100vw!important;height:100vh!important;height:100dvh!important;
-  box-shadow:none!important;overflow:auto!important;
-}
+body.fullscreen-pitch .panel,body.fullscreen-pitch .mobile-topbar,body.fullscreen-pitch h2,body.fullscreen-pitch .scenario-container,body.fullscreen-pitch .tooltip-hint,body.fullscreen-pitch #equipment-palette{display:none!important}
+body.fullscreen-pitch #pitch-wrapper{position:fixed!important;inset:0!important;z-index:500!important;border-radius:0!important;margin:0!important;max-width:none!important;width:100vw!important;height:100vh!important;height:100dvh!important;box-shadow:none!important;overflow:auto!important}
 body.fullscreen-pitch .pitch-exit-btn{display:flex}
-body.fullscreen-pitch #playback-controls{
-  position:fixed!important;bottom:0!important;left:0!important;right:0!important;
-  z-index:600!important;border-radius:0!important;margin:0!important;
-  padding-bottom:max(8px,env(safe-area-inset-bottom))!important;
-}
+body.fullscreen-pitch #playback-controls{position:fixed!important;bottom:0!important;left:0!important;right:0!important;z-index:600!important;border-radius:0!important;margin:0!important;padding-bottom:max(8px,env(safe-area-inset-bottom))!important}
 
 @media (max-width:900px){
-  body{padding:6px;
-    padding-top:max(6px,env(safe-area-inset-top));
-    padding-bottom:max(6px,env(safe-area-inset-bottom));
-    min-height:100dvh}
+  body{padding:6px;padding-top:max(6px,env(safe-area-inset-top));padding-bottom:max(6px,env(safe-area-inset-bottom));min-height:100dvh}
   body.home-active{padding:0!important}
   .mobile-topbar{display:flex}
   h2{font-size:18px;margin:4px 0 6px}
   h2 small{display:none}
-  .panel{
-    position:fixed;top:0;left:0;right:0;z-index:200;
-    transform:translateY(-100%);transition:transform var(--transition-base);
-    max-height:88vh;overflow-y:auto;
-    border-radius:0 0 var(--radius-lg) var(--radius-lg);
-    padding:16px;padding-top:max(64px,calc(env(safe-area-inset-top) + 56px));
-    flex-direction:column;align-items:stretch;
-    box-shadow:var(--shadow-lg);margin:0;
-  }
+  .panel{position:fixed;top:0;left:0;right:0;z-index:200;transform:translateY(-100%);transition:transform var(--transition-base);max-height:88vh;overflow-y:auto;border-radius:0 0 var(--radius-lg) var(--radius-lg);padding:16px;padding-top:max(64px,calc(env(safe-area-inset-top) + 56px));flex-direction:column;align-items:stretch;box-shadow:var(--shadow-lg);margin:0}
   .panel.open{transform:translateY(0)}
   .panel>*{justify-content:center}
   .panel-close{display:flex}
@@ -705,11 +312,9 @@ body.fullscreen-pitch #playback-controls{
   .scenario-btn{width:44px;height:44px;font-size:16px}
   .btn-add-scenario{width:44px;height:44px}
   .scenario-container{margin:4px 0}
-  #trash-bin{width:64px;height:64px;font-size:20px;right:12px;
-    bottom:max(12px,env(safe-area-inset-bottom))}
+  #trash-bin{width:64px;height:64px;font-size:20px;right:12px;bottom:max(12px,env(safe-area-inset-bottom))}
   #trash-bin span{font-size:9px}
-  #playback-controls{position:sticky;bottom:0;z-index:100;width:100%;
-    border-radius:0;padding:8px;padding-bottom:max(8px,env(safe-area-inset-bottom))}
+  #playback-controls{position:sticky;bottom:0;z-index:100;width:100%;border-radius:0;padding:8px;padding-bottom:max(8px,env(safe-area-inset-bottom))}
   #equipment-palette{padding:6px;justify-content:flex-start;min-height:60px;max-height:84px}
   .palette-item{width:48px;height:56px;padding:2px}
   .palette-item .eq-container{transform:scale(0.62)}
@@ -761,6 +366,11 @@ body.fullscreen-pitch #playback-controls{
       <h2>👥 Kadro <small>Oyuncu sayısı</small></h2>
       <div class="player-grid" id="homePlayerGrid"></div>
     </section>
+
+    <section class="home-section" id="homeRivalSection" style="display:none">
+      <h2>🆚 Rakip Kadro <small>Kaç rakip oyuncu?</small></h2>
+      <div class="player-grid" id="homeRivalGrid"></div>
+    </section>
     
     <section class="home-section">
       <h2>⚙️ Seçenekler <small>Sahaya eklenecekler</small></h2>
@@ -786,7 +396,7 @@ body.fullscreen-pitch #playback-controls{
   </div>
   
   <div class="home-footer">
-    v3.1 · Profesyonel Taktik Tahtası<br>
+    v3.2 · Profesyonel Taktik Tahtası<br>
     Tüm hakları saklıdır © 2025
   </div>
 </div>
@@ -813,11 +423,16 @@ body.fullscreen-pitch #playback-controls{
     </div>
 
     <div class="checkbox-group">
-      <label><input type="checkbox" id="rivalTeam" onchange="setupBoard({preserve:true})"> Rakip</label>
+      <label><input type="checkbox" id="rivalTeam" onchange="onRivalToggle()"> Rakip</label>
       <label><input type="checkbox" id="showBall" onchange="setupBoard({preserve:true})" checked> Top</label>
       <label style="color:#fbbf24;border-left:1px solid var(--border-strong);padding-left:8px;">
         <input type="checkbox" id="trainingMode" onchange="setupBoard({preserve:true})"> Eğitim
       </label>
+    </div>
+
+    <div id="rivalCountWrap">
+      <span>Rakip:</span>
+      <select id="rivalCount" onchange="setupBoard({preserve:true})"></select>
     </div>
 
     <button class="btn-reset" onclick="resetAll()">🔄 Sıfırla</button>
@@ -981,6 +596,7 @@ const Home = {
   sport: 'football',
   playerCount: 11,
   rivalTeam: false,
+  rivalCount: 11,
   showBall: true,
   trainingMode: false,
   gridMode: false,
@@ -1015,20 +631,13 @@ function toast(msg, type='info', duration=3000){
   }, duration);
 }
 
-function closeDynamicModal(){
-  const o = $('#dynamic-modal');
-  o.classList.remove('active');
-  o.innerHTML = '';
-}
+function closeDynamicModal(){ const o = $('#dynamic-modal'); o.classList.remove('active'); o.innerHTML = ''; }
 
 function showPrompt(title, defaultValue='', message=''){
   return new Promise(resolve => {
-    const o = $('#dynamic-modal');
-    o.innerHTML = '';
-    const box = document.createElement('div');
-    box.className = 'modal-box';
-    box.setAttribute('role','dialog');
-    box.setAttribute('aria-modal','true');
+    const o = $('#dynamic-modal'); o.innerHTML = '';
+    const box = document.createElement('div'); box.className = 'modal-box';
+    box.setAttribute('role','dialog'); box.setAttribute('aria-modal','true');
     box.innerHTML = `
       <h3>${escapeHtml(title)}</h3>
       ${message ? `<p style="color:var(--text-secondary);font-size:13px;margin:0 0 10px">${escapeHtml(message)}</p>` : ''}
@@ -1037,8 +646,7 @@ function showPrompt(title, defaultValue='', message=''){
         <button class="btn-cancel" id="dyn-cancel">İptal</button>
         <button class="btn-primary" id="dyn-ok">Tamam</button>
       </div>`;
-    o.appendChild(box);
-    o.classList.add('active');
+    o.appendChild(box); o.classList.add('active');
     const input = box.querySelector('#dyn-input');
     setTimeout(() => { input.focus(); input.select(); }, 50);
     const finish = v => { closeDynamicModal(); resolve(v); };
@@ -1054,12 +662,9 @@ function showPrompt(title, defaultValue='', message=''){
 
 function showConfirm(title, message, opts={}){
   return new Promise(resolve => {
-    const o = $('#dynamic-modal');
-    o.innerHTML = '';
-    const box = document.createElement('div');
-    box.className = 'modal-box';
-    box.setAttribute('role','dialog');
-    box.setAttribute('aria-modal','true');
+    const o = $('#dynamic-modal'); o.innerHTML = '';
+    const box = document.createElement('div'); box.className = 'modal-box';
+    box.setAttribute('role','dialog'); box.setAttribute('aria-modal','true');
     box.innerHTML = `
       <h3>${escapeHtml(title)}</h3>
       <p style="color:var(--text-secondary);white-space:pre-wrap;margin:0 0 10px">${escapeHtml(message)}</p>
@@ -1067,8 +672,7 @@ function showConfirm(title, message, opts={}){
         <button class="btn-cancel" id="dyn-cancel">İptal</button>
         <button class="${opts.danger ? 'btn-danger' : 'btn-primary'}" id="dyn-ok">${escapeHtml(opts.okText || 'Tamam')}</button>
       </div>`;
-    o.appendChild(box);
-    o.classList.add('active');
+    o.appendChild(box); o.classList.add('active');
     const finish = v => { closeDynamicModal(); resolve(v); };
     box.querySelector('#dyn-ok').onclick = () => finish(true);
     box.querySelector('#dyn-cancel').onclick = () => finish(false);
@@ -1084,12 +688,9 @@ function showConfirm(title, message, opts={}){
 
 function showChoice(title, message, buttons){
   return new Promise(resolve => {
-    const o = $('#dynamic-modal');
-    o.innerHTML = '';
-    const box = document.createElement('div');
-    box.className = 'modal-box';
-    box.setAttribute('role','dialog');
-    box.setAttribute('aria-modal','true');
+    const o = $('#dynamic-modal'); o.innerHTML = '';
+    const box = document.createElement('div'); box.className = 'modal-box';
+    box.setAttribute('role','dialog'); box.setAttribute('aria-modal','true');
     box.innerHTML = `
       <h3>${escapeHtml(title)}</h3>
       <p style="color:var(--text-secondary);white-space:pre-wrap;font-size:13px;line-height:1.5;margin:0 0 10px">${escapeHtml(message)}</p>
@@ -1102,17 +703,14 @@ function showChoice(title, message, buttons){
       btn.onclick = () => { closeDynamicModal(); resolve(b.value); };
       btnContainer.appendChild(btn);
     });
-    o.appendChild(box);
-    o.classList.add('active');
+    o.appendChild(box); o.classList.add('active');
     o.onclick = e => { if (e.target === o) { closeDynamicModal(); resolve(null); } };
   });
 }
 
 function showProgress(title){
-  const o = $('#dynamic-modal');
-  o.innerHTML = '';
-  const box = document.createElement('div');
-  box.className = 'modal-box';
+  const o = $('#dynamic-modal'); o.innerHTML = '';
+  const box = document.createElement('div'); box.className = 'modal-box';
   box.innerHTML = `
     <h3>${escapeHtml(title)}</h3>
     <p id="prog-text" style="color:var(--text-secondary);margin:0 0 10px">Hazırlanıyor...</p>
@@ -1120,8 +718,7 @@ function showProgress(title){
     <div class="modal-actions">
       <button class="btn-danger" id="prog-cancel">İptal</button>
     </div>`;
-  o.appendChild(box);
-  o.classList.add('active');
+  o.appendChild(box); o.classList.add('active');
   return {
     setProgress(pct, text){ $('#prog-fill').style.width = pct + '%'; if (text) $('#prog-text').textContent = text; },
     close(){ closeDynamicModal(); },
@@ -1129,16 +726,12 @@ function showProgress(title){
   };
 }
 
-function escapeHtml(s){
-  return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-}
+function escapeHtml(s){ return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 
 function openShortcutsModal(e){
   if (e) e.preventDefault();
-  const o = $('#dynamic-modal');
-  o.innerHTML = '';
-  const box = document.createElement('div');
-  box.className = 'modal-box';
+  const o = $('#dynamic-modal'); o.innerHTML = '';
+  const box = document.createElement('div'); box.className = 'modal-box';
   box.innerHTML = `
     <button class="modal-close" onclick="closeDynamicModal()">✕</button>
     <h3>⌨️ Klavye Kısayolları</h3>
@@ -1154,16 +747,12 @@ function openShortcutsModal(e){
       <tr><td style="padding:6px 0"><kbd>G</kbd></td><td>Izgarayı aç/kapat</td></tr>
     </table>
     <div class="modal-actions"><button class="btn-primary" onclick="closeDynamicModal()">Tamam</button></div>`;
-  o.appendChild(box);
-  o.classList.add('active');
+  o.appendChild(box); o.classList.add('active');
 }
 
 function screenToPitch(clientX, clientY){
   const rect = pitch.getBoundingClientRect();
-  return {
-    x: (clientX - rect.left) / App.currentScale,
-    y: (clientY - rect.top) / App.currentScale,
-  };
+  return { x: (clientX - rect.left) / App.currentScale, y: (clientY - rect.top) / App.currentScale };
 }
 
 function openDB(){
@@ -1183,51 +772,11 @@ function openDB(){
   });
 }
 
-function dbGetAll(){
-  return new Promise((resolve, reject) => {
-    if (!db) return reject(new Error('DB kapalı'));
-    const tx = db.transaction(CFG.DB_STORE, 'readonly');
-    const req = tx.objectStore(CFG.DB_STORE).getAll();
-    req.onsuccess = () => resolve(req.result);
-    req.onerror = e => reject(e.target.error);
-  });
-}
-function dbAdd(rec){
-  return new Promise((resolve, reject) => {
-    if (!db) return reject(new Error('DB kapalı'));
-    const tx = db.transaction(CFG.DB_STORE, 'readwrite');
-    const req = tx.objectStore(CFG.DB_STORE).add(rec);
-    req.onsuccess = () => resolve(req.result);
-    req.onerror = e => reject(e.target.error);
-  });
-}
-function dbGet(id){
-  return new Promise((resolve, reject) => {
-    if (!db) return reject(new Error('DB kapalı'));
-    const tx = db.transaction(CFG.DB_STORE, 'readonly');
-    const req = tx.objectStore(CFG.DB_STORE).get(id);
-    req.onsuccess = () => resolve(req.result);
-    req.onerror = e => reject(e.target.error);
-  });
-}
-function dbPut(rec){
-  return new Promise((resolve, reject) => {
-    if (!db) return reject(new Error('DB kapalı'));
-    const tx = db.transaction(CFG.DB_STORE, 'readwrite');
-    const req = tx.objectStore(CFG.DB_STORE).put(rec);
-    req.onsuccess = () => resolve(req.result);
-    req.onerror = e => reject(e.target.error);
-  });
-}
-function dbDelete(id){
-  return new Promise((resolve, reject) => {
-    if (!db) return reject(new Error('DB kapalı'));
-    const tx = db.transaction(CFG.DB_STORE, 'readwrite');
-    const req = tx.objectStore(CFG.DB_STORE).delete(id);
-    req.onsuccess = () => resolve();
-    req.onerror = e => reject(e.target.error);
-  });
-}
+function dbGetAll(){return new Promise((r,j)=>{if(!db)return j(new Error('DB kapalı'));const t=db.transaction(CFG.DB_STORE,'readonly');const q=t.objectStore(CFG.DB_STORE).getAll();q.onsuccess=()=>r(q.result);q.onerror=e=>j(e.target.error);});}
+function dbAdd(rec){return new Promise((r,j)=>{if(!db)return j(new Error('DB kapalı'));const t=db.transaction(CFG.DB_STORE,'readwrite');const q=t.objectStore(CFG.DB_STORE).add(rec);q.onsuccess=()=>r(q.result);q.onerror=e=>j(e.target.error);});}
+function dbGet(id){return new Promise((r,j)=>{if(!db)return j(new Error('DB kapalı'));const t=db.transaction(CFG.DB_STORE,'readonly');const q=t.objectStore(CFG.DB_STORE).get(id);q.onsuccess=()=>r(q.result);q.onerror=e=>j(e.target.error);});}
+function dbPut(rec){return new Promise((r,j)=>{if(!db)return j(new Error('DB kapalı'));const t=db.transaction(CFG.DB_STORE,'readwrite');const q=t.objectStore(CFG.DB_STORE).put(rec);q.onsuccess=()=>r(q.result);q.onerror=e=>j(e.target.error);});}
+function dbDelete(id){return new Promise((r,j)=>{if(!db)return j(new Error('DB kapalı'));const t=db.transaction(CFG.DB_STORE,'readwrite');const q=t.objectStore(CFG.DB_STORE).delete(id);q.onsuccess=()=>r();q.onerror=e=>j(e.target.error);});}
 
 const SPORTS = {
   football:   { name:'Futbol',      emoji:'⚽', players:11, ball:true,  color:'#15803d' },
@@ -1239,8 +788,7 @@ const SPORTS = {
 };
 
 function renderHomeControls(){
-  const sg = $('#homeSportGrid');
-  sg.innerHTML = '';
+  const sg = $('#homeSportGrid'); sg.innerHTML = '';
   Object.entries(SPORTS).forEach(([key, s]) => {
     const btn = document.createElement('button');
     btn.className = 'sport-card' + (key === Home.sport ? ' active' : '');
@@ -1252,9 +800,9 @@ function renderHomeControls(){
 
   renderHomePlayerGrid();
   renderHomeOptions();
+  renderHomeRivalGrid();
 
-  const dr = $('#homeDeviceRow');
-  dr.innerHTML = '';
+  const dr = $('#homeDeviceRow'); dr.innerHTML = '';
   const devices = [
     { v: 'auto', label: '🖥️ Otomatik' },
     { v: '1.0', label: 'PC (1.0)' },
@@ -1265,10 +813,7 @@ function renderHomeControls(){
     const btn = document.createElement('button');
     btn.className = 'device-btn' + (d.v === Home.device ? ' active' : '');
     btn.textContent = d.label;
-    btn.onclick = () => {
-      Home.device = d.v;
-      renderHomeControls();
-    };
+    btn.onclick = () => { Home.device = d.v; renderHomeControls(); };
     dr.appendChild(btn);
   });
 }
@@ -1281,11 +826,27 @@ function renderHomePlayerGrid(){
     const btn = document.createElement('button');
     btn.className = 'player-btn' + (i === Home.playerCount ? ' active' : '');
     btn.textContent = i;
-    btn.onclick = () => {
-      Home.playerCount = i;
-      renderHomePlayerGrid();
-    };
+    btn.onclick = () => { Home.playerCount = i; renderHomePlayerGrid(); };
     pg.appendChild(btn);
+  }
+}
+
+function renderHomeRivalGrid(){
+  const section = $('#homeRivalSection');
+  const rg = $('#homeRivalGrid');
+  if (!section || !rg) return;
+  if (Home.rivalTeam) {
+    section.style.display = 'block';
+    rg.innerHTML = '';
+    for (let i = 1; i <= 11; i++) {
+      const btn = document.createElement('button');
+      btn.className = 'player-btn' + (i === Home.rivalCount ? ' active' : '');
+      btn.textContent = i;
+      btn.onclick = () => { Home.rivalCount = i; renderHomeRivalGrid(); };
+      rg.appendChild(btn);
+    }
+  } else {
+    section.style.display = 'none';
   }
 }
 
@@ -1309,6 +870,7 @@ function renderHomeOptions(){
     tile.onclick = () => {
       Home[o.key] = !Home[o.key];
       renderHomeOptions();
+      if (o.key === 'rivalTeam') renderHomeRivalGrid();
     };
     oo.appendChild(tile);
   });
@@ -1318,6 +880,7 @@ function selectHomeSport(sport){
   if (!SPORTS[sport]) return;
   Home.sport = sport;
   Home.playerCount = SPORTS[sport].players;
+  Home.rivalCount = SPORTS[sport].players;
   if (sport === 'athletics') Home.showBall = false;
   else if (!Home.showBall) Home.showBall = true;
   renderHomeControls();
@@ -1378,10 +941,7 @@ async function homeStartNewTactic(){
 }
 
 async function homeContinue(){
-  if (!checkAutosaveExists()) {
-    toast('Sürdürülecek çalışma yok.', 'error');
-    return;
-  }
+  if (!checkAutosaveExists()) { toast('Sürdürülecek çalışma yok.', 'error'); return; }
   App.manualScale = Home.device === 'auto' ? null : parseFloat(Home.device);
   App.clipboard = null;
   App.lastSelectedItem = null;
@@ -1392,16 +952,22 @@ async function homeOpenFiles(){
   if (!App.boardInitialized) {
     const hasSave = checkAutosaveExists();
     await enterBoardScreen(hasSave, { silent: true });
+  } else {
+    showBoardScreen();
+    requestAnimationFrame(() => scalePitch());
   }
-  openFileList();
+  setTimeout(() => { openFileList(); }, 100);
 }
 
 async function homeImport(){
   if (!App.boardInitialized) {
     const hasSave = checkAutosaveExists();
     await enterBoardScreen(hasSave, { silent: true });
+  } else {
+    showBoardScreen();
+    requestAnimationFrame(() => scalePitch());
   }
-  importJSON();
+  setTimeout(() => { importJSON(); }, 100);
 }
 
 async function enterBoardScreen(restore, opts = {}){
@@ -1418,11 +984,14 @@ async function enterBoardScreen(restore, opts = {}){
   
   if (restored) {
     if (!App.currentSport) App.currentSport = 'football';
+    $('#rivalCountWrap').style.display = $('#rivalTeam').checked ? 'flex' : 'none';
   } else {
     $('#playerCount').value = Home.playerCount;
     $('#rivalTeam').checked = Home.rivalTeam;
     $('#showBall').checked = Home.showBall;
     $('#trainingMode').checked = Home.trainingMode;
+    $('#rivalCount').value = Home.rivalCount;
+    $('#rivalCountWrap').style.display = Home.rivalTeam ? 'flex' : 'none';
     if (Home.gridMode !== App.gridMode) toggleGrid();
   }
   
@@ -1450,33 +1019,22 @@ async function enterBoardScreen(restore, opts = {}){
   showBoardScreen();
   
   requestAnimationFrame(() => {
-    if (App.manualScale !== null) {
-      scalePitch(App.manualScale);
-    } else {
-      scalePitch();
-    }
+    if (App.manualScale !== null) scalePitch(App.manualScale);
+    else scalePitch();
   });
   setTimeout(() => {
-    if (App.manualScale !== null) {
-      scalePitch(App.manualScale);
-    } else {
-      scalePitch();
-    }
+    if (App.manualScale !== null) scalePitch(App.manualScale);
+    else scalePitch();
   }, 120);
   
   if (!opts.silent) scheduleAutosave();
 }
 
 async function goHome(){
-  if (App.isSimRunning) {
-    toast('Simülasyon çalışıyor, önce durmasını bekle.', 'warn');
-    return;
-  }
+  if (App.isSimRunning) { toast('Simülasyon çalışıyor, önce durmasını bekle.', 'warn'); return; }
   if (App.isPlaybackActiveFlag) stopPlayback();
   
-  if (document.body.classList.contains('fullscreen-pitch')) {
-    toggleFullscreen();
-  }
+  if (document.body.classList.contains('fullscreen-pitch')) toggleFullscreen();
   
   saveCurrentState();
   scheduleAutosave();
@@ -1484,6 +1042,7 @@ async function goHome(){
   Home.sport = App.currentSport;
   Home.playerCount = parseInt($('#playerCount').value) || 11;
   Home.rivalTeam = $('#rivalTeam').checked;
+  Home.rivalCount = parseInt($('#rivalCount').value) || 11;
   Home.showBall = $('#showBall').checked;
   Home.trainingMode = $('#trainingMode').checked;
   Home.gridMode = App.gridMode;
@@ -1496,9 +1055,12 @@ async function goHome(){
   showHomeScreen();
 }
 
-function clearCourt(){
-  $$('#pitch-container > .line, #pitch-container > .grass-area').forEach(el => el.remove());
+function onRivalToggle(){
+  $('#rivalCountWrap').style.display = $('#rivalTeam').checked ? 'flex' : 'none';
+  setupBoard({preserve:true});
 }
+
+function clearCourt(){ $$('#pitch-container > .line, #pitch-container > .grass-area').forEach(el => el.remove()); }
 
 function addLine(style){
   const d = document.createElement('div');
@@ -1557,14 +1119,12 @@ function drawCourt(sport){
     addLine({ width:(cR*2)+'px', height:(cR*2)+'px', borderRadius:'50%', top:'50%', left:'50%', transform:'translate(-50%,-50%)', border:'3px solid var(--line-white)' });
     const potaX = 120, potaY = H/2, paintW = 200, smallR = 20;
     addLine({ left:potaX+'px', top:(potaY-paintW/2)+'px', width:'3px', height:paintW+'px', border:'none', background:'var(--line-white)' });
-    const half1 = document.createElement('div');
-    half1.className = 'line';
+    const half1 = document.createElement('div'); half1.className = 'line';
     half1.style.cssText = `position:absolute;left:${potaX}px;top:${potaY-smallR}px;width:${smallR}px;height:${smallR*2}px;border:3px solid var(--line-white);border-left:none;border-radius:0 ${smallR}px ${smallR}px 0;background:transparent;pointer-events:none;box-sizing:border-box;`;
     pitch.appendChild(half1);
     const potaX2 = W - potaX;
     addLine({ left:(potaX2-3)+'px', top:(potaY-paintW/2)+'px', width:'3px', height:paintW+'px', border:'none', background:'var(--line-white)' });
-    const half2 = document.createElement('div');
-    half2.className = 'line';
+    const half2 = document.createElement('div'); half2.className = 'line';
     half2.style.cssText = `position:absolute;left:${potaX2-smallR-3}px;top:${potaY-smallR}px;width:${smallR}px;height:${smallR*2}px;border:3px solid var(--line-white);border-right:none;border-radius:${smallR}px 0 0 ${smallR}px;background:transparent;pointer-events:none;box-sizing:border-box;`;
     pitch.appendChild(half2);
   } else if (sport === 'athletics'){
@@ -1659,29 +1219,18 @@ function createPlayer(id, x, y, side, label){
   const d = document.createElement('div');
   d.className = `draggable player ${side}`;
   if (App.currentSport === 'hockey') d.classList.add('hockey-player');
-  d.id = id;
-  d.textContent = label;
-  d.style.left = x + 'px';
-  d.style.top = y + 'px';
-  d.dataset.role = 'player';
-  d.dataset.side = side;
-  bindItemEvents(d);
-  layer.appendChild(d);
+  d.id = id; d.textContent = label;
+  d.style.left = x + 'px'; d.style.top = y + 'px';
+  d.dataset.role = 'player'; d.dataset.side = side;
+  bindItemEvents(d); layer.appendChild(d);
   return d;
 }
 
 function createBall(x, y){
   let d = document.getElementById('ball-main');
-  if (!d) {
-    d = document.createElement('div');
-    d.id = 'ball-main';
-    d.dataset.role = 'ball';
-    bindItemEvents(d);
-    layer.appendChild(d);
-  }
+  if (!d) { d = document.createElement('div'); d.id = 'ball-main'; d.dataset.role = 'ball'; bindItemEvents(d); layer.appendChild(d); }
   d.className = 'draggable ball sport-' + App.currentSport;
-  d.style.left = x + 'px';
-  d.style.top = y + 'px';
+  d.style.left = x + 'px'; d.style.top = y + 'px';
   if (App.currentSport === 'basketball') { d.style.width='44px'; d.style.height='44px'; }
   else if (App.currentSport === 'hockey') { d.style.width='26px'; d.style.height='26px'; }
   else if (App.currentSport === 'handball') { d.style.width='38px'; d.style.height='38px'; }
@@ -1691,67 +1240,44 @@ function createBall(x, y){
 
 function createEquipment(id, type, color, x, y){
   const d = document.createElement('div');
-  d.id = id;
-  d.dataset.role = 'equipment';
-  d.dataset.type = type;
-  d.dataset.color = color;
-  d.dataset.rotation = '0';
-  d.dataset.scale = '1';
+  d.id = id; d.dataset.role = 'equipment'; d.dataset.type = type; d.dataset.color = color;
+  d.dataset.rotation = '0'; d.dataset.scale = '1';
   if (type === 'ball') {
     d.className = `draggable draggable-eq ball sport-${color}`;
   } else {
     d.className = `draggable draggable-eq eq-${type} eq-${color}`;
     if (type === 'hurdle') { const b = document.createElement('div'); d.appendChild(b); }
   }
-  d.style.left = x + 'px';
-  d.style.top = y + 'px';
-  applyItemTransform(d);
-  bindItemEvents(d);
-  layer.appendChild(d);
+  d.style.left = x + 'px'; d.style.top = y + 'px';
+  applyItemTransform(d); bindItemEvents(d); layer.appendChild(d);
   return d;
 }
 
 function createLine(id, pathData){
   const svgTemp = document.createElementNS('http://www.w3.org/2000/svg','svg');
   const pathTemp = document.createElementNS('http://www.w3.org/2000/svg','path');
-  pathTemp.setAttribute('d', pathData);
-  svgTemp.appendChild(pathTemp);
-  svgTemp.style.position = 'absolute';
-  svgTemp.style.left = '-9999px';
+  pathTemp.setAttribute('d', pathData); svgTemp.appendChild(pathTemp);
+  svgTemp.style.position = 'absolute'; svgTemp.style.left = '-9999px';
   document.body.appendChild(svgTemp);
-  let bbox;
-  try { bbox = pathTemp.getBBox(); } catch(e){ bbox = { x:0, y:0, width:1, height:1 }; }
+  let bbox; try { bbox = pathTemp.getBBox(); } catch(e){ bbox = { x:0, y:0, width:1, height:1 }; }
   document.body.removeChild(svgTemp);
   if (bbox.width < 1 && bbox.height < 1) return null;
 
   const d = document.createElement('div');
-  d.className = 'draggable line-item';
-  d.id = id;
-  d.dataset.role = 'line';
-  d.dataset.path = pathData;
-  d.style.left = bbox.x + 'px';
-  d.style.top = bbox.y + 'px';
-  d.style.width = bbox.width + 'px';
-  d.style.height = bbox.height + 'px';
-  d.style.pointerEvents = 'auto';
-  d.style.cursor = 'grab';
-  d.style.overflow = 'visible';
+  d.className = 'draggable line-item'; d.id = id;
+  d.dataset.role = 'line'; d.dataset.path = pathData;
+  d.style.left = bbox.x + 'px'; d.style.top = bbox.y + 'px';
+  d.style.width = bbox.width + 'px'; d.style.height = bbox.height + 'px';
+  d.style.pointerEvents = 'auto'; d.style.cursor = 'grab'; d.style.overflow = 'visible';
 
   const svg = document.createElementNS('http://www.w3.org/2000/svg','svg');
   svg.style.overflow = 'visible';
-  svg.setAttribute('width', bbox.width);
-  svg.setAttribute('height', bbox.height);
+  svg.setAttribute('width', bbox.width); svg.setAttribute('height', bbox.height);
   svg.setAttribute('viewBox', `${bbox.x} ${bbox.y} ${bbox.width} ${bbox.height}`);
   const p = document.createElementNS('http://www.w3.org/2000/svg','path');
-  p.setAttribute('d', pathData);
-  p.setAttribute('stroke', '#000');
-  p.setAttribute('fill', 'none');
-  p.setAttribute('stroke-linecap', 'round');
-  p.setAttribute('stroke-linejoin', 'round');
-  svg.appendChild(p);
-  d.appendChild(svg);
-  bindItemEvents(d);
-  layer.appendChild(d);
+  p.setAttribute('d', pathData); p.setAttribute('stroke', '#000'); p.setAttribute('fill', 'none');
+  p.setAttribute('stroke-linecap', 'round'); p.setAttribute('stroke-linejoin', 'round');
+  svg.appendChild(p); d.appendChild(svg); bindItemEvents(d); layer.appendChild(d);
   return d;
 }
 
@@ -1774,9 +1300,7 @@ function onItemDblClick(e){
   showPrompt('Oyuncu İsmi', el.textContent || '', 'İsmi girin:').then(v => {
     if (v !== null) {
       el.textContent = v.trim().slice(0,20);
-      saveCurrentState();
-      scheduleAutosave();
-      pushSnapshot();
+      saveCurrentState(); scheduleAutosave(); pushSnapshot();
     }
   });
 }
@@ -1793,19 +1317,16 @@ function onItemPointerDown(e){
   const item = e.currentTarget;
   if (!item) return;
   if (item.dataset.role === 'equipment' && !$('#trainingMode').checked) {
-    toast('Ekipmanları sürüklemek için Eğitim Modu açık olmalı!', 'error');
-    return;
+    toast('Ekipmanları sürüklemek için Eğitim Modu açık olmalı!', 'error'); return;
   }
-  App.activeItem = item;
-  App.dragPointerId = e.pointerId;
+  App.activeItem = item; App.dragPointerId = e.pointerId;
   App.isCloneDragging = item.dataset.role === 'equipment';
   setSelection(item);
 
   const { x: px, y: py } = screenToPitch(e.clientX, e.clientY);
   const itemLeft = parseFloat(item.style.left) || 0;
   const itemTop = parseFloat(item.style.top) || 0;
-  App.dragOffset.x = px - itemLeft;
-  App.dragOffset.y = py - itemTop;
+  App.dragOffset.x = px - itemLeft; App.dragOffset.y = py - itemTop;
   item.style.transition = 'none';
 
   item.setPointerCapture(e.pointerId);
@@ -1819,18 +1340,12 @@ function onItemPointerMove(e){
   if (!App.activeItem || e.pointerId !== App.dragPointerId) return;
   e.preventDefault();
   const { x: px, y: py } = screenToPitch(e.clientX, e.clientY);
-  let x = px - App.dragOffset.x;
-  let y = py - App.dragOffset.y;
-  if (App.gridMode) {
-    x = Math.round(x / CFG.GRID) * CFG.GRID;
-    y = Math.round(y / CFG.GRID) * CFG.GRID;
-  }
-  const w = App.activeItem.offsetWidth;
-  const h = App.activeItem.offsetHeight;
+  let x = px - App.dragOffset.x, y = py - App.dragOffset.y;
+  if (App.gridMode) { x = Math.round(x / CFG.GRID) * CFG.GRID; y = Math.round(y / CFG.GRID) * CFG.GRID; }
+  const w = App.activeItem.offsetWidth, h = App.activeItem.offsetHeight;
   x = Math.max(0, Math.min(x, App.pitchW - w));
   y = Math.max(0, Math.min(y, App.pitchH - h));
-  App.activeItem.style.left = x + 'px';
-  App.activeItem.style.top = y + 'px';
+  App.activeItem.style.left = x + 'px'; App.activeItem.style.top = y + 'px';
 
   if (App.isCloneDragging) {
     const tr = trashBin.getBoundingClientRect();
@@ -1852,18 +1367,11 @@ function onItemPointerUp(e){
     const tr = trashBin.getBoundingClientRect();
     const ir = item.getBoundingClientRect();
     const over = ir.left < tr.right && ir.right > tr.left && ir.top < tr.bottom && ir.bottom > tr.top;
-    if (over) {
-      item.remove();
-      toast('Ekipman çöpe atıldı!', 'success');
-    }
+    if (over) { item.remove(); toast('Ekipman çöpe atıldı!', 'success'); }
   }
   trashBin.classList.remove('drag-over');
-  App.activeItem = null;
-  App.dragPointerId = null;
-  App.isCloneDragging = false;
-  saveCurrentState();
-  scheduleAutosave();
-  pushSnapshot();
+  App.activeItem = null; App.dragPointerId = null; App.isCloneDragging = false;
+  saveCurrentState(); scheduleAutosave(); pushSnapshot();
 }
 
 function setLineMode(mode){
@@ -1879,10 +1387,8 @@ function setLineMode(mode){
     const btn = document.querySelector(`.btn-line[data-mode="${mode}"]`);
     if (btn) btn.classList.add('active');
     document.querySelector('.btn-line.off')?.classList.remove('active');
-    App.lineMode = mode;
-    App.isDrawing = false;
-    tempSvg.innerHTML = '';
-    pitch.style.cursor = 'crosshair';
+    App.lineMode = mode; App.isDrawing = false;
+    tempSvg.innerHTML = ''; pitch.style.cursor = 'crosshair';
     pitch.classList.add('drawing-mode');
     pitch.addEventListener('pointerdown', onPitchPointerDown);
     pitch.addEventListener('pointermove', onPitchPointerMove);
@@ -1890,18 +1396,15 @@ function setLineMode(mode){
     pitch.addEventListener('pointercancel', onPitchPointerUp);
   } else {
     document.querySelector('.btn-line.off')?.classList.add('active');
-    App.lineMode = null;
-    pitch.style.cursor = 'default';
-    pitch.classList.remove('drawing-mode');
-    tempSvg.innerHTML = '';
+    App.lineMode = null; pitch.style.cursor = 'default';
+    pitch.classList.remove('drawing-mode'); tempSvg.innerHTML = '';
   }
 }
 
 function onPitchPointerDown(e){
   if (!App.lineMode || App.eraserMode || App.isPlaybackActiveFlag) return;
   if (e.target.closest('.draggable')) return;
-  e.preventDefault();
-  App.isDrawing = true;
+  e.preventDefault(); App.isDrawing = true;
   const { x, y } = screenToPitch(e.clientX, e.clientY);
   App.drawStartX = x; App.drawStartY = y;
   App.drawPath = `M ${x} ${y}`;
@@ -1921,32 +1424,23 @@ function onPitchPointerUp(e){
   if (!App.lineMode || !App.isDrawing) return;
   App.isDrawing = false;
   const { x, y } = screenToPitch(e.clientX, e.clientY);
-  if (Math.abs(x - App.drawStartX) < 3 && Math.abs(y - App.drawStartY) < 3) {
-    tempSvg.innerHTML = '';
-    return;
-  }
+  if (Math.abs(x - App.drawStartX) < 3 && Math.abs(y - App.drawStartY) < 3) { tempSvg.innerHTML = ''; return; }
   let finalPath = App.drawPath;
   if (App.lineMode === 'arrow') {
     const pts = finalPath.match(/[\d.\-]+/g);
     if (pts && pts.length >= 4) {
-      const x0 = parseFloat(pts[pts.length-4]);
-      const y0 = parseFloat(pts[pts.length-3]);
-      const x1 = parseFloat(pts[pts.length-2]);
-      const y1 = parseFloat(pts[pts.length-1]);
+      const x0 = parseFloat(pts[pts.length-4]), y0 = parseFloat(pts[pts.length-3]);
+      const x1 = parseFloat(pts[pts.length-2]), y1 = parseFloat(pts[pts.length-1]);
       const angle = Math.atan2(y1-y0, x1-x0);
       const aLen = 20, aAng = 0.5;
-      const p1x = x1 - aLen*Math.cos(angle - aAng);
-      const p1y = y1 - aLen*Math.sin(angle - aAng);
-      const p2x = x1 - aLen*Math.cos(angle + aAng);
-      const p2y = y1 - aLen*Math.sin(angle + aAng);
+      const p1x = x1 - aLen*Math.cos(angle - aAng), p1y = y1 - aLen*Math.sin(angle - aAng);
+      const p2x = x1 - aLen*Math.cos(angle + aAng), p2y = y1 - aLen*Math.sin(angle + aAng);
       finalPath += ` M ${x1} ${y1} L ${p1x} ${p1y} M ${x1} ${y1} L ${p2x} ${p2y}`;
     }
   }
   createLine('LINE_' + uid(), finalPath);
   tempSvg.innerHTML = '';
-  saveCurrentState();
-  scheduleAutosave();
-  pushSnapshot();
+  saveCurrentState(); scheduleAutosave(); pushSnapshot();
 }
 
 function toggleEraser(){
@@ -1970,13 +1464,10 @@ function onEraserClick(e){
   if (!App.eraserMode || App.isPlaybackActiveFlag) return;
   const target = e.target.closest('.draggable');
   if (target) {
-    e.stopPropagation();
-    e.preventDefault();
+    e.stopPropagation(); e.preventDefault();
     if (App.lastSelectedItem === target) App.lastSelectedItem = null;
     target.remove();
-    saveCurrentState();
-    scheduleAutosave();
-    pushSnapshot();
+    saveCurrentState(); scheduleAutosave(); pushSnapshot();
     toast('Nesne silindi.', 'success');
   }
 }
@@ -1991,55 +1482,32 @@ function toggleGrid(){
 function scalePitch(forceScale = null){
   const isFullscreen = document.body.classList.contains('fullscreen-pitch');
   const W = App.pitchW, H = App.pitchH;
-
   let wrapperWidth;
-  if (isFullscreen) {
-    wrapperWidth = window.innerWidth;
-  } else {
-    const rect = pitchWrapper.getBoundingClientRect();
-    wrapperWidth = rect.width || (window.innerWidth - 20);
-  }
-
+  if (isFullscreen) wrapperWidth = window.innerWidth;
+  else { const rect = pitchWrapper.getBoundingClientRect(); wrapperWidth = rect.width || (window.innerWidth - 20); }
   let scale;
-  if (forceScale !== null) {
-    scale = forceScale;
-    App.manualScale = forceScale;
-  } else if (App.manualScale !== null) {
-    scale = App.manualScale;
-  } else {
-    scale = wrapperWidth / W;
-  }
-
+  if (forceScale !== null) { scale = forceScale; App.manualScale = forceScale; }
+  else if (App.manualScale !== null) scale = App.manualScale;
+  else scale = wrapperWidth / W;
   scale = Math.max(0.12, Math.min(4, scale));
   App.currentScale = scale;
   pitch.style.transform = `scale(${scale})`;
-
   if (pitchSizer) {
-    pitchSizer.style.width  = (W * scale) + 'px';
+    pitchSizer.style.width = (W * scale) + 'px';
     pitchSizer.style.height = (H * scale) + 'px';
   }
-  if (isFullscreen) {
-    pitchWrapper.style.height = '';
-  } else {
-    pitchWrapper.style.height = (H * scale) + 'px';
-  }
-
+  if (isFullscreen) pitchWrapper.style.height = '';
+  else pitchWrapper.style.height = (H * scale) + 'px';
   pitch.style.setProperty('--line-stroke', (3 / scale).toFixed(2) + 'px');
-  pitch.style.setProperty('--trash-inv',  (1 / scale).toFixed(3));
+  pitch.style.setProperty('--trash-inv', (1 / scale).toFixed(3));
 }
 
 function setDevice(value){
   if (value === 'auto') {
-    App.manualScale = null;
-    scalePitch();
-    toast('Otomatik ölçekleme etkin', 'info');
+    App.manualScale = null; scalePitch(); toast('Otomatik ölçekleme etkin', 'info');
   } else {
     const s = parseFloat(value);
-    if (!isNaN(s) && s > 0) {
-      App.manualScale = s;
-      scalePitch(s);
-      toast(`Ölçek ${s} olarak ayarlandı`, 'success');
-    }
+    if (!isNaN(s) && s > 0) { App.manualScale = s; scalePitch(s); toast(`Ölçek ${s} olarak ayarlandı`, 'success'); }
   }
   Home.device = value;
   try { localStorage.setItem(CFG.SCALE_KEY, value); } catch(e){}
@@ -2047,62 +1515,50 @@ function setDevice(value){
 
 function transformPath90CW(path, oldH){
   return path.replace(/([ML])\s*([\d.\-]+)\s+([\d.\-]+)/g, (_, cmd, xStr, yStr) => {
-    const px = parseFloat(xStr);
-    const py = parseFloat(yStr);
+    const px = parseFloat(xStr), py = parseFloat(yStr);
     return `${cmd} ${(oldH - py).toFixed(2)} ${px.toFixed(2)}`;
   });
 }
 
-function estimateItemSize(pos, sport) {
-  if (pos.id && (pos.id.startsWith('H') || pos.id.startsWith('A'))) return { w: 54, h: 54 };
+function estimateItemSize(pos, sport){
+  if (pos.id && (pos.id.startsWith('H') || pos.id.startsWith('A'))) return { w:54, h:54 };
   if (pos.id === 'ball-main') {
-    if (sport === 'basketball') return { w: 44, h: 44 };
-    if (sport === 'hockey') return { w: 26, h: 26 };
-    if (sport === 'handball') return { w: 38, h: 38 };
-    return { w: 36, h: 36 };
+    if (sport === 'basketball') return { w:44, h:44 };
+    if (sport === 'hockey') return { w:26, h:26 };
+    if (sport === 'handball') return { w:38, h:38 };
+    return { w:36, h:36 };
   }
-  if (pos.type === 'mannequin') return { w: 24, h: 36 };
-  if (pos.type === 'cone') return { w: 40, h: 36 };
-  if (pos.type === 'ring') return { w: 44, h: 44 };
-  if (pos.type === 'hurdle') return { w: 52, h: 30 };
-  if (pos.type === 'ladder') return { w: 24, h: 50 };
-  if (pos.type === 'barrier') return { w: 32, h: 22 };
-  if (pos.type === 'pole') return { w: 8, h: 36 };
-  if (pos.type === 'tire') return { w: 32, h: 32 };
-  if (pos.type === 'block') return { w: 30, h: 30 };
-  if (pos.type === 'goal-arch') return { w: 48, h: 48 };
-  if (pos.type === 'goal-net') return { w: 34, h: 26 };
+  if (pos.type === 'mannequin') return { w:24, h:36 };
+  if (pos.type === 'cone') return { w:40, h:36 };
+  if (pos.type === 'ring') return { w:44, h:44 };
+  if (pos.type === 'hurdle') return { w:52, h:30 };
+  if (pos.type === 'ladder') return { w:24, h:50 };
+  if (pos.type === 'barrier') return { w:32, h:22 };
+  if (pos.type === 'pole') return { w:8, h:36 };
+  if (pos.type === 'tire') return { w:32, h:32 };
+  if (pos.type === 'block') return { w:30, h:30 };
+  if (pos.type === 'goal-arch') return { w:48, h:48 };
+  if (pos.type === 'goal-net') return { w:34, h:26 };
   if (pos.type === 'ball') {
-    if (pos.color === 'basketball') return { w: 44, h: 44 };
-    if (pos.color === 'hockey') return { w: 26, h: 26 };
-    if (pos.color === 'handball') return { w: 38, h: 38 };
-    return { w: 36, h: 36 };
+    if (pos.color === 'basketball') return { w:44, h:44 };
+    if (pos.color === 'hockey') return { w:26, h:26 };
+    if (pos.color === 'handball') return { w:38, h:38 };
+    return { w:36, h:36 };
   }
-  return { w: 30, h: 30 };
+  return { w:30, h:30 };
 }
 
-function rotateScenarioDataCW(arr, W0, H0, sport) {
+function rotateScenarioDataCW(arr, W0, H0, sport){
   return arr.map(pos => {
     const np = JSON.parse(JSON.stringify(pos));
-    if (pos.id && pos.id.startsWith('LINE_') && pos.path) {
-      np.path = transformPath90CW(pos.path, H0);
-      return np;
-    }
+    if (pos.id && pos.id.startsWith('LINE_') && pos.path) { np.path = transformPath90CW(pos.path, H0); return np; }
     const { w, h } = estimateItemSize(pos, sport);
-    const x = parseFloat(pos.x) || 0;
-    const y = parseFloat(pos.y) || 0;
-    const cx = x + w / 2;
-    const cy = y + h / 2;
-    const newCx = H0 - cy;
-    const newCy = cx;
-    const newX = newCx - w / 2;
-    const newY = newCy - h / 2;
-    np.x = Math.max(0, Math.min(H0 - w, newX)) + 'px';
-    np.y = Math.max(0, Math.min(W0 - h, newY)) + 'px';
-    if (pos.type) {
-      const oldRot = parseFloat(pos.rotation) || 0;
-      np.rotation = String((oldRot + 90) % 360);
-    }
+    const x = parseFloat(pos.x) || 0, y = parseFloat(pos.y) || 0;
+    const cx = x + w / 2, cy = y + h / 2;
+    const newCx = H0 - cy, newCy = cx;
+    np.x = Math.max(0, Math.min(H0 - w, newCx - w / 2)) + 'px';
+    np.y = Math.max(0, Math.min(W0 - h, newCy - h / 2)) + 'px';
+    if (pos.type) { const oldRot = parseFloat(pos.rotation) || 0; np.rotation = String((oldRot + 90) % 360); }
     return np;
   });
 }
@@ -2110,66 +1566,39 @@ function rotateScenarioDataCW(arr, W0, H0, sport) {
 function rotateBoard(){
   if (App.isPlaybackActiveFlag) { toast('Önce oynatmayı durdurun.', 'error'); return; }
   if (App.isSimRunning) return;
-
-  const W0 = App.pitchW, H0 = App.pitchH;
-  const W1 = H0, H1 = W0;
-
+  const W0 = App.pitchW, H0 = App.pitchH, W1 = H0, H1 = W0;
   const items = $$('.draggable').slice();
-
   items.forEach(item => {
     const role = item.dataset.role;
-    const x = parseFloat(item.style.left) || 0;
-    const y = parseFloat(item.style.top) || 0;
-    const w = item.offsetWidth || 0;
-    const h = item.offsetHeight || 0;
-
+    const x = parseFloat(item.style.left) || 0, y = parseFloat(item.style.top) || 0;
+    const w = item.offsetWidth || 0, h = item.offsetHeight || 0;
     if (role === 'line') {
-      const oldPath = item.dataset.path || '';
-      if (!oldPath) return;
+      const oldPath = item.dataset.path || ''; if (!oldPath) return;
       const newPath = transformPath90CW(oldPath, H0);
       const id = item.id;
       if (App.lastSelectedItem === item) App.lastSelectedItem = null;
-      item.remove();
-      createLine(id, newPath);
-      return;
+      item.remove(); createLine(id, newPath); return;
     }
-
-    const cx = x + w / 2;
-    const cy = y + h / 2;
-    const newCx = H0 - cy;
-    const newCy = cx;
-    const newX = newCx - w / 2;
-    const newY = newCy - h / 2;
-
+    const cx = x + w / 2, cy = y + h / 2;
+    const newX = (H0 - cy) - w / 2, newY = cx - h / 2;
     item.style.left = Math.max(0, Math.min(W1 - w, newX)) + 'px';
-    item.style.top  = Math.max(0, Math.min(H1 - h, newY)) + 'px';
-
+    item.style.top = Math.max(0, Math.min(H1 - h, newY)) + 'px';
     const oldRot = parseFloat(item.dataset.rotation) || 0;
     item.dataset.rotation = String((oldRot + 90) % 360);
     if (!item.dataset.scale) item.dataset.scale = '1';
     applyItemTransform(item);
   });
-
-  App.pitchW = W1;
-  App.pitchH = H1;
+  App.pitchW = W1; App.pitchH = H1;
   App.boardRotation = (App.boardRotation + 90) % 360;
-
-  pitch.style.width  = W1 + 'px';
-  pitch.style.height = H1 + 'px';
-
-  drawCourt(App.currentSport);
-  scalePitch();
-  saveCurrentState();
-
+  pitch.style.width = W1 + 'px'; pitch.style.height = H1 + 'px';
+  drawCourt(App.currentSport); scalePitch(); saveCurrentState();
   for (const key in App.scenarioData) {
     const sn = parseInt(key);
     if (sn === App.currentScenario) continue;
     if (!Array.isArray(App.scenarioData[sn])) continue;
     App.scenarioData[sn] = rotateScenarioDataCW(App.scenarioData[sn], W0, H0, App.currentSport);
   }
-
-  scheduleAutosave();
-  pushSnapshot();
+  scheduleAutosave(); pushSnapshot();
   const state = (App.boardRotation === 0) ? 'yatay' :
                 (App.boardRotation === 90) ? 'dikey' :
                 (App.boardRotation === 180) ? 'yatay (ters)' : 'dikey (ters)';
@@ -2177,16 +1606,14 @@ function rotateBoard(){
 }
 
 function updateClipboardUI(){
-  const btn = $('#pasteBtn');
-  if (!btn) return;
+  const btn = $('#pasteBtn'); if (!btn) return;
   if (App.clipboard && App.clipboard.items.length > 0){
     const n = App.clipboard.items.length;
     const mode = App.clipboard.mode === 'cut' ? 'kesildi' : 'kopyalandı';
     btn.classList.add('has-clip');
     btn.title = `Yapıştır — ${n} öğe (Adım ${App.clipboard.sourceScenario}'den ${mode})`;
   } else {
-    btn.classList.remove('has-clip');
-    btn.title = 'Yapıştır (Ctrl+V)';
+    btn.classList.remove('has-clip'); btn.title = 'Yapıştır (Ctrl+V)';
   }
 }
 
@@ -2194,83 +1621,41 @@ function copyBoard(cut){
   if (App.isPlaybackActiveFlag) { toast('Önce oynatmayı durdurun.', 'error'); return; }
   saveCurrentState();
   const items = App.scenarioData[App.currentScenario] || [];
-  if (items.length === 0){
-    toast('Bu adımda kopyalanacak öğe yok.', 'error');
-    return;
-  }
-  App.clipboard = {
-    items: JSON.parse(JSON.stringify(items)),
-    mode: cut ? 'cut' : 'copy',
-    sourceScenario: App.currentScenario,
-    copiedAt: Date.now(),
-  };
+  if (items.length === 0) { toast('Bu adımda kopyalanacak öğe yok.', 'error'); return; }
+  App.clipboard = { items: JSON.parse(JSON.stringify(items)), mode: cut ? 'cut' : 'copy', sourceScenario: App.currentScenario, copiedAt: Date.now() };
   updateClipboardUI();
-  toast(
-    cut
-      ? `Adım ${App.currentScenario} kesildi (yapıştırınca kaynaktan silinecek).`
-      : `Adım ${App.currentScenario} kopyalandı (${items.length} öğe).`,
-    'success'
-  );
+  toast(cut ? `Adım ${App.currentScenario} kesildi (yapıştırınca kaynaktan silinecek).` : `Adım ${App.currentScenario} kopyalandı (${items.length} öğe).`, 'success');
 }
 
 function pasteBoard(){
   if (App.isPlaybackActiveFlag) { toast('Önce oynatmayı durdurun.', 'error'); return; }
-  if (!App.clipboard || App.clipboard.items.length === 0){
-    toast('Önce Kopyala veya Kes yapın.', 'error');
-    return;
-  }
-
-  const clip = App.clipboard;
-  const target = App.currentScenario;
-  const source = clip.sourceScenario;
-
-  if (source === target && clip.mode === 'cut'){
-    toast('Kaynak ve hedef aynı adım — işlem yapılmadı.', 'info');
-    App.clipboard = null;
-    updateClipboardUI();
-    return;
-  }
-
+  if (!App.clipboard || App.clipboard.items.length === 0) { toast('Önce Kopyala veya Kes yapın.', 'error'); return; }
+  const clip = App.clipboard; const target = App.currentScenario; const source = clip.sourceScenario;
+  if (source === target && clip.mode === 'cut') { toast('Kaynak ve hedef aynı adım — işlem yapılmadı.', 'info'); App.clipboard = null; updateClipboardUI(); return; }
   saveCurrentState();
-
   const newItems = clip.items.map(p => {
     const np = JSON.parse(JSON.stringify(p));
-    if (p.id && p.id.startsWith('LINE_')) {
-      np.id = 'LINE_' + uid();
-    } else if (p.type) {
-      np.id = 'EQ_PASTE_' + uid();
-    }
+    if (p.id && p.id.startsWith('LINE_')) np.id = 'LINE_' + uid();
+    else if (p.type) np.id = 'EQ_PASTE_' + uid();
     return np;
   });
-
   if (!App.scenarioData[target]) App.scenarioData[target] = [];
   const existingMap = new Map(App.scenarioData[target].map(p => [p.id, p]));
   newItems.forEach(np => existingMap.set(np.id, np));
   App.scenarioData[target] = [...existingMap.values()];
-
-  if (clip.mode === 'cut' && source !== target){
+  if (clip.mode === 'cut' && source !== target) {
     const sourceIds = new Set(clip.items.map(p => p.id));
     App.scenarioData[source] = (App.scenarioData[source] || []).filter(p => !sourceIds.has(p.id));
   }
-
   App.currentScenario = target;
-  renderScenarioButtons();
-  applyScenarioData(App.scenarioData[target], { animate: false });
+  renderScenarioButtons(); applyScenarioData(App.scenarioData[target], { animate: false });
   scheduleAutosave();
-
-  if (clip.mode === 'cut'){
-    toast(`Yapıştırıldı. Adım ${source}'den silindi.`, 'success');
-    App.clipboard = null;
-    updateClipboardUI();
-  } else {
-    toast(`Yapıştırıldı (${newItems.length} öğe).`, 'success');
-  }
+  if (clip.mode === 'cut') { toast(`Yapıştırıldı. Adım ${source}'den silindi.`, 'success'); App.clipboard = null; updateClipboardUI(); }
+  else toast(`Yapıştırıldı (${newItems.length} öğe).`, 'success');
 }
 
 function togglePanel(){
-  const panel = $('#mainPanel');
-  const backdrop = $('#panelBackdrop');
-  if (!panel) return;
+  const panel = $('#mainPanel'); const backdrop = $('#panelBackdrop'); if (!panel) return;
   const isOpen = panel.classList.toggle('open');
   if (backdrop) backdrop.classList.toggle('active', isOpen);
   document.body.style.overflow = isOpen ? 'hidden' : '';
@@ -2280,16 +1665,11 @@ function toggleFullscreen(){
   document.body.classList.toggle('fullscreen-pitch');
   const isFs = document.body.classList.contains('fullscreen-pitch');
   if (isFs) {
-    if (document.documentElement.requestFullscreen) {
-      document.documentElement.requestFullscreen().catch(()=>{});
-    }
-    const panel = $('#mainPanel');
-    if (panel && panel.classList.contains('open')) togglePanel();
+    if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(()=>{});
+    const panel = $('#mainPanel'); if (panel && panel.classList.contains('open')) togglePanel();
     toast('Tam ekran modu — çıkmak için ✕', 'info', 2000);
   } else {
-    if (document.exitFullscreen && document.fullscreenElement) {
-      document.exitFullscreen().catch(()=>{});
-    }
+    if (document.exitFullscreen && document.fullscreenElement) document.exitFullscreen().catch(()=>{});
   }
   setTimeout(() => scalePitch(), 150);
 }
@@ -2302,35 +1682,22 @@ document.addEventListener('fullscreenchange', () => {
 });
 
 function updateRecordButtons(recording){
-  const btn = $('#recordBtn');
-  const mobBtn = $('#mobileRecBtn');
-  if (btn) {
-    btn.textContent = recording ? '⏹ Durdur' : '🔴 Kaydet';
-    btn.style.background = recording ? 'var(--danger)' : 'var(--warning)';
-  }
-  if (mobBtn) {
-    mobBtn.classList.toggle('recording', recording);
-    mobBtn.textContent = recording ? '⏹' : '🔴';
-  }
+  const btn = $('#recordBtn'), mobBtn = $('#mobileRecBtn');
+  if (btn) { btn.textContent = recording ? '⏹ Durdur' : '🔴 Kaydet'; btn.style.background = recording ? 'var(--danger)' : 'var(--warning)'; }
+  if (mobBtn) { mobBtn.classList.toggle('recording', recording); mobBtn.textContent = recording ? '⏹' : '🔴'; }
 }
 
 function checkPortraitHint(){
   if (window.innerWidth <= 900 && window.innerHeight > window.innerWidth) {
     if (!sessionStorage.getItem('portraitHintShown')) {
-      setTimeout(() => {
-        toast('💡 Daha iyi görünüm için telefonu yan çevirin', 'info', 4000);
-        sessionStorage.setItem('portraitHintShown', '1');
-      }, 2000);
+      setTimeout(() => { toast('💡 Daha iyi görünüm için telefonu yan çevirin', 'info', 4000); sessionStorage.setItem('portraitHintShown', '1'); }, 2000);
     }
   }
 }
 
 pitchWrapper.addEventListener('touchstart', e => {
   if (e.touches.length === 2 && !App.activeItem) {
-    const d = Math.hypot(
-      e.touches[0].clientX - e.touches[1].clientX,
-      e.touches[0].clientY - e.touches[1].clientY
-    );
+    const d = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
     App.pinchState = { d, startScale: App.currentScale };
   }
 }, { passive: true });
@@ -2338,20 +1705,17 @@ pitchWrapper.addEventListener('touchstart', e => {
 pitchWrapper.addEventListener('touchmove', e => {
   if (App.pinchState && e.touches.length === 2) {
     e.preventDefault();
-    const d = Math.hypot(
-      e.touches[0].clientX - e.touches[1].clientX,
-      e.touches[0].clientY - e.touches[1].clientY
-    );
+    const d = Math.hypot(e.touches[0].clientX - e.touches[1].clientX, e.touches[0].clientY - e.touches[1].clientY);
     const newScale = Math.max(0.12, Math.min(4, App.pinchState.startScale * (d / App.pinchState.d)));
     const rect = pitchWrapper.getBoundingClientRect();
     const midX = (e.touches[0].clientX + e.touches[1].clientX) / 2 - rect.left;
     const midY = (e.touches[0].clientY + e.touches[1].clientY) / 2 - rect.top;
     const px = (pitchWrapper.scrollLeft + midX) / App.currentScale;
-    const py = (pitchWrapper.scrollTop  + midY) / App.currentScale;
+    const py = (pitchWrapper.scrollTop + midY) / App.currentScale;
     App.manualScale = newScale;
     scalePitch(newScale);
     pitchWrapper.scrollLeft = px * newScale - midX;
-    pitchWrapper.scrollTop  = py * newScale - midY;
+    pitchWrapper.scrollTop = py * newScale - midY;
   }
 }, { passive: false });
 
@@ -2360,20 +1724,19 @@ pitchWrapper.addEventListener('touchend', () => { App.pinchState = null; });
 function setupBoard(opts = {}){
   const count = parseInt($('#playerCount').value) || SPORTS[App.currentSport].players;
   const hasRival = $('#rivalTeam').checked;
+  const awayCount = hasRival ? (parseInt($('#rivalCount').value) || count) : 0;
   const hasBall = SPORTS[App.currentSport].ball && $('#showBall').checked;
   const hasTraining = $('#trainingMode').checked;
   const isPortrait = App.pitchH > App.pitchW;
+
+  $('#rivalCountWrap').style.display = hasRival ? 'flex' : 'none';
 
   paletteEl.style.display = hasTraining ? 'flex' : 'none';
   if (hasTraining) renderPalette();
   trashBin.style.display = hasTraining ? 'flex' : 'none';
 
-  const homePos = i => isPortrait
-    ? { x: 80 + i * 70, y: 180 }
-    : { x: 180, y: 50 + i * 75 };
-  const awayPos = i => isPortrait
-    ? { x: 80 + i * 70, y: App.pitchH - 180 }
-    : { x: App.pitchW - 180, y: 50 + i * 75 };
+  const homePos = i => isPortrait ? { x: 80 + i * 70, y: 180 } : { x: 180, y: 50 + i * 75 };
+  const awayPos = i => isPortrait ? { x: 80 + i * 70, y: App.pitchH - 180 } : { x: App.pitchW - 180, y: 50 + i * 75 };
 
   for (let i = 1; i <= count; i++) {
     const id = 'H' + i;
@@ -2383,42 +1746,32 @@ function setupBoard(opts = {}){
     }
   }
   for (let i = count + 1; i <= 30; i++) {
-    const el = document.getElementById('H' + i);
-    if (el) el.remove();
+    const el = document.getElementById('H' + i); if (el) el.remove();
   }
 
   if (hasRival) {
-    for (let i = 1; i <= count; i++) {
+    for (let i = 1; i <= awayCount; i++) {
       const id = 'A' + i;
       if (!document.getElementById(id)) {
         const p = awayPos(i);
         createPlayer(id, p.x, p.y, 'away', String(i));
       }
     }
-    for (let i = count + 1; i <= 30; i++) {
-      const el = document.getElementById('A' + i);
-      if (el) el.remove();
+    for (let i = awayCount + 1; i <= 30; i++) {
+      const el = document.getElementById('A' + i); if (el) el.remove();
     }
   } else {
     $$('[id^="A"]').forEach(el => { if (el.classList.contains('player')) el.remove(); });
   }
 
   if (hasBall) {
-    if (!document.getElementById('ball-main')) {
-      createBall(Math.round(App.pitchW / 2), Math.round(App.pitchH / 2));
-    } else {
-      const b = document.getElementById('ball-main');
-      b.className = 'draggable ball sport-' + App.currentSport;
-    }
+    if (!document.getElementById('ball-main')) createBall(Math.round(App.pitchW / 2), Math.round(App.pitchH / 2));
+    else { const b = document.getElementById('ball-main'); b.className = 'draggable ball sport-' + App.currentSport; }
   } else {
-    const b = document.getElementById('ball-main');
-    if (b) b.remove();
+    const b = document.getElementById('ball-main'); if (b) b.remove();
   }
 
-  if (!opts.skipSave) {
-    saveCurrentState();
-    if (App.history.length === 0) pushSnapshot();
-  }
+  if (!opts.skipSave) { saveCurrentState(); if (App.history.length === 0) pushSnapshot(); }
   if (App.manualScale === null && !opts.skipSave) requestAnimationFrame(() => scalePitch());
 }
 
@@ -2429,6 +1782,7 @@ function switchSport(sport){
   pitch.style.background = SPORTS[sport].color;
   drawCourt(sport);
   $('#playerCount').value = SPORTS[sport].players;
+  $('#rivalCount').value = SPORTS[sport].players;
   if (sport === 'athletics') $('#showBall').checked = false;
   else if (!$('#showBall').checked) $('#showBall').checked = true;
   setupBoard({ preserve: true });
@@ -2438,24 +1792,20 @@ function switchSport(sport){
 function renderScenarioButtons(){
   scenarioList.innerHTML = '';
   for (let i = 1; i <= App.scenarioCount; i++) {
-    const wrap = document.createElement('div');
-    wrap.className = 'scenario-item';
+    const wrap = document.createElement('div'); wrap.className = 'scenario-item';
     const btn = document.createElement('button');
     btn.className = 'scenario-btn' + (i === App.currentScenario ? ' active' : '');
-    btn.id = 's' + i;
-    btn.textContent = i;
+    btn.id = 's' + i; btn.textContent = i;
     btn.onclick = () => switchScenario(i);
     wrap.appendChild(btn);
     const del = document.createElement('button');
-    del.className = 'scenario-del';
-    del.textContent = '×';
+    del.className = 'scenario-del'; del.textContent = '×';
     del.onclick = async (e) => {
       e.stopPropagation();
       const ok = await showConfirm('Senaryoyu Sil?', `Senaryo ${i} silinecek. Bu işlem geri alınamaz.`, { danger:true, okText:'Sil' });
       if (ok) deleteScenario(i);
     };
-    wrap.appendChild(del);
-    scenarioList.appendChild(wrap);
+    wrap.appendChild(del); scenarioList.appendChild(wrap);
   }
 }
 
@@ -2470,8 +1820,7 @@ async function deleteScenario(num){
   else if (App.currentScenario === num) App.currentScenario = Math.min(App.currentScenario, App.scenarioCount);
   renderScenarioButtons();
   applyScenarioData(App.scenarioData[App.currentScenario], { animate: false });
-  toast(`Senaryo ${num} silindi.`, 'info');
-  scheduleAutosave();
+  toast(`Senaryo ${num} silindi.`, 'info'); scheduleAutosave();
 }
 
 function addNewScenario(){
@@ -2491,44 +1840,28 @@ async function propagateToAll(){
   saveCurrentState();
   const current = App.scenarioData[App.currentScenario] || [];
   if (current.length === 0) { toast('Bu adımda öğe yok.', 'error'); return; }
-
   const lines = current.filter(p => p.id && p.id.startsWith('LINE_'));
   const equips = current.filter(p => p.type);
-
-  if (lines.length === 0 && equips.length === 0) {
-    toast('Bu adımda yayılacak çizgi/ekipman yok.', 'error');
-    return;
-  }
-
-  const ok = await showConfirm(
-    '📋 Tüm Adımlara Yay?',
-    `Adım ${App.currentScenario}'deki öğeler diğer ${App.scenarioCount - 1} adıma da eklenecek:
+  if (lines.length === 0 && equips.length === 0) { toast('Bu adımda yayılacak çizgi/ekipman yok.', 'error'); return; }
+  const ok = await showConfirm('📋 Tüm Adımlara Yay?', `Adım ${App.currentScenario}'deki öğeler diğer ${App.scenarioCount - 1} adıma da eklenecek:
 
 • Çizgiler/Oklar: ${lines.length}
 • Ekipmanlar: ${equips.length}
 • Oyuncular/Top: (her adımda zaten var, atlanır)
 
-Not: Diğer adımlardaki farklı öğeler korunur.`,
-    { okText: 'Yay' }
-  );
+Not: Diğer adımlardaki farklı öğeler korunur.`, { okText: 'Yay' });
   if (!ok) return;
-
   const toPropagate = [...lines, ...equips];
   let count = 0;
-
   for (let i = 1; i <= App.scenarioCount; i++) {
     if (i === App.currentScenario) continue;
     if (!App.scenarioData[i]) App.scenarioData[i] = [];
     const existingIds = new Set(App.scenarioData[i].map(p => p.id));
     toPropagate.forEach(item => {
-      if (!existingIds.has(item.id)) {
-        App.scenarioData[i].push(JSON.parse(JSON.stringify(item)));
-        existingIds.add(item.id);
-      }
+      if (!existingIds.has(item.id)) { App.scenarioData[i].push(JSON.parse(JSON.stringify(item))); existingIds.add(item.id); }
     });
     count++;
   }
-
   scheduleAutosave();
   toast(`${count} adıma yayıldı (${lines.length} çizgi + ${equips.length} ekipman).`, 'success');
 }
@@ -2542,16 +1875,10 @@ function saveCurrentState(){
     const data = { id: item.id, x: item.style.left, y: item.style.top };
     const role = item.dataset.role;
     if (role === 'equipment') {
-      data.type = item.dataset.type;
-      data.color = item.dataset.color;
-      data.rotation = item.dataset.rotation || '0';
-      data.scale = item.dataset.scale || '1';
-    } else if (role === 'line') {
-      data.path = item.dataset.path || '';
-    } else if (role === 'player') {
-      data.name = item.textContent || '';
-      data.side = item.dataset.side;
-    }
+      data.type = item.dataset.type; data.color = item.dataset.color;
+      data.rotation = item.dataset.rotation || '0'; data.scale = item.dataset.scale || '1';
+    } else if (role === 'line') { data.path = item.dataset.path || ''; }
+    else if (role === 'player') { data.name = item.textContent || ''; data.side = item.dataset.side; }
     positions.push(data);
   });
   App.scenarioData[App.currentScenario] = positions;
@@ -2575,48 +1902,27 @@ function applyScenarioData(data, opts = {}){
 
   const count = parseInt($('#playerCount').value) || 11;
   const hasRival = $('#rivalTeam').checked;
+  const awayCount = hasRival ? (parseInt($('#rivalCount').value) || count) : 0;
   const hasBall = SPORTS[App.currentSport].ball && $('#showBall').checked;
 
   for (let i = count + 1; i <= 30; i++) {
-    const h = document.getElementById('H' + i);
-    if (h) h.remove();
-    if (!hasRival) {
-      const a = document.getElementById('A' + i);
-      if (a) a.remove();
-    }
+    const h = document.getElementById('H' + i); if (h) h.remove();
   }
-  if (!hasRival) {
-    for (let i = 1; i <= count; i++) {
-      const a = document.getElementById('A' + i);
-      if (a) a.remove();
-    }
+  for (let i = awayCount + 1; i <= 30; i++) {
+    const a = document.getElementById('A' + i); if (a) a.remove();
   }
-  if (!hasBall) {
-    const b = document.getElementById('ball-main');
-    if (b) b.remove();
-  }
+  if (!hasBall) { const b = document.getElementById('ball-main'); if (b) b.remove(); }
 
   data.forEach(pos => {
-    if (pos.id.startsWith('LINE_')) {
-      if (pos.path) createLine(pos.id, pos.path);
-      return;
-    }
+    if (pos.id.startsWith('LINE_')) { if (pos.path) createLine(pos.id, pos.path); return; }
     if (pos.type) {
       const el = createEquipment(pos.id, pos.type, pos.color, parseInt(pos.x), parseInt(pos.y));
       el.dataset.rotation = pos.rotation || '0';
       el.dataset.scale = pos.scale || '1';
-      applyItemTransform(el);
-      return;
+      applyItemTransform(el); return;
     }
-    if (pos.id.startsWith('H')) {
-      const n = parseInt(pos.id.slice(1));
-      if (n > count) return;
-    }
-    if (pos.id.startsWith('A')) {
-      if (!hasRival) return;
-      const n = parseInt(pos.id.slice(1));
-      if (n > count) return;
-    }
+    if (pos.id.startsWith('H')) { if (parseInt(pos.id.slice(1)) > count) return; }
+    if (pos.id.startsWith('A')) { if (!hasRival) return; if (parseInt(pos.id.slice(1)) > awayCount) return; }
     if (pos.id === 'ball-main' && !hasBall) return;
 
     let el = document.getElementById(pos.id);
@@ -2629,8 +1935,7 @@ function applyScenarioData(data, opts = {}){
     }
     if (el) {
       el.style.transition = animate ? `all ${transitionDur}ms ease-in-out` : 'none';
-      el.style.left = pos.x;
-      el.style.top = pos.y;
+      el.style.left = pos.x; el.style.top = pos.y;
       if (pos.name !== undefined) el.textContent = pos.name;
     }
   });
@@ -2638,51 +1943,30 @@ function applyScenarioData(data, opts = {}){
 
 function getSnapshot(){
   return $$('.draggable').map(item => ({
-    id: item.id,
-    left: item.style.left,
-    top: item.style.top,
-    transform: item.style.transform || '',
-    innerText: item.textContent || '',
-    className: item.className,
-    dataset: { ...item.dataset },
+    id: item.id, left: item.style.left, top: item.style.top,
+    transform: item.style.transform || '', innerText: item.textContent || '',
+    className: item.className, dataset: { ...item.dataset },
   }));
 }
 
 function applySnapshot(snapshot){
   $$('.draggable').forEach(el => el.remove());
   snapshot.forEach(data => {
-    const role = data.dataset.role;
-    let el;
-    if (role === 'line') {
-      el = createLine(data.id, data.dataset.path || '');
-    } else if (role === 'equipment') {
-      el = createEquipment(data.id, data.dataset.type, data.dataset.color,
-        parseInt(data.left) || 0, parseInt(data.top) || 0);
-      if (el) {
-        el.dataset.rotation = data.dataset.rotation || '0';
-        el.dataset.scale = data.dataset.scale || '1';
-        applyItemTransform(el);
-      }
-    } else if (role === 'ball') {
-      el = createBall(parseInt(data.left) || 0, parseInt(data.top) || 0);
-      if (el) el.id = data.id;
-    } else if (role === 'player') {
-      el = createPlayer(data.id, parseInt(data.left) || 0, parseInt(data.top) || 0,
-        data.dataset.side || 'home', data.innerText);
-    } else {
-      el = document.createElement('div');
-      el.className = data.className;
-      el.id = data.id;
-      el.style.left = data.left;
-      el.style.top = data.top;
-      el.textContent = data.innerText;
+    const role = data.dataset.role; let el;
+    if (role === 'line') el = createLine(data.id, data.dataset.path || '');
+    else if (role === 'equipment') {
+      el = createEquipment(data.id, data.dataset.type, data.dataset.color, parseInt(data.left) || 0, parseInt(data.top) || 0);
+      if (el) { el.dataset.rotation = data.dataset.rotation || '0'; el.dataset.scale = data.dataset.scale || '1'; applyItemTransform(el); }
+    } else if (role === 'ball') { el = createBall(parseInt(data.left) || 0, parseInt(data.top) || 0); if (el) el.id = data.id; }
+    else if (role === 'player') el = createPlayer(data.id, parseInt(data.left) || 0, parseInt(data.top) || 0, data.dataset.side || 'home', data.innerText);
+    else {
+      el = document.createElement('div'); el.className = data.className; el.id = data.id;
+      el.style.left = data.left; el.style.top = data.top; el.textContent = data.innerText;
       if (data.dataset.role) el.dataset.role = data.dataset.role;
-      bindItemEvents(el);
-      layer.appendChild(el);
+      bindItemEvents(el); layer.appendChild(el);
     }
     if (el) {
-      el.style.left = data.left;
-      el.style.top = data.top;
+      el.style.left = data.left; el.style.top = data.top;
       if (data.innerText && data.dataset.role === 'player') el.textContent = data.innerText;
     }
   });
@@ -2700,12 +1984,10 @@ function pushSnapshot(){
 function undoAction(){
   if (App.isPlaybackActiveFlag) return;
   if (App.historyIndex > 0) {
-    App.isUndoRedo = true;
-    App.historyIndex--;
+    App.isUndoRedo = true; App.historyIndex--;
     applySnapshot(App.history[App.historyIndex]);
     App.isUndoRedo = false;
-    saveCurrentState();
-    scheduleAutosave();
+    saveCurrentState(); scheduleAutosave();
     toast('Geri alındı', 'info');
   } else toast('Geri alınacak işlem yok.', 'error');
 }
@@ -2713,12 +1995,10 @@ function undoAction(){
 function redoAction(){
   if (App.isPlaybackActiveFlag) return;
   if (App.historyIndex < App.history.length - 1) {
-    App.isUndoRedo = true;
-    App.historyIndex++;
+    App.isUndoRedo = true; App.historyIndex++;
     applySnapshot(App.history[App.historyIndex]);
     App.isUndoRedo = false;
-    saveCurrentState();
-    scheduleAutosave();
+    saveCurrentState(); scheduleAutosave();
     toast('İleri alındı', 'info');
   } else toast('İleri alınacak işlem yok.', 'error');
 }
@@ -2726,10 +2006,7 @@ function redoAction(){
 function openEditModal(){
   if (App.isPlaybackActiveFlag) { toast('Önce oynatmayı durdurun.', 'error'); return; }
   if (!App.lastSelectedItem) { toast('Önce bir ekipman seçin (tıklayın).', 'error'); return; }
-  if (App.lastSelectedItem.dataset.role !== 'equipment') {
-    toast('Sadece ekipmanlar düzenlenebilir.', 'error');
-    return;
-  }
+  if (App.lastSelectedItem.dataset.role !== 'equipment') { toast('Sadece ekipmanlar düzenlenebilir.', 'error'); return; }
   const name = App.lastSelectedItem.dataset.type || 'ekipman';
   $('#editItemName').textContent = `Seçili: ${name} (${App.lastSelectedItem.dataset.color})`;
   $('#editModal').classList.add('active');
@@ -2741,9 +2018,7 @@ function moveItem(dir){
   const map = { up: 0, right: 90, down: 180, left: 270 };
   App.lastSelectedItem.dataset.rotation = String(map[dir]);
   applyItemTransform(App.lastSelectedItem);
-  saveCurrentState();
-  scheduleAutosave();
-  pushSnapshot();
+  saveCurrentState(); scheduleAutosave(); pushSnapshot();
   toast(`Yön: ${dir}`, 'success');
 }
 
@@ -2752,12 +2027,8 @@ function scaleItem(factor){
   App.lastSelectedItem.dataset.scale = String(factor);
   applyItemTransform(App.lastSelectedItem);
   $$('.size-group button').forEach(b => b.classList.remove('active'));
-  $$('.size-group button').forEach(b => {
-    if (parseFloat(b.textContent) === factor) b.classList.add('active');
-  });
-  saveCurrentState();
-  scheduleAutosave();
-  pushSnapshot();
+  $$('.size-group button').forEach(b => { if (parseFloat(b.textContent) === factor) b.classList.add('active'); });
+  saveCurrentState(); scheduleAutosave(); pushSnapshot();
   toast(`Ölçek: ${factor}×`, 'success');
 }
 
@@ -2767,17 +2038,13 @@ function scheduleAutosave(){
     try {
       saveCurrentState();
       const curCount = parseInt($('#playerCount').value) || 11;
+      const curRivalCount = parseInt($('#rivalCount').value) || 11;
       localStorage.setItem(CFG.AUTOSAVE_KEY, JSON.stringify({
-        scenarios: App.scenarioData,
-        scenarioCount: App.scenarioCount,
-        currentScenario: App.currentScenario,
-        sport: App.currentSport,
-        boardRotation: App.boardRotation,
-        playerCount: curCount,
-        rivalTeam: $('#rivalTeam').checked,
-        showBall: $('#showBall').checked,
-        trainingMode: $('#trainingMode').checked,
-        gridMode: App.gridMode,
+        scenarios: App.scenarioData, scenarioCount: App.scenarioCount, currentScenario: App.currentScenario,
+        sport: App.currentSport, boardRotation: App.boardRotation,
+        playerCount: curCount, rivalCount: curRivalCount,
+        rivalTeam: $('#rivalTeam').checked, showBall: $('#showBall').checked,
+        trainingMode: $('#trainingMode').checked, gridMode: App.gridMode,
         timestamp: Date.now(),
       }));
     } catch(e){}
@@ -2795,23 +2062,17 @@ function restoreAutosave(){
     App.currentScenario = data.currentScenario || 1;
     App.currentSport = data.sport || 'football';
     App.boardRotation = data.boardRotation || 0;
-    if (App.boardRotation === 90 || App.boardRotation === 270) {
-      App.pitchW = 900; App.pitchH = 2000;
-    } else {
-      App.pitchW = 2000; App.pitchH = 900;
-    }
+    if (App.boardRotation === 90 || App.boardRotation === 270) { App.pitchW = 900; App.pitchH = 2000; }
+    else { App.pitchW = 2000; App.pitchH = 900; }
     if (data.playerCount) $('#playerCount').value = data.playerCount;
     $('#rivalTeam').checked = !!data.rivalTeam;
+    if (data.rivalCount) $('#rivalCount').value = data.rivalCount;
+    $('#rivalCountWrap').style.display = $('#rivalTeam').checked ? 'flex' : 'none';
     $('#showBall').checked = data.showBall !== false;
     $('#trainingMode').checked = !!data.trainingMode;
     if (data.gridMode !== undefined) {
-      if (data.gridMode && !App.gridMode) {
-        App.gridMode = true;
-        $('#gridBtn').classList.add('active');
-      } else if (!data.gridMode && App.gridMode) {
-        App.gridMode = false;
-        $('#gridBtn').classList.remove('active');
-      }
+      if (data.gridMode && !App.gridMode) { App.gridMode = true; $('#gridBtn').classList.add('active'); }
+      else if (!data.gridMode && App.gridMode) { App.gridMode = false; $('#gridBtn').classList.remove('active'); }
     }
     return true;
   } catch(e){ return false; }
@@ -2821,93 +2082,66 @@ async function runSimulation(){
   if (App.isPlaybackActiveFlag || App.isSimRunning) return;
   if (!App.boardInitialized) return;
   const btn = document.querySelector('.btn-sim');
-  btn.disabled = true;
-  App.isSimRunning = true;
+  btn.disabled = true; App.isSimRunning = true;
   try {
     saveCurrentState();
     for (let i = 1; i <= App.scenarioCount; i++) {
       if (App.scenarioData[i]) {
         btn.textContent = `Simülasyon: ${i}...`;
-        App.currentScenario = i;
-        renderScenarioButtons();
+        App.currentScenario = i; renderScenarioButtons();
         applyScenarioData(App.scenarioData[i], { animate: true, transitionMs: CFG.STEP_MS - 200 });
         await new Promise(r => setTimeout(r, CFG.STEP_MS));
       }
     }
     toast('Simülasyon tamamlandı.', 'success');
   } finally {
-    btn.disabled = false;
-    btn.textContent = '▶ Simülasyon';
-    App.isSimRunning = false;
-    scheduleAutosave();
+    btn.disabled = false; btn.textContent = '▶ Simülasyon';
+    App.isSimRunning = false; scheduleAutosave();
   }
 }
 
 async function toggleRecording(){
   if (App.isPlaybackActiveFlag) { toast('Önce oynatmayı durdurun.', 'error'); return; }
   if (App.isSimRunning) return;
-
-  if (App.isRecording) {
-    App.isRecording = false;
-    updateRecordButtons(false);
-    await finalizeRecording();
-  } else {
+  if (App.isRecording) { App.isRecording = false; updateRecordButtons(false); await finalizeRecording(); }
+  else {
     if (App.recordingSteps.length > 0) {
       const ok = await showConfirm('Önceki Kayıt Silinsin mi?', 'Yeni kayıt başlatılacak, önceki veriler silinecek.', { okText:'Devam' });
-      if (!ok) return;
-      App.recordingSteps = [];
+      if (!ok) return; App.recordingSteps = [];
     }
-    App.isRecording = true;
-    updateRecordButtons(true);
+    App.isRecording = true; updateRecordButtons(true);
     await runSimulationAndRecord();
   }
 }
 
 async function runSimulationAndRecord(){
   const btn = document.querySelector('.btn-sim');
-  btn.disabled = true;
-  App.isSimRunning = true;
+  btn.disabled = true; App.isSimRunning = true;
   try {
     saveCurrentState();
     App.recordingSteps.push({ step: 1, scenarioId: App.currentScenario, positions: getCurrentPositions(), durationMs: CFG.STEP_MS });
-
     for (let i = 1; i <= App.scenarioCount; i++) {
       if (App.scenarioData[i]) {
         btn.textContent = `KAYIT: ADIM ${i}...`;
-        App.currentScenario = i;
-        renderScenarioButtons();
+        App.currentScenario = i; renderScenarioButtons();
         applyScenarioData(App.scenarioData[i], { animate: true, transitionMs: CFG.STEP_MS - 200 });
         await new Promise(r => setTimeout(r, CFG.STEP_MS));
         App.recordingSteps.push({ step: i, scenarioId: i, positions: getCurrentPositions(), durationMs: CFG.STEP_MS });
       }
     }
-
-    App.isRecording = false;
-    updateRecordButtons(false);
+    App.isRecording = false; updateRecordButtons(false);
     await finalizeRecording();
   } finally {
-    btn.disabled = false;
-    btn.textContent = '▶ Simülasyon';
+    btn.disabled = false; btn.textContent = '▶ Simülasyon';
     App.isSimRunning = false;
   }
 }
 
 async function finalizeRecording(){
-  if (App.recordingSteps.length === 0) {
-    toast('Kaydedilecek adım yok. Önce simülasyonu çalıştırın.', 'error');
-    return;
-  }
+  if (App.recordingSteps.length === 0) { toast('Kaydedilecek adım yok. Önce simülasyonu çalıştırın.', 'error'); return; }
   const name = await showPrompt('Kayıt Adı', `Kayıt ${new Date().toLocaleString('tr-TR')}`, 'Bu kayıt için bir isim girin:');
-  if (name === null) {
-    App.recordingSteps = [];
-    toast('Kayıt iptal edildi.', 'info');
-    return;
-  }
-  if (!dbAvailable) {
-    toast('Kayıt sistemi kullanılamıyor (gizli mod?).', 'error');
-    App.recordingSteps = [];
-    return;
-  }
+  if (name === null) { App.recordingSteps = []; toast('Kayıt iptal edildi.', 'info'); return; }
+  if (!dbAvailable) { toast('Kayıt sistemi kullanılamıyor (gizli mod?).', 'error'); App.recordingSteps = []; return; }
   const recording = {
     name: name || `Kayıt ${Date.now()}`,
     date: new Date().toISOString(),
@@ -2916,6 +2150,7 @@ async function finalizeRecording(){
     sport: App.currentSport,
     settings: {
       playerCount: parseInt($('#playerCount').value) || 11,
+      rivalCount: parseInt($('#rivalCount').value) || 11,
       rivalTeam: $('#rivalTeam').checked,
       showBall: $('#showBall').checked,
       trainingMode: $('#trainingMode').checked,
@@ -2923,12 +2158,8 @@ async function finalizeRecording(){
       boardRotation: App.boardRotation,
     },
   };
-  try {
-    await dbAdd(recording);
-    toast('Kayıt başarıyla kaydedildi!', 'success');
-  } catch(e) {
-    toast('Kayıt başarısız: ' + (e.message || e), 'error');
-  }
+  try { await dbAdd(recording); toast('Kayıt başarıyla kaydedildi!', 'success'); }
+  catch(e) { toast('Kayıt başarısız: ' + (e.message || e), 'error'); }
   App.recordingSteps = [];
 }
 
@@ -2937,98 +2168,55 @@ function getCurrentPositions(){
     const data = { id: item.id, x: item.style.left, y: item.style.top };
     const role = item.dataset.role;
     if (role === 'equipment') {
-      data.type = item.dataset.type;
-      data.color = item.dataset.color;
-      data.rotation = item.dataset.rotation || '0';
-      data.scale = item.dataset.scale || '1';
-    } else if (role === 'line') {
-      data.path = item.dataset.path || '';
-    } else if (role === 'player') {
-      data.name = item.textContent || '';
-    }
+      data.type = item.dataset.type; data.color = item.dataset.color;
+      data.rotation = item.dataset.rotation || '0'; data.scale = item.dataset.scale || '1';
+    } else if (role === 'line') data.path = item.dataset.path || '';
+    else if (role === 'player') data.name = item.textContent || '';
     return data;
   });
 }
 
 async function openFileList(){
   if (App.isPlaybackActiveFlag) { toast('Önce oynatmayı durdurun.', 'error'); return; }
-  if (!dbAvailable) {
-    try { await openDB(); } catch(e) {
-      toast('Kayıt sistemi kullanılamıyor (gizli mod?).', 'error');
-      return;
-    }
-  }
+  if (!dbAvailable) { try { await openDB(); } catch(e) { toast('Kayıt sistemi kullanılamıyor (gizli mod?).', 'error'); return; } }
   const container = $('#fileListContainer');
   container.innerHTML = '<div class="empty-msg">Yükleniyor...</div>';
   $('#fileListModal').classList.add('active');
   try {
     const recs = await dbGetAll();
-    if (recs.length === 0) {
-      container.innerHTML = '<div class="empty-msg">Henüz kayıt yok.</div>';
-      return;
-    }
+    if (recs.length === 0) { container.innerHTML = '<div class="empty-msg">Henüz kayıt yok.</div>'; return; }
     container.innerHTML = '';
     recs.forEach(rec => {
-      const row = document.createElement('div');
-      row.className = 'file-list-item';
-
-      const nameEl = document.createElement('span');
-      nameEl.className = 'name';
-      nameEl.textContent = rec.name;
-      nameEl.onclick = () => startPlayback(rec.id);
-      row.appendChild(nameEl);
-
-      const dateEl = document.createElement('span');
-      dateEl.className = 'date';
+      const row = document.createElement('div'); row.className = 'file-list-item';
+      const nameEl = document.createElement('span'); nameEl.className = 'name'; nameEl.textContent = rec.name;
+      nameEl.onclick = () => startPlayback(rec.id); row.appendChild(nameEl);
+      const dateEl = document.createElement('span'); dateEl.className = 'date';
       const sport = rec.sport || 'football';
       const stepCount = rec.steps?.length || 0;
       const pc = rec.settings?.playerCount || '?';
-      dateEl.textContent = `${new Date(rec.date).toLocaleString('tr-TR')} · ${stepCount} adım · ${pc} kişi ${SPORTS[sport]?.emoji || ''}`;
+      const rc = rec.settings?.rivalTeam ? rec.settings.rivalCount : 0;
+      dateEl.textContent = `${new Date(rec.date).toLocaleString('tr-TR')} · ${stepCount} adım · ${pc}${rc ? 'v' + rc : ''} ${SPORTS[sport]?.emoji || ''}`;
       row.appendChild(dateEl);
-
-      const actions = document.createElement('div');
-      actions.className = 'actions';
-
-      const playBtn = document.createElement('button');
-      playBtn.textContent = '▶'; playBtn.title = 'Oynat';
-      playBtn.onclick = () => startPlayback(rec.id);
-      actions.appendChild(playBtn);
-
-      const renameBtn = document.createElement('button');
-      renameBtn.textContent = '✏️'; renameBtn.title = 'Yeniden adlandır';
+      const actions = document.createElement('div'); actions.className = 'actions';
+      const playBtn = document.createElement('button'); playBtn.textContent = '▶'; playBtn.title = 'Oynat';
+      playBtn.onclick = () => startPlayback(rec.id); actions.appendChild(playBtn);
+      const renameBtn = document.createElement('button'); renameBtn.textContent = '✏️'; renameBtn.title = 'Yeniden adlandır';
       renameBtn.onclick = async () => {
         const newName = await showPrompt('Yeniden Adlandır', rec.name);
-        if (newName && newName.trim()) {
-          rec.name = newName.trim();
-          try { await dbPut(rec); toast('Adlandırıldı.', 'success'); openFileList(); }
-          catch(e){ toast('Hata: ' + e.message, 'error'); }
-        }
+        if (newName && newName.trim()) { rec.name = newName.trim(); try { await dbPut(rec); toast('Adlandırıldı.', 'success'); openFileList(); } catch(e){ toast('Hata: ' + e.message, 'error'); } }
       };
       actions.appendChild(renameBtn);
-
-      const shareBtn = document.createElement('button');
-      shareBtn.textContent = '📤'; shareBtn.title = 'Bu kaydı JSON olarak dışa aktar';
-      shareBtn.onclick = () => exportSingleRecording(rec.id);
-      actions.appendChild(shareBtn);
-
-      const delBtn = document.createElement('button');
-      delBtn.className = 'del'; delBtn.textContent = '🗑️'; delBtn.title = 'Sil';
+      const shareBtn = document.createElement('button'); shareBtn.textContent = '📤'; shareBtn.title = 'Bu kaydı JSON olarak dışa aktar';
+      shareBtn.onclick = () => exportSingleRecording(rec.id); actions.appendChild(shareBtn);
+      const delBtn = document.createElement('button'); delBtn.className = 'del'; delBtn.textContent = '🗑️'; delBtn.title = 'Sil';
       delBtn.onclick = async () => {
         const ok = await showConfirm('Kaydı Sil?', `"${rec.name}" kalıcı olarak silinecek.`, { danger:true, okText:'Sil' });
-        if (ok) {
-          try { await dbDelete(rec.id); toast('Silindi.', 'success'); openFileList(); }
-          catch(e){ toast('Hata: ' + e.message, 'error'); }
-        }
+        if (ok) { try { await dbDelete(rec.id); toast('Silindi.', 'success'); openFileList(); } catch(e){ toast('Hata: ' + e.message, 'error'); } }
       };
       actions.appendChild(delBtn);
-
-      row.appendChild(actions);
-      container.appendChild(row);
+      row.appendChild(actions); container.appendChild(row);
     });
-  } catch(e) {
-    container.innerHTML = '<div class="empty-msg">Kayıtlar yüklenemedi.</div>';
-    toast('Hata: ' + e.message, 'error');
-  }
+  } catch(e) { container.innerHTML = '<div class="empty-msg">Kayıtlar yüklenemedi.</div>'; toast('Hata: ' + e.message, 'error'); }
 }
 
 function closeFileList(){ $('#fileListModal').classList.remove('active'); }
@@ -3040,10 +2228,12 @@ async function startPlayback(recId){
     const rec = await dbGet(recId);
     if (!rec) { toast('Kayıt bulunamadı.', 'error'); return; }
     closeFileList();
-
+    showBoardScreen();
+    
     App.prePlaybackState = {
       sport: App.currentSport,
       playerCount: parseInt($('#playerCount').value) || 11,
+      rivalCount: parseInt($('#rivalCount').value) || 11,
       rivalTeam: $('#rivalTeam').checked,
       showBall: $('#showBall').checked,
       trainingMode: $('#trainingMode').checked,
@@ -3055,7 +2245,6 @@ async function startPlayback(recId){
     };
 
     const rs = rec.settings || {};
-
     const playSport = rec.sport || rs.sport || 'football';
     if (SPORTS[playSport]) {
       App.currentSport = playSport;
@@ -3076,24 +2265,23 @@ async function startPlayback(recId){
     playCount = Math.min(11, Math.max(1, playCount));
     $('#playerCount').value = playCount;
 
+    let playRivalCount = rs.rivalCount || playCount;
+    $('#rivalCount').value = playRivalCount;
     $('#rivalTeam').checked = !!rs.rivalTeam;
+    $('#rivalCountWrap').style.display = $('#rivalTeam').checked ? 'flex' : 'none';
+    
     $('#showBall').checked = (rs.showBall !== false) && !!SPORTS[App.currentSport].ball;
     $('#trainingMode').checked = !!rs.trainingMode;
-
     if (!!rs.gridMode !== App.gridMode) toggleGrid();
 
     const rot = rs.boardRotation || 0;
-    if (rot === 90 || rot === 270) {
-      App.pitchW = 900; App.pitchH = 2000;
-    } else {
-      App.pitchW = 2000; App.pitchH = 900;
-    }
+    if (rot === 90 || rot === 270) { App.pitchW = 900; App.pitchH = 2000; }
+    else { App.pitchW = 2000; App.pitchH = 900; }
     App.boardRotation = rot;
-    pitch.style.width  = App.pitchW + 'px';
+    pitch.style.width = App.pitchW + 'px';
     pitch.style.height = App.pitchH + 'px';
 
     drawCourt(App.currentSport);
-
     paletteEl.style.display = $('#trainingMode').checked ? 'flex' : 'none';
     if ($('#trainingMode').checked) renderPalette();
     trashBin.style.display = $('#trainingMode').checked ? 'flex' : 'none';
@@ -3108,9 +2296,14 @@ async function startPlayback(recId){
     $('#playbackStatus').textContent = '▶️ Oynatılıyor';
     $('#restartBtn').style.display = 'none';
 
-    scalePitch();
-    applyPlaybackStep(App.playbackData.steps[0]);
-    scheduleNextStep();
+    requestAnimationFrame(() => {
+      scalePitch();
+      requestAnimationFrame(() => {
+        applyPlaybackStep(App.playbackData.steps[0]);
+        scheduleNextStep();
+      });
+    });
+    setTimeout(() => { scalePitch(); }, 150);
 
     toast(`▶ ${rec.name}`, 'info');
   } catch(e) { toast('Hata: ' + e.message, 'error'); }
@@ -3144,21 +2337,11 @@ function scheduleNextStep(){
 
 function togglePlayPause(){
   if (!App.playbackData) return;
-  if (App.playbackIndex >= App.playbackData.steps.length - 1 && !App.isPaused) {
-    restartPlayback();
-    return;
-  }
+  if (App.playbackIndex >= App.playbackData.steps.length - 1 && !App.isPaused) { restartPlayback(); return; }
   App.isPaused = !App.isPaused;
   const btn = $('#playPauseBtn'), status = $('#playbackStatus');
-  if (App.isPaused) {
-    btn.textContent = '▶ Oynat';
-    status.textContent = '⏸ Duraklatıldı';
-    clearTimeout(App.playbackTimer);
-  } else {
-    btn.textContent = '⏸ Duraklat';
-    status.textContent = '▶️ Oynatılıyor';
-    scheduleNextStep();
-  }
+  if (App.isPaused) { btn.textContent = '▶ Oynat'; status.textContent = '⏸ Duraklatıldı'; clearTimeout(App.playbackTimer); }
+  else { btn.textContent = '⏸ Duraklat'; status.textContent = '▶️ Oynatılıyor'; scheduleNextStep(); }
 }
 
 function setSpeed(speed, ev){
@@ -3200,13 +2383,14 @@ function stopPlayback(){
 
     $('#sportSelect').value = s.sport;
     $('#playerCount').value = s.playerCount;
+    $('#rivalCount').value = s.rivalCount;
     $('#rivalTeam').checked = s.rivalTeam;
+    $('#rivalCountWrap').style.display = s.rivalTeam ? 'flex' : 'none';
     $('#showBall').checked = s.showBall;
     $('#trainingMode').checked = s.trainingMode;
-
     if (s.gridMode !== App.gridMode) toggleGrid();
 
-    pitch.style.width  = s.pitchW + 'px';
+    pitch.style.width = s.pitchW + 'px';
     pitch.style.height = s.pitchH + 'px';
     pitch.style.background = SPORTS[s.sport].color;
 
@@ -3215,7 +2399,6 @@ function stopPlayback(){
     trashBin.style.display = $('#trainingMode').checked ? 'flex' : 'none';
 
     drawCourt(s.sport);
-
     App.currentScenario = s.currentScenario;
     App.prePlaybackState = null;
 
@@ -3232,19 +2415,15 @@ async function exportVideo(){
   if (App.isPlaybackActiveFlag) { toast('Önce oynatmayı durdurun.', 'error'); return; }
   const steps = Object.keys(App.scenarioData).map(Number).sort((a,b)=>a-b);
   if (steps.length === 0) { toast('Hiç senaryo yok.', 'error'); return; }
-
-  const mimes = ['video/webm;codecs=vp9', 'video/webm;codecs=vp8', 'video/webm', 'video/mp4'];
+  const mimes = ['video/webm;codecs=vp9','video/webm;codecs=vp8','video/webm','video/mp4'];
   const mime = mimes.find(m => window.MediaRecorder && MediaRecorder.isTypeSupported && MediaRecorder.isTypeSupported(m));
   if (!mime) { toast('Tarayıcınız video kaydını desteklemiyor.', 'error'); return; }
-
   const prog = showProgress('🎬 Video Hazırlanıyor');
   let cancelled = false;
   prog.onCancel(() => { cancelled = true; prog.close(); toast('Video iptal edildi.', 'info'); });
-
   const savedTransform = pitch.style.transform;
   pitch.style.transform = 'none';
   const W = App.pitchW, H = App.pitchH;
-
   try {
     const canvas = document.createElement('canvas');
     canvas.width = W; canvas.height = H;
@@ -3254,7 +2433,6 @@ async function exportVideo(){
     const chunks = [];
     recorder.ondataavailable = e => { if (e.data.size > 0) chunks.push(e.data); };
     recorder.start();
-
     const totalSteps = steps.length;
     for (let i = 0; i < totalSteps; i++) {
       if (cancelled) break;
@@ -3262,34 +2440,26 @@ async function exportVideo(){
       switchScenario(steps[i], { force: true });
       await new Promise(r => setTimeout(r, 400));
       if (cancelled) break;
-
       const img = await html2canvas(pitch, { scale: 1, backgroundColor: null, logging: false, useCORS: true });
       ctx.clearRect(0, 0, W, H);
       ctx.drawImage(img, 0, 0, W, H);
       await new Promise(r => setTimeout(r, CFG.EXPORT_HOLD_MS));
     }
-
     recorder.stop();
     await new Promise(r => { recorder.onstop = r; });
     pitch.style.transform = savedTransform;
-
     if (cancelled) { prog.close(); return; }
-
     const blob = new Blob(chunks, { type: mime });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     const ext = mime.includes('mp4') ? 'mp4' : 'webm';
-    a.href = url;
-    a.download = `taktik_${new Date().toISOString().slice(0,10)}.${ext}`;
-    a.click();
-    URL.revokeObjectURL(url);
-    prog.close();
-    toast('Video kaydedildi!', 'success');
+    a.href = url; a.download = `taktik_${new Date().toISOString().slice(0,10)}.${ext}`;
+    a.click(); URL.revokeObjectURL(url);
+    prog.close(); toast('Video kaydedildi!', 'success');
     switchScenario(App.currentScenario);
   } catch(e) {
     pitch.style.transform = savedTransform;
-    prog.close();
-    toast('Video hatası: ' + e.message, 'error');
+    prog.close(); toast('Video hatası: ' + e.message, 'error');
   }
 }
 
@@ -3299,19 +2469,13 @@ const EXPORT_VERSION = 2;
 async function openExportMenu(){
   if (App.isPlaybackActiveFlag) { toast('Önce oynatmayı durdurun.', 'error'); return; }
   saveCurrentState();
-
   let recCount = 0;
-  if (dbAvailable) {
-    try { recCount = (await dbGetAll()).length; } catch(e){}
-  }
-
+  if (dbAvailable) { try { recCount = (await dbGetAll()).length; } catch(e){} }
   const choice = await showChoice(
     '📤 Projeyi Dışa Aktar',
     `Ne dışa aktarılsın?\n\n• Senaryolar: ${Object.keys(App.scenarioData).length} adet\n• Kayıtlar (replay): ${recCount} adet\n\nNot: "🎬 Video" ile indirilen .webm dosyaları uygulamada saklanmaz; onları ayrıca paylaşmalısın.`,
-    [
-      { label: '📄 Sadece Senaryolar', value: 'scenarios', className: 'btn-cancel' },
-      { label: `💾 Tam Paket (+${recCount} kayıt)`, value: 'full', className: 'btn-primary' },
-    ]
+    [{ label: '📄 Sadece Senaryolar', value: 'scenarios', className: 'btn-cancel' },
+     { label: `💾 Tam Paket (+${recCount} kayıt)`, value: 'full', className: 'btn-primary' }]
   );
   if (!choice) return;
   await exportProject({ withRecordings: choice === 'full' });
@@ -3320,15 +2484,13 @@ async function openExportMenu(){
 async function buildProjectSnapshot(opts = {}){
   const includeRecordings = opts.includeRecordings !== false;
   saveCurrentState();
-
   const snap = {
-    format: EXPORT_FORMAT,
-    version: EXPORT_VERSION,
-    exportedAt: new Date().toISOString(),
+    format: EXPORT_FORMAT, version: EXPORT_VERSION, exportedAt: new Date().toISOString(),
     app: { name: 'Pro Taktik Tahtası', author: 'Osman Efe Tekinaslan' },
     settings: {
       sport: App.currentSport,
       playerCount: parseInt($('#playerCount').value) || 11,
+      rivalCount: parseInt($('#rivalCount').value) || 11,
       rivalTeam: $('#rivalTeam').checked,
       showBall: $('#showBall').checked,
       trainingMode: $('#trainingMode').checked,
@@ -3342,27 +2504,20 @@ async function buildProjectSnapshot(opts = {}){
     recordings: [],
     meta: {},
   };
-
   if (includeRecordings && dbAvailable) {
     try {
       const recs = await dbGetAll();
       snap.recordings = recs.map(r => ({
-        name: r.name,
-        date: r.date,
-        sport: r.sport || 'football',
-        scenarioCount: r.scenarioCount || 1,
-        steps: r.steps || [],
-        settings: r.settings || null,
+        name: r.name, date: r.date, sport: r.sport || 'football',
+        scenarioCount: r.scenarioCount || 1, steps: r.steps || [], settings: r.settings || null,
       }));
     } catch(e) { console.warn('Kayıtlar eklenemedi:', e); }
   }
-
   snap.meta = {
     totalScenarios: Object.keys(snap.scenarios).length,
     totalRecordings: snap.recordings.length,
     totalSteps: snap.recordings.reduce((s, r) => s + (r.steps?.length || 0), 0),
   };
-
   return snap;
 }
 
@@ -3376,9 +2531,7 @@ async function exportProject(opts = {}){
   a.href = url;
   const suffix = withRecordings ? '_tam' : '_senaryolar';
   a.download = `taktik${suffix}_${new Date().toISOString().slice(0,10)}.json`;
-  a.click();
-  URL.revokeObjectURL(url);
-
+  a.click(); URL.revokeObjectURL(url);
   const sizeStr = blob.size > 1024*1024 ? (blob.size/1024/1024).toFixed(2)+' MB' : (blob.size/1024).toFixed(1)+' KB';
   toast(`Dışa aktarıldı (${sizeStr}, ${snap.meta.totalScenarios} senaryo, ${snap.meta.totalRecordings} kayıt).`, 'success', 4000);
 }
@@ -3389,25 +2542,13 @@ async function exportSingleRecording(recId){
     const rec = await dbGet(recId);
     if (!rec) { toast('Kayıt bulunamadı.', 'error'); return; }
     const snap = {
-      format: EXPORT_FORMAT,
-      version: EXPORT_VERSION,
-      exportedAt: new Date().toISOString(),
+      format: EXPORT_FORMAT, version: EXPORT_VERSION, exportedAt: new Date().toISOString(),
       app: { name: 'Pro Taktik Tahtası', author: 'Osman Efe Tekinaslan' },
-      settings: {
-        sport: rec.sport || 'football', playerCount: 11, rivalTeam: false,
-        showBall: true, trainingMode: false, gridMode: false,
-        deviceScale: 'auto', currentScenario: 1, boardRotation: 0,
-      },
-      scenarios: {},
-      scenarioCount: rec.scenarioCount || 1,
-      recordings: [{
-        name: rec.name,
-        date: rec.date,
-        sport: rec.sport || 'football',
-        scenarioCount: rec.scenarioCount || 1,
-        steps: rec.steps || [],
-        settings: rec.settings || null,
-      }],
+      settings: { sport: rec.sport || 'football', playerCount: 11, rivalCount: 11, rivalTeam: false,
+        showBall: true, trainingMode: false, gridMode: false, deviceScale: 'auto', currentScenario: 1, boardRotation: 0 },
+      scenarios: {}, scenarioCount: rec.scenarioCount || 1,
+      recordings: [{ name: rec.name, date: rec.date, sport: rec.sport || 'football',
+        scenarioCount: rec.scenarioCount || 1, steps: rec.steps || [], settings: rec.settings || null }],
       meta: { totalScenarios: 0, totalRecordings: 1, totalSteps: rec.steps?.length || 0 },
     };
     const blob = new Blob([JSON.stringify(snap, null, 2)], { type: 'application/json' });
@@ -3416,44 +2557,32 @@ async function exportSingleRecording(recId){
     a.href = url;
     const safe = (rec.name || 'kayit').replace(/[^\w]/g,'_').slice(0,30);
     a.download = `kayit_${safe}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
+    a.click(); URL.revokeObjectURL(url);
     toast('Kayıt dışa aktarıldı.', 'success');
   } catch(e) { toast('Hata: ' + e.message, 'error'); }
 }
 
 async function importJSON(){
   if (App.isPlaybackActiveFlag) { toast('Önce oynatmayı durdurun.', 'error'); return; }
-
   const input = document.createElement('input');
-  input.type = 'file';
-  input.accept = '.json,application/json';
+  input.type = 'file'; input.accept = '.json,application/json';
   input.onchange = async () => {
-    const file = input.files[0];
-    if (!file) return;
+    const file = input.files[0]; if (!file) return;
     try {
       const text = await file.text();
       let data = JSON.parse(text);
-
       if (data.format !== EXPORT_FORMAT) {
         if (!data.scenarios) throw new Error('Bu dosya geçerli bir taktik paketi değil.');
         data = {
-          format: EXPORT_FORMAT, version: 1,
-          exportedAt: new Date().toISOString(),
+          format: EXPORT_FORMAT, version: 1, exportedAt: new Date().toISOString(),
           app: { name: 'Pro Taktik Tahtası' },
-          settings: {
-            sport: data.sport || 'football',
-            playerCount: 11, rivalTeam: false, showBall: true, trainingMode: false,
-            gridMode: false, deviceScale: 'auto',
-            currentScenario: data.currentScenario || 1, boardRotation: 0,
-          },
-          scenarios: data.scenarios,
-          scenarioCount: data.scenarioCount || 1,
-          recordings: [],
-          meta: { totalScenarios: Object.keys(data.scenarios).length, totalRecordings: 0, totalSteps: 0 },
+          settings: { sport: data.sport || 'football', playerCount: 11, rivalCount: 11, rivalTeam: false,
+            showBall: true, trainingMode: false, gridMode: false, deviceScale: 'auto',
+            currentScenario: data.currentScenario || 1, boardRotation: 0 },
+          scenarios: data.scenarios, scenarioCount: data.scenarioCount || 1,
+          recordings: [], meta: { totalScenarios: Object.keys(data.scenarios).length, totalRecordings: 0, totalSteps: 0 },
         };
       }
-
       const sizeStr = file.size > 1024*1024 ? (file.size/1024/1024).toFixed(2)+' MB' : (file.size/1024).toFixed(1)+' KB';
       const hasRecs = data.recordings && data.recordings.length > 0;
       const preview = [
@@ -3463,78 +2592,54 @@ async function importJSON(){
         `📊 Senaryolar: ${Object.keys(data.scenarios || {}).length}`,
         `🎬 Kayıtlar: ${data.recordings?.length || 0}`,
       ].join('\n');
-
       const ok = await showConfirm('İçe Aktar?', preview + '\n\nMevcut senaryoların üzerine yazılacak.', { okText: 'Devam' });
       if (!ok) return;
-
       const s = data.settings || {};
       if (s.sport && SPORTS[s.sport]) App.currentSport = s.sport;
       App.scenarioData = data.scenarios || {};
       App.scenarioCount = data.scenarioCount || 1;
       App.currentScenario = s.currentScenario || 1;
-
       App.boardRotation = s.boardRotation || 0;
-      if (App.boardRotation === 90 || App.boardRotation === 270) {
-        App.pitchW = 900; App.pitchH = 2000;
-      } else {
-        App.pitchW = 2000; App.pitchH = 900;
-      }
-      pitch.style.width  = App.pitchW + 'px';
-      pitch.style.height = App.pitchH + 'px';
-
+      if (App.boardRotation === 90 || App.boardRotation === 270) { App.pitchW = 900; App.pitchH = 2000; }
+      else { App.pitchW = 2000; App.pitchH = 900; }
+      pitch.style.width = App.pitchW + 'px'; pitch.style.height = App.pitchH + 'px';
       $('#sportSelect').value = App.currentSport;
       pitch.style.background = SPORTS[App.currentSport].color;
       drawCourt(App.currentSport);
-
       if (s.playerCount) $('#playerCount').value = s.playerCount;
+      if (s.rivalCount) $('#rivalCount').value = s.rivalCount;
       $('#rivalTeam').checked = !!s.rivalTeam;
+      $('#rivalCountWrap').style.display = $('#rivalTeam').checked ? 'flex' : 'none';
       $('#showBall').checked = !!s.showBall;
       $('#trainingMode').checked = !!s.trainingMode;
-
       if (!!s.gridMode !== App.gridMode) toggleGrid();
-
       if (s.deviceScale) {
         $('#deviceSelect').value = s.deviceScale;
         if (s.deviceScale === 'auto') App.manualScale = null;
         else { const sc = parseFloat(s.deviceScale); if (!isNaN(sc)) App.manualScale = sc; }
         scalePitch();
       }
-
       $$('.draggable').forEach(el => el.remove());
       setupBoard({ preserve: false });
       switchScenario(App.currentScenario, { force: true });
       renderScenarioButtons();
-
       if (hasRecs) {
-        if (!dbAvailable) {
-          try { await openDB(); } catch(e) {
-            toast(`⚠️ ${data.recordings.length} kayıt var ama DB kullanılamıyor (gizli mod?).`, 'warn', 5000);
-          }
-        }
+        if (!dbAvailable) { try { await openDB(); } catch(e) { toast(`⚠️ ${data.recordings.length} kayıt var ama DB kullanılamıyor (gizli mod?).`, 'warn', 5000); } }
         if (dbAvailable) {
-          const mode = await showChoice(
-            '🎬 Kayıtlar Nasıl Eklensin?',
+          const mode = await showChoice('🎬 Kayıtlar Nasıl Eklensin?',
             `Pakette ${data.recordings.length} kayıt var.\n\n• Atla: mevcut kayıtlar korunur, paketinkiler yüklenmez\n• Ekle: mevcutlar korunur, paketinkiler eklenir\n• Değiştir: TÜM mevcut kayıtlar silinir, sadece paketinkiler kalır`,
-            [
-              { label: 'Atla', value: 'skip', className: 'btn-cancel' },
-              { label: 'Ekle (Güvenli)', value: 'merge', className: 'btn-primary' },
-              { label: 'Tümünü Değiştir', value: 'replace', className: 'btn-danger' },
-            ]
-          );
+            [{ label: 'Atla', value: 'skip', className: 'btn-cancel' },
+             { label: 'Ekle (Güvenli)', value: 'merge', className: 'btn-primary' },
+             { label: 'Tümünü Değiştir', value: 'replace', className: 'btn-danger' }]);
           if (mode === 'replace') {
             const sure = await showConfirm('Emin misin?', 'Tüm mevcut kayıtlar silinecek. Bu işlem geri alınamaz!', { danger: true, okText: 'Evet, Değiştir' });
             if (sure) await applyRecordingImport(data.recordings, 'replace');
-          } else if (mode === 'merge') {
-            await applyRecordingImport(data.recordings, 'merge');
-          }
+          } else if (mode === 'merge') await applyRecordingImport(data.recordings, 'merge');
         }
       }
-
       scheduleAutosave();
       toast('✅ Proje başarıyla içe aktarıldı.', 'success', 4000);
-    } catch(e) {
-      toast('İçe aktarma hatası: ' + e.message, 'error', 5000);
-    }
+    } catch(e) { toast('İçe aktarma hatası: ' + e.message, 'error', 5000); }
   };
   input.click();
 }
@@ -3544,9 +2649,7 @@ async function applyRecordingImport(recordings, mode){
   try {
     if (mode === 'replace') {
       const all = await dbGetAll();
-      for (const r of all) {
-        try { await dbDelete(r.id); } catch(e){}
-      }
+      for (const r of all) { try { await dbDelete(r.id); } catch(e){} }
     }
     let added = 0, failed = 0;
     for (const rec of recordings) {
@@ -3563,9 +2666,7 @@ async function applyRecordingImport(recordings, mode){
     }
     if (added > 0) toast(`✅ ${added} kayıt eklendi${failed > 0 ? `, ${failed} başarısız` : ''}.`, 'success');
     else if (failed > 0) toast(`❌ ${failed} kayıt eklenemedi.`, 'error');
-  } catch(e) {
-    toast('Kayıt import hatası: ' + e.message, 'error');
-  }
+  } catch(e) { toast('Kayıt import hatası: ' + e.message, 'error'); }
 }
 
 async function resetAll(){
@@ -3581,26 +2682,25 @@ async function resetAll(){
   renderScenarioButtons();
   App.currentSport = 'football';
   App.pitchW = 2000; App.pitchH = 900; App.boardRotation = 0;
-  pitch.style.width = '2000px';
-  pitch.style.height = '900px';
+  pitch.style.width = '2000px'; pitch.style.height = '900px';
   $('#sportSelect').value = 'football';
   pitch.style.background = SPORTS.football.color;
   drawCourt('football');
   $('#playerCount').value = 11;
+  $('#rivalCount').value = 11;
+  $('#rivalTeam').checked = false;
+  $('#rivalCountWrap').style.display = 'none';
   setupBoard({ preserve: false });
   setLineMode(null);
   if (App.eraserMode) toggleEraser();
-  pushSnapshot();
-  scheduleAutosave();
+  pushSnapshot(); scheduleAutosave();
   toast('Sıfırlandı.', 'success');
 }
 
 document.addEventListener('keydown', e => {
   const tag = (e.target.tagName || '').toLowerCase();
   if (tag === 'input' || tag === 'textarea' || e.target.isContentEditable) return;
-  
   if (!App.boardInitialized) return;
-
   if (e.ctrlKey && e.key === 'z') { e.preventDefault(); undoAction(); }
   else if (e.ctrlKey && e.key === 'y') { e.preventDefault(); redoAction(); }
   else if (e.ctrlKey && (e.key === 'c' || e.key === 'C')) { e.preventDefault(); copyBoard(false); }
@@ -3608,12 +2708,8 @@ document.addEventListener('keydown', e => {
   else if (e.ctrlKey && (e.key === 'v' || e.key === 'V')) { e.preventDefault(); pasteBoard(); }
   else if (e.key === 'Delete' || e.key === 'Backspace') {
     if (App.lastSelectedItem && App.lastSelectedItem.dataset.role === 'equipment') {
-      e.preventDefault();
-      App.lastSelectedItem.remove();
-      App.lastSelectedItem = null;
-      saveCurrentState();
-      scheduleAutosave();
-      pushSnapshot();
+      e.preventDefault(); App.lastSelectedItem.remove(); App.lastSelectedItem = null;
+      saveCurrentState(); scheduleAutosave(); pushSnapshot();
       toast('Silindi.', 'success');
     }
   }
@@ -3626,69 +2722,47 @@ document.addEventListener('keydown', e => {
     if (App.lineMode) setLineMode(null);
     if (App.eraserMode) toggleEraser();
   }
-  else if (e.key === 'g' || e.key === 'G') {
-    if (!e.ctrlKey && !e.metaKey) toggleGrid();
-  }
-  else if (e.key === 'r' || e.key === 'R') {
-    if (!e.ctrlKey && !e.metaKey) rotateBoard();
-  }
+  else if (e.key === 'g' || e.key === 'G') { if (!e.ctrlKey && !e.metaKey) toggleGrid(); }
+  else if (e.key === 'r' || e.key === 'R') { if (!e.ctrlKey && !e.metaKey) rotateBoard(); }
 });
 
 $$('.modal-overlay').forEach(overlay => {
-  overlay.addEventListener('click', e => {
-    if (e.target === overlay) overlay.classList.remove('active');
-  });
+  overlay.addEventListener('click', e => { if (e.target === overlay) overlay.classList.remove('active'); });
 });
 
 function initPlayerCountSelect(){
-  const sel = $('#playerCount');
-  sel.innerHTML = '';
+  const sel = $('#playerCount'); sel.innerHTML = '';
   for (let i = 1; i <= 11; i++) {
-    const opt = document.createElement('option');
-    opt.value = i;
-    opt.textContent = i;
+    const opt = document.createElement('option'); opt.value = i; opt.textContent = i;
     if (i === 11) opt.selected = true;
     sel.appendChild(opt);
   }
+  const rsel = $('#rivalCount'); rsel.innerHTML = '';
+  for (let i = 1; i <= 11; i++) {
+    const opt = document.createElement('option'); opt.value = i; opt.textContent = i;
+    if (i === 11) opt.selected = true;
+    rsel.appendChild(opt);
+  }
 }
 
-window.addEventListener('resize', () => {
-  if (App.manualScale === null && App.boardInitialized) scalePitch();
-});
-
+window.addEventListener('resize', () => { if (App.manualScale === null && App.boardInitialized) scalePitch(); });
 window.addEventListener('orientationchange', () => {
-  setTimeout(() => {
-    if (App.manualScale === null && App.boardInitialized) scalePitch();
-  }, 200);
+  setTimeout(() => { if (App.manualScale === null && App.boardInitialized) scalePitch(); }, 200);
 });
 
 async function init(){
   initPlayerCountSelect();
-
   try {
     if (!localStorage.getItem(CFG.SCALE_CLEAN_KEY)) {
       localStorage.removeItem(CFG.SCALE_KEY);
       localStorage.setItem(CFG.SCALE_CLEAN_KEY, '1');
     }
   } catch(e){}
-
   renderHomeControls();
-  
-  if (checkAutosaveExists()) {
-    $('#homeContinueWrap').style.display = 'block';
-  }
-  
-  try { await openDB(); }
-  catch(e) {
-    dbAvailable = false;
-  }
-  
+  if (checkAutosaveExists()) $('#homeContinueWrap').style.display = 'block';
+  try { await openDB(); } catch(e) { dbAvailable = false; }
   showHomeScreen();
-  
-  if (typeof html2canvas === 'undefined') {
-    console.warn('html2canvas yüklenemedi, video kaydı çalışmayabilir.');
-  }
-  
+  if (typeof html2canvas === 'undefined') console.warn('html2canvas yüklenemedi, video kaydı çalışmayabilir.');
   updateClipboardUI();
 }
 
