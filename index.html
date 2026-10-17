@@ -328,6 +328,8 @@ h2 small{font-size:clamp(12px,2vw,16px);color:var(--text-secondary);font-weight:
 #temp-svg path{stroke:#000;stroke-width:var(--line-stroke,3px);fill:none;stroke-linecap:round;stroke-linejoin:round}
 #items-layer .line-item path{stroke-width:var(--line-stroke,3px)}
 
+.btn-paste.has-clip{background:var(--success)!important;box-shadow:0 0 12px rgba(34,197,94,0.6)}
+
 .tooltip-hint{font-size:clamp(11px,1vw,13px);color:var(--text-secondary);
   background:var(--bg-surface);padding:6px 14px;border-radius:var(--radius-full);
   display:inline-block;margin:4px 0;text-align:center;border:1px solid var(--border-subtle)}
@@ -449,6 +451,10 @@ body.fullscreen-pitch #playback-controls{
   <button class="btn-eraser" id="eraserBtn" onclick="toggleEraser()">🧹 Silgi</button>
   <button class="btn-grid" id="gridBtn" onclick="toggleGrid()">🔲 Izgara</button>
   <button class="btn-rotate" onclick="rotateBoard()">↻ Döndür</button>
+  <button class="btn-share" onclick="propagateToAll()">📋 Tümüne</button>
+  <button class="btn-files" onclick="copyBoard(false)" title="Kopyala (Ctrl+C)">📄 Kopyala</button>
+  <button class="btn-files" onclick="copyBoard(true)" title="Kes (Ctrl+X)">✂️ Kes</button>
+  <button class="btn-files btn-paste" id="pasteBtn" onclick="pasteBoard()" title="Yapıştır (Ctrl+V)">📋 Yapıştır</button>
   <button class="btn-undo" onclick="undoAction()">↩️</button>
   <button class="btn-redo" onclick="redoAction()">↪️</button>
   <button class="btn-edit" onclick="openEditModal()">🔧</button>
@@ -569,6 +575,7 @@ const App = {
   isCloneDragging: false, lastSelectedItem: null,
   currentScale: 1, manualScale: null,
   pitchW: 2000, pitchH: 900, boardRotation: 0,
+  clipboard: null,
   history: [], historyIndex: -1, isUndoRedo: false,
   isDrawing: false, drawStartX: 0, drawStartY: 0, drawPath: '',
   playbackData: null, playbackIndex: 0, isPaused: false,
@@ -734,6 +741,10 @@ function openShortcutsModal(e){
     <table style="width:100%;font-size:14px;color:var(--text-primary);border-collapse:collapse">
       <tr><td style="padding:6px 0"><kbd>Ctrl+Z</kbd></td><td>Geri al</td></tr>
       <tr><td style="padding:6px 0"><kbd>Ctrl+Y</kbd></td><td>İleri al</td></tr>
+      <tr><td style="padding:6px 0"><kbd>Ctrl+C</kbd></td><td>Adımı kopyala</td></tr>
+      <tr><td style="padding:6px 0"><kbd>Ctrl+X</kbd></td><td>Adımı kes</td></tr>
+      <tr><td style="padding:6px 0"><kbd>Ctrl+V</kbd></td><td>Yapıştır</td></tr>
+      <tr><td style="padding:6px 0"><kbd>R</kbd></td><td>Tahtayı 90° döndür</td></tr>
       <tr><td style="padding:6px 0"><kbd>Delete</kbd></td><td>Seçili ekipmanı sil</td></tr>
       <tr><td style="padding:6px 0"><kbd>Esc</kbd></td><td>Çizim/araç modunu kapat</td></tr>
       <tr><td style="padding:6px 0"><kbd>G</kbd></td><td>Izgarayı aç/kapat</td></tr>
@@ -886,7 +897,7 @@ function drawCourt(sport){
     addLine({ width:'100%', height:'100%', top:'0', left:'0', border:'3px solid var(--line-white)', boxSizing:'border-box' });
     const cR = 130;
     addLine({ width:(cR*2)+'px', height:(cR*2)+'px', borderRadius:'50%', top:'50%', left:'50%', transform:'translate(-50%,-50%)', border:'3px solid var(--line-white)' });
-    const potaX = 120, potaY = H/2, paintW = 200, smallR = 20, bigR = 300;
+    const potaX = 120, potaY = H/2, paintW = 200, smallR = 20;
     addLine({ left:potaX+'px', top:(potaY-paintW/2)+'px', width:'3px', height:paintW+'px', border:'none', background:'var(--line-white)' });
     const half1 = document.createElement('div');
     half1.className = 'line';
@@ -1405,7 +1416,6 @@ function rotateBoard(){
       return;
     }
 
-    // 90° CW: (cx,cy) → (H0 - cy, cx)
     const cx = x + w / 2;
     const cy = y + h / 2;
     const newCx = H0 - cy;
@@ -1439,6 +1449,97 @@ function rotateBoard(){
                 (App.boardRotation === 90) ? 'dikey' :
                 (App.boardRotation === 180) ? 'yatay (ters)' : 'dikey (ters)';
   toast(`Tahta 90° döndürüldü → ${state}`, 'success');
+}
+
+function updateClipboardUI(){
+  const btn = $('#pasteBtn');
+  if (!btn) return;
+  if (App.clipboard && App.clipboard.items.length > 0){
+    const n = App.clipboard.items.length;
+    const mode = App.clipboard.mode === 'cut' ? 'kesildi' : 'kopyalandı';
+    btn.classList.add('has-clip');
+    btn.title = `Yapıştır — ${n} öğe (Adım ${App.clipboard.sourceScenario}'den ${mode})`;
+  } else {
+    btn.classList.remove('has-clip');
+    btn.title = 'Yapıştır (Ctrl+V)';
+  }
+}
+
+function copyBoard(cut){
+  if (App.isPlaybackActiveFlag) { toast('Önce oynatmayı durdurun.', 'error'); return; }
+  saveCurrentState();
+  const items = App.scenarioData[App.currentScenario] || [];
+  if (items.length === 0){
+    toast('Bu adımda kopyalanacak öğe yok.', 'error');
+    return;
+  }
+  App.clipboard = {
+    items: JSON.parse(JSON.stringify(items)),
+    mode: cut ? 'cut' : 'copy',
+    sourceScenario: App.currentScenario,
+    copiedAt: Date.now(),
+  };
+  updateClipboardUI();
+  toast(
+    cut
+      ? `Adım ${App.currentScenario} kesildi (yapıştırınca kaynaktan silinecek).`
+      : `Adım ${App.currentScenario} kopyalandı (${items.length} öğe).`,
+    'success'
+  );
+}
+
+function pasteBoard(){
+  if (App.isPlaybackActiveFlag) { toast('Önce oynatmayı durdurun.', 'error'); return; }
+  if (!App.clipboard || App.clipboard.items.length === 0){
+    toast('Önce Kopyala veya Kes yapın.', 'error');
+    return;
+  }
+
+  const clip = App.clipboard;
+  const target = App.currentScenario;
+  const source = clip.sourceScenario;
+
+  if (source === target && clip.mode === 'cut'){
+    toast('Kaynak ve hedef aynı adım — işlem yapılmadı.', 'info');
+    App.clipboard = null;
+    updateClipboardUI();
+    return;
+  }
+
+  saveCurrentState();
+
+  const newItems = clip.items.map(p => {
+    const np = JSON.parse(JSON.stringify(p));
+    if (p.id && p.id.startsWith('LINE_')) {
+      np.id = 'LINE_' + uid();
+    } else if (p.type) {
+      np.id = 'EQ_PASTE_' + uid();
+    }
+    return np;
+  });
+
+  if (!App.scenarioData[target]) App.scenarioData[target] = [];
+  const existingMap = new Map(App.scenarioData[target].map(p => [p.id, p]));
+  newItems.forEach(np => existingMap.set(np.id, np));
+  App.scenarioData[target] = [...existingMap.values()];
+
+  if (clip.mode === 'cut' && source !== target){
+    const sourceIds = new Set(clip.items.map(p => p.id));
+    App.scenarioData[source] = (App.scenarioData[source] || []).filter(p => !sourceIds.has(p.id));
+  }
+
+  App.currentScenario = target;
+  renderScenarioButtons();
+  applyScenarioData(App.scenarioData[target], { animate: false });
+  scheduleAutosave();
+
+  if (clip.mode === 'cut'){
+    toast(`Yapıştırıldı. Adım ${source}'den silindi.`, 'success');
+    App.clipboard = null;
+    updateClipboardUI();
+  } else {
+    toast(`Yapıştırıldı (${newItems.length} öğe).`, 'success');
+  }
 }
 
 function togglePanel(){
@@ -1647,10 +1748,62 @@ async function deleteScenario(num){
 }
 
 function addNewScenario(){
+  saveCurrentState();
+  const prev = App.scenarioData[App.currentScenario] || [];
   App.scenarioCount++;
+  App.scenarioData[App.scenarioCount] = JSON.parse(JSON.stringify(prev));
+  App.currentScenario = App.scenarioCount;
   renderScenarioButtons();
+  switchScenario(App.currentScenario, { force: true });
   scheduleAutosave();
-  toast('Yeni senaryo eklendi.', 'success');
+  toast(`Adım ${App.currentScenario} eklendi (önceki adım kopyalandı).`, 'success');
+}
+
+async function propagateToAll(){
+  if (App.isPlaybackActiveFlag) { toast('Önce oynatmayı durdurun.', 'error'); return; }
+  saveCurrentState();
+  const current = App.scenarioData[App.currentScenario] || [];
+  if (current.length === 0) { toast('Bu adımda öğe yok.', 'error'); return; }
+
+  const lines = current.filter(p => p.id && p.id.startsWith('LINE_'));
+  const equips = current.filter(p => p.type);
+
+  if (lines.length === 0 && equips.length === 0) {
+    toast('Bu adımda yayılacak çizgi/ekipman yok.', 'error');
+    return;
+  }
+
+  const ok = await showConfirm(
+    '📋 Tüm Adımlara Yay?',
+    `Adım ${App.currentScenario}'deki öğeler diğer ${App.scenarioCount - 1} adıma da eklenecek:
+
+• Çizgiler/Oklar: ${lines.length}
+• Ekipmanlar: ${equips.length}
+• Oyuncular/Top: (her adımda zaten var, atlanır)
+
+Not: Diğer adımlardaki farklı öğeler korunur.`,
+    { okText: 'Yay' }
+  );
+  if (!ok) return;
+
+  const toPropagate = [...lines, ...equips];
+  let count = 0;
+
+  for (let i = 1; i <= App.scenarioCount; i++) {
+    if (i === App.currentScenario) continue;
+    if (!App.scenarioData[i]) App.scenarioData[i] = [];
+    const existingIds = new Set(App.scenarioData[i].map(p => p.id));
+    toPropagate.forEach(item => {
+      if (!existingIds.has(item.id)) {
+        App.scenarioData[i].push(JSON.parse(JSON.stringify(item)));
+        existingIds.add(item.id);
+      }
+    });
+    count++;
+  }
+
+  scheduleAutosave();
+  toast(`${count} adıma yayıldı (${lines.length} çizgi + ${equips.length} ekipman).`, 'success');
 }
 
 function saveCurrentState(){
@@ -2088,8 +2241,6 @@ async function openFileList(){
 }
 
 function closeFileList(){ $('#fileListModal').classList.remove('active'); }
-
-function isPlaybackActive(){ return App.isPlaybackActiveFlag; }
 
 async function startPlayback(recId){
   if (App.isPlaybackActiveFlag) return;
@@ -2574,6 +2725,9 @@ document.addEventListener('keydown', e => {
 
   if (e.ctrlKey && e.key === 'z') { e.preventDefault(); undoAction(); }
   else if (e.ctrlKey && e.key === 'y') { e.preventDefault(); redoAction(); }
+  else if (e.ctrlKey && (e.key === 'c' || e.key === 'C')) { e.preventDefault(); copyBoard(false); }
+  else if (e.ctrlKey && (e.key === 'x' || e.key === 'X')) { e.preventDefault(); copyBoard(true); }
+  else if (e.ctrlKey && (e.key === 'v' || e.key === 'V')) { e.preventDefault(); pasteBoard(); }
   else if (e.key === 'Delete' || e.key === 'Backspace') {
     if (App.lastSelectedItem && App.lastSelectedItem.dataset.role === 'equipment') {
       e.preventDefault();
@@ -2682,6 +2836,7 @@ async function init(){
 
   scheduleAutosave();
   checkPortraitHint();
+  updateClipboardUI();
 }
 
 window.addEventListener('DOMContentLoaded', () => { init(); });
