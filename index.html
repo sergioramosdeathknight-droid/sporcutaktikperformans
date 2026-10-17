@@ -8,65 +8,131 @@
 <style>
 *{box-sizing:border-box}
 :root{
-  --pitch-green:#2e7d32;--line-white:rgba(255,255,255,0.9);
-  --home-team:#d32f2f;--away-team:#1976d2;
-  --panel-bg:#222;--palette-bg:#2a2a2a;--toast-bg:rgba(0,0,0,0.85);
-  --shadow:0 4px 12px rgba(0,0,0,0.5);--select:#2196f3;
+  --bg-base:#0f172a;--bg-surface:#1e293b;--bg-elevated:#334155;
+  --border-subtle:#334155;--border-strong:#475569;
+  --text-primary:#f1f5f9;--text-secondary:#94a3b8;--text-muted:#64748b;
+  --primary:#3b82f6;--success:#22c55e;--warning:#f59e0b;--danger:#ef4444;--info:#06b6d4;
+  --pitch-primary:#15803d;--pitch-primary-dark:#166534;
+  --line-white:rgba(255,255,255,0.92);
+  --home-team:#dc2626;--away-team:#2563eb;
+  --panel-bg:#1e293b;--palette-bg:#1e293b;
+  --toast-bg:rgba(15,23,42,0.95);
+  --shadow-sm:0 1px 3px rgba(0,0,0,0.3);
+  --shadow-md:0 4px 12px rgba(0,0,0,0.4);
+  --shadow-lg:0 10px 40px rgba(0,0,0,0.5);
+  --radius-sm:6px;--radius-md:10px;--radius-lg:16px;--radius-full:9999px;
+  --transition-fast:150ms cubic-bezier(0.4,0,0.2,1);
+  --transition-base:250ms cubic-bezier(0.4,0,0.2,1);
+  --select:#3b82f6;
 }
 body{
-  font-family:'Segoe UI',Tahoma,sans-serif;background:#1a1a1a;color:#fff;
+  font-family:'Segoe UI',Tahoma,sans-serif;background:var(--bg-base);color:var(--text-primary);
   display:flex;flex-direction:column;align-items:center;margin:0;padding:10px;
   overflow-x:hidden;min-height:100vh;
   padding-top:max(10px,env(safe-area-inset-top));
   padding-bottom:max(10px,env(safe-area-inset-bottom));
 }
-h2{font-size:clamp(20px,4vw,28px);letter-spacing:1px;margin:5px 0 10px;
+h2{font-size:clamp(20px,4vw,28px);letter-spacing:0.5px;margin:5px 0 10px;
   text-shadow:0 4px 8px rgba(0,0,0,0.6);text-align:center}
-h2 small{font-size:clamp(12px,2vw,16px);color:#aaa;font-weight:normal}
+h2 small{font-size:clamp(12px,2vw,16px);color:var(--text-secondary);font-weight:normal}
 
+/* Mobile topbar */
+.mobile-topbar{display:none;position:sticky;top:0;z-index:150;width:100%;
+  padding:8px 10px;background:var(--bg-surface);border-bottom:1px solid var(--border-subtle);
+  gap:8px;align-items:center;box-shadow:var(--shadow-md);
+  padding-top:max(8px,env(safe-area-inset-top))}
+.mobile-topbar button{min-height:44px;min-width:44px;border-radius:var(--radius-md);
+  border:none;font-weight:600;font-size:14px;cursor:pointer;display:flex;
+  align-items:center;justify-content:center;gap:6px;padding:0 12px;color:#fff;
+  transition:all var(--transition-fast)}
+.mobile-topbar .mob-icon{background:var(--bg-elevated)}
+.mobile-topbar .mob-sim{flex:1;background:var(--success)}
+.mobile-topbar .mob-rec{background:var(--warning)}
+.mobile-topbar .mob-rec.recording{background:var(--danger)}
+.mobile-topbar button:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+
+/* Panel */
 .panel{background:var(--panel-bg);padding:10px 15px;border-radius:12px;
   display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:center;
-  border:1px solid #444;box-shadow:var(--shadow);width:100%;max-width:2000px;margin-bottom:8px}
-.panel select,.panel button{padding:8px 14px;cursor:pointer;border:none;border-radius:6px;
-  font-weight:bold;font-size:clamp(12px,1.2vw,14px);transition:.2s;background:#444;color:#fff;
-  min-height:38px;touch-action:manipulation}
-.panel select:hover,.panel button:hover{transform:scale(1.02);filter:brightness(1.2)}
-.panel button:active{transform:scale(0.97)}
-.btn-reset{background:#f44336}.btn-sim{background:#4caf50}
-.btn-record{background:#ff9800}.btn-files{background:#9c27b0}
-.btn-edit{background:#8e24aa}.btn-undo,.btn-redo{background:#607d8b}
-.btn-export{background:#e91e63}.btn-share{background:#00bcd4}
+  border:1px solid var(--border-subtle);box-shadow:var(--shadow-md);
+  width:100%;max-width:2000px;margin-bottom:8px;position:relative}
+.panel select,.panel button{padding:8px 14px;cursor:pointer;border:none;border-radius:var(--radius-sm);
+  font-weight:600;font-size:clamp(12px,1.2vw,14px);transition:all var(--transition-fast);
+  color:#fff;min-height:38px;touch-action:manipulation}
+.panel select{background:#444}
+.panel button{background:var(--bg-elevated)}
+.panel select:hover,.panel button:hover:not(:disabled){transform:translateY(-1px);filter:brightness(1.1);box-shadow:var(--shadow-md)}
+.panel button:active:not(:disabled){transform:translateY(0)}
+.panel button:focus-visible,.panel select:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+.panel button:disabled{opacity:0.5;cursor:not-allowed;transform:none!important}
+
+.btn-reset{background:var(--danger)!important}
+.btn-sim{background:var(--success)!important}
+.btn-record{background:var(--warning)!important}
+.btn-files{background:var(--primary)!important}
+.btn-edit{background:var(--bg-elevated)!important}
+.btn-undo,.btn-redo{background:var(--bg-elevated)!important}
+.btn-export{background:var(--info)!important}
+.btn-share{background:var(--primary)!important}
+
+.panel-close{display:none;position:absolute;top:12px;right:12px;width:40px;height:40px;
+  background:var(--danger);color:#fff;border:none;border-radius:var(--radius-full);
+  font-size:18px;cursor:pointer;z-index:201;align-items:center;justify-content:center;
+  padding:0;box-shadow:var(--shadow-md);min-height:40px!important}
+.panel-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);
+  z-index:199;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}
+.panel-backdrop.active{display:block}
 
 .checkbox-group{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;
-  font-size:clamp(12px,1.2vw,14px);background:#333;padding:6px 10px;border-radius:6px}
+  font-size:clamp(12px,1.2vw,14px);background:var(--bg-elevated);padding:6px 10px;border-radius:var(--radius-sm)}
 .checkbox-group label{display:flex;align-items:center;gap:4px;cursor:pointer;min-height:32px}
-.checkbox-group input[type=checkbox]{width:18px;height:18px;cursor:pointer;accent-color:#ff9800}
+.checkbox-group input[type=checkbox]{width:18px;height:18px;cursor:pointer;accent-color:var(--primary)}
 
 .sport-selector{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
-.sport-selector span{color:#aaa;font-weight:bold;font-size:clamp(12px,1.2vw,14px)}
-.sport-selector select{background:#444;color:#fff;border:2px solid #555;padding:6px 10px;
-  border-radius:20px;font-weight:bold;font-size:clamp(12px,1.2vw,14px);outline:none;min-height:38px}
-.sport-selector select:focus{border-color:#ff9800;box-shadow:0 0 8px rgba(255,152,0,0.4)}
+.sport-selector span{color:var(--text-secondary);font-weight:600;font-size:clamp(12px,1.2vw,14px)}
+.sport-selector select{background:#444;color:#fff;border:2px solid var(--border-strong);
+  padding:6px 10px;border-radius:var(--radius-full);font-weight:600;
+  font-size:clamp(12px,1.2vw,14px);outline:none;min-height:38px;cursor:pointer}
+.sport-selector select:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(59,130,246,0.2)}
 
 .tool-group{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
-.btn-line,.btn-eraser,.btn-grid{background:#444;color:#fff;border:2px solid #666;
-  padding:8px 12px;border-radius:20px;font-size:clamp(11px,1vw,13px);cursor:pointer;
-  transition:.2s;min-height:36px}
-.btn-line:hover,.btn-eraser:hover,.btn-grid:hover{background:#555}
-.btn-line.active{background:#00bcd4;border-color:#fff;box-shadow:0 0 12px #00bcd4}
-.btn-line.off{background:#f44336;border-color:#f44336}
-.btn-eraser.active{background:#ff5722;border-color:#fff;box-shadow:0 0 12px #ff5722}
-.btn-grid.active{background:#ffeb3b;color:#222;border-color:#fff}
+.btn-line,.btn-eraser,.btn-grid{background:var(--bg-elevated);color:#fff;border:2px solid var(--border-strong);
+  padding:8px 12px;border-radius:var(--radius-full);font-size:clamp(11px,1vw,13px);
+  cursor:pointer;transition:all var(--transition-fast);min-height:36px;font-weight:600}
+.btn-line:hover,.btn-eraser:hover,.btn-grid:hover{background:#444;transform:translateY(-1px)}
+.btn-line.active{background:var(--primary);border-color:#fff;box-shadow:0 0 12px rgba(59,130,246,0.6)}
+.btn-line.off{background:var(--danger);border-color:var(--danger)}
+.btn-eraser.active{background:var(--warning);border-color:#fff;box-shadow:0 0 12px rgba(245,158,11,0.6)}
+.btn-grid.active{background:#fbbf24;color:#000;border-color:#fff}
+.btn-line:focus-visible,.btn-eraser:focus-visible,.btn-grid:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
 
+/* Pitch */
 #pitch-wrapper{width:100%;max-width:2000px;position:relative;overflow:auto;
   border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,0.8);margin:6px 0;touch-action:none}
-#pitch-container{position:relative;width:2000px;height:900px;background:var(--pitch-green);
-  border:4px solid #fff;transform-origin:top left;transition:background .5s;
-  cursor:default;touch-action:none;user-select:none;-webkit-user-select:none}
+#pitch-container{position:relative;width:2000px;height:900px;
+  background:linear-gradient(180deg,#15803d 0%,#166534 50%,#15803d 100%);
+  border:3px solid rgba(255,255,255,0.15);transform-origin:top left;
+  transition:background .5s;cursor:default;touch-action:none;user-select:none;-webkit-user-select:none;
+  box-shadow:inset 0 0 60px rgba(0,0,0,0.15),0 10px 40px rgba(0,0,0,0.6)}
+
+.pitch-scroll-btn{display:none;position:absolute;top:50%;transform:translateY(-50%);
+  width:44px;height:44px;background:rgba(15,23,42,0.85);color:#fff;border:none;
+  border-radius:var(--radius-full);z-index:60;cursor:pointer;font-size:16px;
+  align-items:center;justify-content:center;box-shadow:var(--shadow-md);
+  backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
+.pitch-scroll-btn.left{left:8px}
+.pitch-scroll-btn.right{right:8px}
+.pitch-scroll-btn:hover{background:rgba(15,23,42,0.95)}
+.pitch-scroll-btn:active{transform:translateY(-50%) scale(0.95)}
+
+.pitch-exit-btn{display:none;position:fixed;top:max(12px,env(safe-area-inset-top));
+  right:max(12px,env(safe-area-inset-right));z-index:600;width:44px;height:44px;
+  background:var(--danger);color:#fff;border:none;border-radius:var(--radius-full);
+  font-size:20px;cursor:pointer;box-shadow:var(--shadow-lg);
+  align-items:center;justify-content:center;padding:0}
 
 .line{position:absolute;border:3px solid var(--line-white);pointer-events:none;box-sizing:border-box}
-.line-dashed{border-style:dashed!important}
-.grass-area{position:absolute;border-radius:50%;background:#2e7d32;pointer-events:none;z-index:1}
+.grass-area{position:absolute;border-radius:50%;background:#15803d;pointer-events:none;z-index:1}
 
 .draggable{position:absolute;cursor:grab;display:flex;align-items:center;justify-content:center;
   touch-action:none;user-select:none;-webkit-user-select:none;z-index:10;transition:none}
@@ -76,10 +142,11 @@ h2 small{font-size:clamp(12px,2vw,16px);color:#aaa;font-weight:normal}
 .draggable.selected{outline:3px solid var(--select);outline-offset:3px;z-index:15}
 
 .player{width:54px;height:54px;border:3px solid #fff;border-radius:50%;
-  font-weight:bold;font-size:15px;color:#fff;box-shadow:0 6px 10px rgba(0,0,0,0.5);
+  font-weight:700;font-size:15px;color:#fff;box-shadow:0 6px 10px rgba(0,0,0,0.5);
   text-align:center;overflow:hidden;word-break:break-all;line-height:1.2;padding:4px;
   background:#333;z-index:20}
-.home{background:var(--home-team)}.away{background:var(--away-team)}
+.home{background:var(--home-team)}
+.away{background:var(--away-team)}
 .hockey-player::after{content:"🏑";position:absolute;bottom:-18px;right:-18px;
   font-size:32px;z-index:20;text-shadow:0 2px 6px rgba(0,0,0,0.9);transform:rotate(-15deg)}
 
@@ -103,19 +170,21 @@ h2 small{font-size:clamp(12px,2vw,16px);color:#aaa;font-weight:normal}
 
 .line-item{z-index:5}
 
+/* Palette */
 #equipment-palette{width:100%;max-width:2000px;min-height:80px;background:var(--palette-bg);
-  border:2px solid #555;border-radius:8px;margin:6px 0;padding:8px 10px;
+  border:2px solid var(--border-subtle);border-radius:8px;margin:6px 0;padding:8px 10px;
   display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-start;gap:8px;
-  box-shadow:inset 0 0 20px rgba(0,0,0,0.6);overflow-x:auto}
-#equipment-palette .palette-label{font-size:clamp(12px,1.2vw,14px);font-weight:bold;
-  color:#fbc02d;background:#333;padding:4px 12px;border-radius:20px;white-space:nowrap;margin-right:8px}
+  box-shadow:inset 0 0 20px rgba(0,0,0,0.3);overflow-x:auto}
+#equipment-palette .palette-label{font-size:clamp(12px,1.2vw,14px);font-weight:700;
+  color:#fbbf24;background:var(--bg-elevated);padding:4px 12px;border-radius:var(--radius-full);
+  white-space:nowrap;margin-right:8px}
 .palette-item{width:56px;height:68px;display:flex;flex-direction:column;align-items:center;
-  justify-content:center;background:#3a3a3a;border:2px solid transparent;border-radius:8px;
-  cursor:pointer;transition:.2s;flex-shrink:0;padding:4px}
-.palette-item:hover{border-color:#ff9800;background:#4a4a4a;transform:translateY(-3px);
+  justify-content:center;background:#2a3a52;border:2px solid transparent;border-radius:var(--radius-md);
+  cursor:pointer;transition:all var(--transition-fast);flex-shrink:0;padding:4px}
+.palette-item:hover{border-color:var(--warning);background:#374a66;transform:translateY(-3px);
   box-shadow:0 8px 16px rgba(0,0,0,0.5)}
 .palette-item .eq-container{transform:scale(0.8)}
-.palette-item span{font-size:9px;color:#aaa;margin-top:2px;text-align:center;line-height:1.2}
+.palette-item span{font-size:9px;color:var(--text-secondary);margin-top:2px;text-align:center;line-height:1.3}
 
 .eq-mannequin{position:relative;width:24px;height:36px;background:var(--eq-color);
   border-radius:20px 20px 0 0/40px 40px 0 0;border:2px solid #fff}
@@ -130,7 +199,8 @@ h2 small{font-size:clamp(12px,2vw,16px);color:#aaa;font-weight:normal}
 .eq-hurdle{width:40px;height:30px;position:relative}
 .eq-hurdle::before,.eq-hurdle::after{content:'';position:absolute;bottom:0;width:6px;height:30px;
   background:var(--eq-color);border-radius:4px;border:1px solid rgba(255,255,255,0.5)}
-.eq-hurdle::before{left:0}.eq-hurdle::after{right:0}
+.eq-hurdle::before{left:0}
+.eq-hurdle::after{right:0}
 .eq-hurdle>div{position:absolute;top:4px;left:-6px;width:52px;height:8px;
   background:var(--eq-color);border-radius:4px;border:1px solid rgba(255,255,255,0.5)}
 .eq-ladder{width:24px;height:50px;border:3px solid var(--eq-color);border-radius:4px;
@@ -156,113 +226,185 @@ h2 small{font-size:clamp(12px,2vw,16px);color:#aaa;font-weight:normal}
 .eq-orange{--eq-color:#f57c00}.eq-purple{--eq-color:#9c27b0}
 .eq-white{--eq-color:#ffffff}
 
+/* Trash */
 #trash-bin{position:absolute;bottom:20px;right:40px;width:100px;height:80px;
-  background:rgba(40,40,40,0.95);border:3px dashed #f44336;border-radius:12px;
+  background:rgba(15,23,42,0.95);border:3px dashed var(--danger);border-radius:var(--radius-md);
   display:none;flex-direction:column;align-items:center;justify-content:center;
-  z-index:500;color:#f44336;font-size:28px;font-weight:bold;
-  box-shadow:0 4px 15px rgba(0,0,0,0.8);transition:.3s;pointer-events:auto}
-#trash-bin span{font-size:12px;margin-top:2px;color:#ffa0a0;font-weight:normal}
-#trash-bin.drag-over{background:rgba(244,67,54,0.8);border-color:#fff;
-  transform:scale(1.05);color:#fff;box-shadow:0 0 30px rgba(244,67,54,0.7)}
+  z-index:500;color:var(--danger);font-size:28px;font-weight:700;
+  box-shadow:var(--shadow-lg);transition:all .3s;pointer-events:auto}
+#trash-bin span{font-size:12px;margin-top:2px;color:#fca5a5;font-weight:normal}
+#trash-bin.drag-over{background:rgba(239,68,68,0.8);border-color:#fff;
+  transform:scale(1.05);color:#fff;box-shadow:0 0 30px rgba(239,68,68,0.7)}
 
-#playback-controls{display:none;background:#222;padding:8px 16px;border-radius:12px;
-  margin-top:8px;border:1px solid #555;align-items:center;gap:10px;flex-wrap:wrap;justify-content:center}
-#playback-controls button{padding:6px 14px;border-radius:6px;border:none;cursor:pointer;
-  font-weight:bold;background:#555;color:#fff;font-size:clamp(12px,1vw,14px);min-height:36px}
-#playback-controls button.active{background:#ff9800}
-#playback-controls .playback-status{color:#aaa;font-size:13px}
-#playback-controls .btn-restart{background:#4caf50;display:none}
+/* Playback */
+#playback-controls{display:none;background:var(--bg-surface);padding:8px 16px;border-radius:12px;
+  margin-top:8px;border:1px solid var(--border-subtle);align-items:center;gap:10px;
+  flex-wrap:wrap;justify-content:center;box-shadow:var(--shadow-md)}
+#playback-controls button{padding:6px 14px;border-radius:var(--radius-sm);border:none;
+  cursor:pointer;font-weight:600;background:var(--bg-elevated);color:#fff;
+  font-size:clamp(12px,1vw,14px);min-height:36px;transition:all var(--transition-fast)}
+#playback-controls button:hover{background:#475569;transform:translateY(-1px)}
+#playback-controls button.active{background:var(--warning)}
+#playback-controls button:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+#playback-controls .playback-status{color:var(--text-secondary);font-size:13px}
+#playback-controls .btn-restart{background:var(--success);display:none}
 
+/* Scenarios */
 .scenario-container{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;
   max-width:2000px;margin:6px 0}
 .scenario-box{display:flex;gap:6px;flex-wrap:wrap}
-.scenario-btn{background:#444;color:#fff;border:2px solid transparent;width:42px;height:42px;
-  border-radius:6px;font-size:16px;cursor:pointer;transition:.2s}
-.scenario-btn.active{background:#ff9800;border-color:#fff;transform:translateY(-2px)}
-.btn-add-scenario{background:#1976d2;color:#fff;width:42px;height:42px;border-radius:50%;
-  font-size:22px;display:flex;align-items:center;justify-content:center;border:none;cursor:pointer}
+.scenario-btn{background:var(--bg-elevated);color:#fff;border:2px solid transparent;
+  width:42px;height:42px;border-radius:var(--radius-sm);font-size:16px;font-weight:700;
+  cursor:pointer;transition:all var(--transition-fast)}
+.scenario-btn:hover{background:#475569;transform:translateY(-1px)}
+.scenario-btn.active{background:var(--warning);border-color:#fff;transform:translateY(-2px);
+  box-shadow:0 4px 12px rgba(245,158,11,0.4)}
+.scenario-btn:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
+.btn-add-scenario{background:var(--primary);color:#fff;width:42px;height:42px;
+  border-radius:50%;font-size:22px;display:flex;align-items:center;justify-content:center;
+  border:none;cursor:pointer;transition:all var(--transition-fast);font-weight:700}
+.btn-add-scenario:hover{background:#2563eb;transform:translateY(-1px)}
 .scenario-item{display:flex;align-items:center;gap:2px}
-.scenario-del{background:transparent;border:none;color:#f44336;cursor:pointer;
+.scenario-del{background:transparent;border:none;color:var(--danger);cursor:pointer;
   font-size:16px;padding:0 2px;line-height:1}
-.scenario-del:hover{color:#ff8a80}
+.scenario-del:hover{color:#f87171}
 
+/* Modals */
 .modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;
-  background:rgba(0,0,0,0.8);z-index:1000;justify-content:center;align-items:center;padding:20px}
+  background:rgba(15,23,42,0.7);z-index:1000;justify-content:center;align-items:center;
+  padding:20px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .modal-overlay.active{display:flex}
-.modal-box{background:#222;border-radius:16px;padding:20px;max-width:600px;width:100%;
-  max-height:80vh;overflow-y:auto;border:1px solid #555;
-  box-shadow:0 10px 40px rgba(0,0,0,0.9);animation:modalIn .2s ease-out}
-@keyframes modalIn{from{opacity:0;transform:scale(0.95) translateY(10px)}to{opacity:1;transform:none}}
-.modal-box h3{margin-top:0;border-bottom:1px solid #444;padding-bottom:10px}
-.modal-close{float:right;background:#f44336;border:none;color:#fff;padding:6px 16px;
-  border-radius:20px;cursor:pointer;min-height:32px}
-.modal-box input[type=text],.modal-box textarea{width:100%;padding:10px;background:#333;
-  color:#fff;border:1px solid #555;border-radius:8px;font-size:14px;font-family:inherit;
-  outline:none;box-sizing:border-box}
-.modal-box input[type=text]:focus,.modal-box textarea:focus{border-color:#ff9800}
+.modal-box{background:#1e293b;border-radius:var(--radius-lg);padding:20px;max-width:600px;
+  width:100%;max-height:80vh;overflow-y:auto;border:1px solid var(--border-subtle);
+  box-shadow:var(--shadow-lg);animation:modalIn 250ms cubic-bezier(0.34,1.56,0.64,1)}
+@keyframes modalIn{from{opacity:0;transform:scale(0.9) translateY(-20px)}to{opacity:1;transform:none}}
+.modal-box h3{margin-top:0;border-bottom:1px solid var(--border-subtle);padding-bottom:10px}
+.modal-close{float:right;background:var(--danger);border:none;color:#fff;padding:6px 16px;
+  border-radius:var(--radius-full);cursor:pointer;min-height:32px;font-weight:600}
+.modal-box input[type=text],.modal-box textarea{width:100%;padding:10px;background:var(--bg-elevated);
+  color:#fff;border:1px solid var(--border-strong);border-radius:var(--radius-md);font-size:14px;
+  font-family:inherit;outline:none;box-sizing:border-box;transition:all var(--transition-fast)}
+.modal-box input[type=text]:focus,.modal-box textarea:focus{border-color:var(--primary);
+  box-shadow:0 0 0 3px rgba(59,130,246,0.2)}
 .modal-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:16px;flex-wrap:wrap}
-.modal-actions button{padding:10px 20px;border-radius:8px;border:none;cursor:pointer;
-  font-weight:bold;font-size:14px;min-height:40px}
-.modal-actions .btn-primary{background:#1976d2;color:#fff}
-.modal-actions .btn-danger{background:#f44336;color:#fff}
-.modal-actions .btn-cancel{background:#555;color:#fff}
-.progress-bar{width:100%;height:8px;background:#333;border-radius:4px;overflow:hidden;margin:12px 0}
-.progress-fill{height:100%;background:#4caf50;transition:width .2s;width:0%}
-.file-list-item{background:#333;padding:12px 14px;margin:6px 0;border-radius:8px;
-  display:flex;justify-content:space-between;align-items:center;gap:8px;
-  transition:.2s;flex-wrap:wrap}
-.file-list-item:hover{background:#3a3a3a}
-.file-list-item .name{font-weight:bold;cursor:pointer;flex:1;min-width:100px}
-.file-list-item .date{color:#aaa;font-size:.8rem}
+.modal-actions button{padding:10px 20px;border-radius:var(--radius-md);border:none;
+  cursor:pointer;font-weight:600;font-size:14px;min-height:40px;transition:all var(--transition-fast)}
+.modal-actions button:hover{transform:translateY(-1px);box-shadow:var(--shadow-md)}
+.modal-actions .btn-primary{background:var(--primary);color:#fff}
+.modal-actions .btn-danger{background:var(--danger);color:#fff}
+.modal-actions .btn-cancel{background:var(--bg-elevated);color:#fff}
+.progress-bar{width:100%;height:8px;background:var(--bg-elevated);border-radius:4px;
+  overflow:hidden;margin:12px 0}
+.progress-fill{height:100%;background:var(--success);transition:width .2s;width:0%}
+.file-list-item{background:var(--bg-elevated);padding:12px 14px;margin:6px 0;
+  border-radius:var(--radius-md);display:flex;justify-content:space-between;align-items:center;
+  gap:8px;transition:all var(--transition-fast);flex-wrap:wrap}
+.file-list-item:hover{background:#475569}
+.file-list-item .name{font-weight:700;cursor:pointer;flex:1;min-width:100px}
+.file-list-item .date{color:var(--text-secondary);font-size:.8rem}
 .file-list-item .actions{display:flex;gap:4px}
-.file-list-item .actions button{background:#444;border:none;color:#fff;padding:6px 10px;
-  border-radius:6px;cursor:pointer;font-size:12px;min-height:32px}
-.file-list-item .actions button:hover{background:#555}
-.file-list-item .actions .del{background:#f44336}
-.empty-msg{color:#888;text-align:center;padding:20px}
+.file-list-item .actions button{background:var(--bg-surface);border:none;color:#fff;
+  padding:6px 10px;border-radius:var(--radius-sm);cursor:pointer;font-size:12px;min-height:32px;
+  transition:all var(--transition-fast)}
+.file-list-item .actions button:hover{background:#64748b}
+.file-list-item .actions .del{background:var(--danger)}
+.empty-msg{color:var(--text-muted);text-align:center;padding:20px}
 
+/* Toast */
 #toast-container{position:fixed;bottom:20px;right:20px;z-index:9999;display:flex;
   flex-direction:column;gap:8px;pointer-events:none;max-width:calc(100vw - 40px)}
-.toast{background:var(--toast-bg);color:#fff;padding:12px 20px;border-radius:8px;
-  font-size:14px;box-shadow:0 4px 12px rgba(0,0,0,0.6);border-left:4px solid #ff9800;
+.toast{background:var(--toast-bg);color:#fff;padding:12px 20px;border-radius:var(--radius-md);
+  font-size:14px;box-shadow:var(--shadow-lg);border-left:4px solid var(--warning);
   transform:translateX(120%);transition:transform .4s ease,opacity .4s;opacity:0;
-  pointer-events:auto;max-width:400px}
+  pointer-events:auto;max-width:400px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .toast.show{transform:translateX(0);opacity:1}
-.toast.success{border-left-color:#4caf50}
-.toast.error{border-left-color:#f44336}
-.toast.info{border-left-color:#2196f3}
-.toast.warn{border-left-color:#ff9800}
+.toast.success{border-left-color:var(--success)}
+.toast.error{border-left-color:var(--danger)}
+.toast.info{border-left-color:var(--primary)}
+.toast.warn{border-left-color:var(--warning)}
 
+/* Edit controls */
 .edit-controls{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin:15px 0}
 .dir-group{display:grid;grid-template-columns:repeat(3,44px);gap:4px}
-.dir-group button{width:44px;height:44px;font-size:20px;background:#444;color:#fff;
-  border:1px solid #666;border-radius:6px;cursor:pointer}
-.dir-group button:hover{background:#666}
+.dir-group button{width:44px;height:44px;font-size:20px;background:var(--bg-elevated);
+  color:#fff;border:1px solid var(--border-strong);border-radius:var(--radius-sm);cursor:pointer}
+.dir-group button:hover{background:#475569}
 .dir-group .spacer{visibility:hidden}
 .size-group{display:flex;flex-wrap:wrap;gap:4px}
-.size-group button{padding:8px 14px;background:#444;color:#fff;border:1px solid #666;
-  border-radius:6px;cursor:pointer;font-weight:bold;font-size:13px;min-height:40px}
-.size-group button:hover{background:#666}
-.size-group button.active{background:#ff9800;border-color:#fff}
+.size-group button{padding:8px 14px;background:var(--bg-elevated);color:#fff;
+  border:1px solid var(--border-strong);border-radius:var(--radius-sm);cursor:pointer;
+  font-weight:600;font-size:13px;min-height:40px}
+.size-group button:hover{background:#475569}
+.size-group button.active{background:var(--warning);border-color:#fff}
 
 #temp-svg{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:900}
 #temp-svg path{stroke:#000;stroke-width:3;fill:none;stroke-linecap:round;stroke-linejoin:round}
 
-.tooltip-hint{font-size:clamp(11px,1vw,13px);color:#aaa;background:#2a2a2a;
-  padding:6px 14px;border-radius:12px;display:inline-block;margin:4px 0;text-align:center}
-.tooltip-hint a{color:#ff9800;text-decoration:none;font-weight:bold}
+.tooltip-hint{font-size:clamp(11px,1vw,13px);color:var(--text-secondary);
+  background:var(--bg-surface);padding:6px 14px;border-radius:var(--radius-full);
+  display:inline-block;margin:4px 0;text-align:center;border:1px solid var(--border-subtle)}
+.tooltip-hint a{color:var(--warning);text-decoration:none;font-weight:700}
 
+/* Fullscreen */
+body.fullscreen-pitch .panel,
+body.fullscreen-pitch .mobile-topbar,
+body.fullscreen-pitch h2,
+body.fullscreen-pitch .scenario-container,
+body.fullscreen-pitch .tooltip-hint,
+body.fullscreen-pitch #equipment-palette{
+  display:none!important;
+}
+body.fullscreen-pitch #pitch-wrapper{
+  position:fixed!important;inset:0!important;z-index:500!important;
+  border-radius:0!important;margin:0!important;max-width:none!important;
+  width:100vw!important;height:100vh!important;height:100dvh!important;
+  box-shadow:none!important;overflow:auto!important;
+}
+body.fullscreen-pitch .pitch-exit-btn{display:flex}
+body.fullscreen-pitch #playback-controls{
+  position:fixed!important;bottom:0!important;left:0!important;right:0!important;
+  z-index:600!important;border-radius:0!important;margin:0!important;
+  padding-bottom:max(8px,env(safe-area-inset-bottom))!important;
+}
+
+/* Mobile */
 @media (max-width:768px){
-  .panel{flex-direction:column;align-items:stretch}
+  body{padding:6px;padding-top:max(6px,env(safe-area-inset-top));
+    padding-bottom:max(6px,env(safe-area-inset-bottom))}
+  .mobile-topbar{display:flex}
+  h2{font-size:18px;margin:4px 0 6px}
+  h2 small{display:none}
+  .panel{
+    position:fixed;top:0;left:0;right:0;z-index:200;
+    transform:translateY(-100%);transition:transform var(--transition-base);
+    max-height:88vh;overflow-y:auto;
+    border-radius:0 0 var(--radius-lg) var(--radius-lg);
+    padding:16px;padding-top:64px;
+    flex-direction:column;align-items:stretch;
+    box-shadow:var(--shadow-lg);margin:0;
+    padding-top:max(64px,calc(env(safe-area-inset-top) + 56px));
+  }
+  .panel.open{transform:translateY(0)}
   .panel>*{justify-content:center}
-  .checkbox-group{justify-content:center}
-  .sport-selector{justify-content:center}
-  .tool-group{justify-content:center}
-  #equipment-palette{justify-content:center}
-  .scenario-container{justify-content:center}
-  #trash-bin{width:70px;height:60px;font-size:20px;right:10px;bottom:10px}
-  #trash-bin span{font-size:10px}
+  .panel-close{display:flex}
+  #pitch-wrapper{overflow:auto;-webkit-overflow-scrolling:touch;border-radius:6px}
+  .pitch-scroll-btn{display:flex}
+  .scenario-btn{width:44px;height:44px;font-size:16px}
+  .btn-add-scenario{width:44px;height:44px}
+  #trash-bin{width:64px;height:64px;font-size:20px;right:12px;
+    bottom:max(12px,env(safe-area-inset-bottom))}
+  #trash-bin span{font-size:9px}
+  #playback-controls{position:sticky;bottom:0;z-index:100;width:100%;
+    border-radius:0;padding:8px;padding-bottom:max(8px,env(safe-area-inset-bottom))}
+  #equipment-palette{padding:8px;justify-content:flex-start}
   .modal-box{padding:16px}
+  .panel select,.panel button{min-height:44px}
+  .dir-group{grid-template-columns:repeat(3,44px)}
+}
+
+@media (max-width:900px) and (orientation:landscape){
+  .mobile-topbar{display:flex}
+  body{padding:4px}
 }
 </style>
 </head>
@@ -270,16 +412,25 @@ h2 small{font-size:clamp(12px,2vw,16px);color:#aaa;font-weight:normal}
 
 <h2>🏟️ Sporcu Taktik Tahtası <small>- Osman Efe Tekinaslan</small></h2>
 
-<div class="panel">
+<div class="mobile-topbar" id="mobileTopbar">
+  <button class="mob-icon" onclick="togglePanel()" aria-label="Menü">☰</button>
+  <button class="mob-sim" onclick="runSimulation()">▶ Simülasyon</button>
+  <button class="mob-rec" id="mobileRecBtn" onclick="toggleRecording()" aria-label="Kaydet">🔴</button>
+  <button class="mob-icon" onclick="toggleFullscreen()" aria-label="Tam ekran">⛶</button>
+</div>
+
+<div class="panel" id="mainPanel">
+  <button class="panel-close" onclick="togglePanel()" aria-label="Kapat">✕</button>
+
   <div>
-    <label style="color:#aaa;font-size:13px;">Kadro:</label>
+    <label style="color:var(--text-secondary);font-size:13px;">Kadro:</label>
     <select id="playerCount" onchange="setupBoard({preserve:true})"></select>
   </div>
 
   <div class="checkbox-group">
     <label><input type="checkbox" id="rivalTeam" onchange="setupBoard({preserve:true})"> Rakip</label>
     <label><input type="checkbox" id="showBall" onchange="setupBoard({preserve:true})" checked> Top</label>
-    <label style="color:#fbc02d;border-left:1px solid #555;padding-left:8px;">
+    <label style="color:#fbbf24;border-left:1px solid var(--border-strong);padding-left:8px;">
       <input type="checkbox" id="trainingMode" onchange="setupBoard({preserve:true})"> Eğitim
     </label>
   </div>
@@ -292,7 +443,7 @@ h2 small{font-size:clamp(12px,2vw,16px);color:#aaa;font-weight:normal}
   <button class="btn-share" onclick="openExportMenu()">📤 Dışa</button>
   <button class="btn-share" onclick="importJSON()">📥 İçe</button>
 
-  <span style="color:#aaa;font-size:13px;">Çizgi:</span>
+  <span style="color:var(--text-secondary);font-size:13px;">Çizgi:</span>
   <div class="tool-group">
     <button class="btn-line" data-mode="free" onclick="setLineMode('free')">✏️</button>
     <button class="btn-line" data-mode="straight" onclick="setLineMode('straight')">📏</button>
@@ -329,11 +480,16 @@ h2 small{font-size:clamp(12px,2vw,16px);color:#aaa;font-weight:normal}
   </div>
 </div>
 
+<div class="panel-backdrop" id="panelBackdrop" onclick="togglePanel()"></div>
+
 <div id="equipment-palette">
   <div class="palette-label">📦 Eğitim Malzemeleri (Tıkla & Klonla)</div>
 </div>
 
 <div id="pitch-wrapper">
+  <button class="pitch-exit-btn" onclick="toggleFullscreen()" aria-label="Çık">✕</button>
+  <button class="pitch-scroll-btn left" onclick="scrollPitch(-1)" aria-label="Sola kaydır">◀</button>
+  <button class="pitch-scroll-btn right" onclick="scrollPitch(1)" aria-label="Sağa kaydır">▶</button>
   <div id="pitch-container">
     <div id="items-layer"></div>
     <svg id="temp-svg"></svg>
@@ -349,7 +505,7 @@ h2 small{font-size:clamp(12px,2vw,16px);color:#aaa;font-weight:normal}
   <button onclick="setSpeed(2,event)">2×</button>
   <button onclick="setSpeed(3,event)">3×</button>
   <button id="restartBtn" class="btn-restart" onclick="restartPlayback()">🔄 Tekrar</button>
-  <button onclick="stopPlayback()" style="background:#f44336;">⏹ Durdur</button>
+  <button onclick="stopPlayback()" style="background:var(--danger);">⏹ Durdur</button>
 </div>
 
 <div class="scenario-container">
@@ -361,10 +517,8 @@ h2 small{font-size:clamp(12px,2vw,16px);color:#aaa;font-weight:normal}
   💡 Oyuncuya çift tıkla isim ver · Ekipmanı çöpe at · <a href="#" onclick="openShortcutsModal(event)">Klavye kısayolları</a>
 </div>
 
-<!-- Programatik modal -->
 <div class="modal-overlay" id="dynamic-modal"></div>
 
-<!-- Dosya modal -->
 <div class="modal-overlay" id="fileListModal">
   <div class="modal-box">
     <button class="modal-close" onclick="closeFileList()">✕</button>
@@ -373,12 +527,11 @@ h2 small{font-size:clamp(12px,2vw,16px);color:#aaa;font-weight:normal}
   </div>
 </div>
 
-<!-- Ekipman düzenleme modal -->
 <div class="modal-overlay" id="editModal">
   <div class="modal-box">
     <button class="modal-close" onclick="closeEditModal()">✕</button>
     <h3>🔧 Ekipman Düzenle</h3>
-    <div id="editItemName" style="color:#aaa;margin-bottom:10px;">Seçili: Yok</div>
+    <div id="editItemName" style="color:var(--text-secondary);margin-bottom:10px;">Seçili: Yok</div>
     <div class="edit-controls">
       <div class="dir-group">
         <button class="spacer"></button>
@@ -396,7 +549,7 @@ h2 small{font-size:clamp(12px,2vw,16px);color:#aaa;font-weight:normal}
         <button onclick="scaleItem(1.5)">1.5×</button>
       </div>
     </div>
-    <p style="color:#888;font-size:12px;">Yön butonları döndürür, boyut butonları ölçekler.</p>
+    <p style="color:var(--text-muted);font-size:12px;">Yön butonları döndürür, boyut butonları ölçekler.</p>
   </div>
 </div>
 
@@ -478,7 +631,7 @@ function showPrompt(title, defaultValue='', message=''){
     box.setAttribute('aria-modal','true');
     box.innerHTML = `
       <h3>${escapeHtml(title)}</h3>
-      ${message ? `<p style="color:#bbb;font-size:13px;margin:0 0 10px">${escapeHtml(message)}</p>` : ''}
+      ${message ? `<p style="color:var(--text-secondary);font-size:13px;margin:0 0 10px">${escapeHtml(message)}</p>` : ''}
       <input type="text" id="dyn-input" value="${escapeHtml(defaultValue)}" autocomplete="off">
       <div class="modal-actions">
         <button class="btn-cancel" id="dyn-cancel">İptal</button>
@@ -509,7 +662,7 @@ function showConfirm(title, message, opts={}){
     box.setAttribute('aria-modal','true');
     box.innerHTML = `
       <h3>${escapeHtml(title)}</h3>
-      <p style="color:#bbb;white-space:pre-wrap;margin:0 0 10px">${escapeHtml(message)}</p>
+      <p style="color:var(--text-secondary);white-space:pre-wrap;margin:0 0 10px">${escapeHtml(message)}</p>
       <div class="modal-actions">
         <button class="btn-cancel" id="dyn-cancel">İptal</button>
         <button class="${opts.danger ? 'btn-danger' : 'btn-primary'}" id="dyn-ok">${escapeHtml(opts.okText || 'Tamam')}</button>
@@ -529,7 +682,6 @@ function showConfirm(title, message, opts={}){
   });
 }
 
-// 3+ seçenekli modal — { label, value, className }
 function showChoice(title, message, buttons){
   return new Promise(resolve => {
     const o = $('#dynamic-modal');
@@ -540,7 +692,7 @@ function showChoice(title, message, buttons){
     box.setAttribute('aria-modal','true');
     box.innerHTML = `
       <h3>${escapeHtml(title)}</h3>
-      <p style="color:#bbb;white-space:pre-wrap;font-size:13px;line-height:1.5;margin:0 0 10px">${escapeHtml(message)}</p>
+      <p style="color:var(--text-secondary);white-space:pre-wrap;font-size:13px;line-height:1.5;margin:0 0 10px">${escapeHtml(message)}</p>
       <div class="modal-actions" id="choice-buttons"></div>`;
     const btnContainer = box.querySelector('#choice-buttons');
     buttons.forEach(b => {
@@ -563,7 +715,7 @@ function showProgress(title){
   box.className = 'modal-box';
   box.innerHTML = `
     <h3>${escapeHtml(title)}</h3>
-    <p id="prog-text" style="color:#bbb;margin:0 0 10px">Hazırlanıyor...</p>
+    <p id="prog-text" style="color:var(--text-secondary);margin:0 0 10px">Hazırlanıyor...</p>
     <div class="progress-bar"><div class="progress-fill" id="prog-fill"></div></div>
     <div class="modal-actions">
       <button class="btn-danger" id="prog-cancel">İptal</button>
@@ -590,7 +742,7 @@ function openShortcutsModal(e){
   box.innerHTML = `
     <button class="modal-close" onclick="closeDynamicModal()">✕</button>
     <h3>⌨️ Klavye Kısayolları</h3>
-    <table style="width:100%;font-size:14px;color:#ddd;border-collapse:collapse">
+    <table style="width:100%;font-size:14px;color:var(--text-primary);border-collapse:collapse">
       <tr><td style="padding:6px 0"><kbd>Ctrl+Z</kbd></td><td>Geri al</td></tr>
       <tr><td style="padding:6px 0"><kbd>Ctrl+Y</kbd></td><td>İleri al</td></tr>
       <tr><td style="padding:6px 0"><kbd>Delete</kbd></td><td>Seçili ekipmanı sil</td></tr>
@@ -614,7 +766,7 @@ function screenToPitch(clientX, clientY){
 }
 
 // ═══════════════════════════════════════════════════════════════
-// 5. DB (IndexedDB with fallback)
+// 5. DB
 // ═══════════════════════════════════════════════════════════════
 function openDB(){
   return new Promise((resolve, reject) => {
@@ -687,12 +839,12 @@ function dbDelete(id){
 // 6. SPORT CONFIG
 // ═══════════════════════════════════════════════════════════════
 const SPORTS = {
-  football:   { name:'Futbol',      emoji:'⚽', players:11, ball:true,  color:'#2e7d32' },
-  volleyball: { name:'Voleybol',    emoji:'🏐', players:6,  ball:true,  color:'#d4a373' },
-  handball:   { name:'Hentbol',     emoji:'🤾', players:7,  ball:true,  color:'#2c5f5f' },
-  hockey:     { name:'Çim Hokeyi',  emoji:'🏑', players:11, ball:true,  color:'#3a7d44' },
-  basketball: { name:'Basketbol',   emoji:'🏀', players:5,  ball:true,  color:'#c28a5c' },
-  athletics:  { name:'Atletizm',    emoji:'🏃', players:4,  ball:false, color:'#c0392b' },
+  football:   { name:'Futbol',      emoji:'⚽', players:11, ball:true,  color:'#15803d' },
+  volleyball: { name:'Voleybol',    emoji:'🏐', players:6,  ball:true,  color:'#c08a5e' },
+  handball:   { name:'Hentbol',     emoji:'🤾', players:7,  ball:true,  color:'#155e63' },
+  hockey:     { name:'Çim Hokeyi',  emoji:'🏑', players:11, ball:true,  color:'#166534' },
+  basketball: { name:'Basketbol',   emoji:'🏀', players:5,  ball:true,  color:'#b4743d' },
+  athletics:  { name:'Atletizm',    emoji:'🏃', players:4,  ball:false, color:'#991b1b' },
 };
 
 // ═══════════════════════════════════════════════════════════════
@@ -779,7 +931,7 @@ function drawCourt(sport){
     const outerW = W*0.95, outerH = H*0.92, innerW = outerW*0.42, innerH = outerH*0.42;
     const grass = document.createElement('div');
     grass.className = 'grass-area';
-    grass.style.cssText = `width:${innerW}px;height:${innerH}px;top:50%;left:50%;transform:translate(-50%,-50%);background:#2e7d32;border:2px solid var(--line-white);`;
+    grass.style.cssText = `width:${innerW}px;height:${innerH}px;top:50%;left:50%;transform:translate(-50%,-50%);background:#15803d;border:2px solid var(--line-white);`;
     pitch.appendChild(grass);
     addLine({ width:outerW+'px', height:outerH+'px', borderRadius:'50%', top:'50%', left:'50%', transform:'translate(-50%,-50%)', border:'3px solid var(--line-white)' });
     addLine({ width:innerW+'px', height:innerH+'px', borderRadius:'50%', top:'50%', left:'50%', transform:'translate(-50%,-50%)', border:'2px solid var(--line-white)' });
@@ -1006,7 +1158,7 @@ function setSelection(el){
 }
 
 // ═══════════════════════════════════════════════════════════════
-// 11. DRAG (Pointer Events)
+// 11. DRAG
 // ═══════════════════════════════════════════════════════════════
 function onItemPointerDown(e){
   if (App.isPlaybackActiveFlag || App.lineMode || App.eraserMode) return;
@@ -1087,7 +1239,7 @@ function onItemPointerUp(e){
 }
 
 // ═══════════════════════════════════════════════════════════════
-// 12. DRAWING (Pointer Events)
+// 12. DRAWING
 // ═══════════════════════════════════════════════════════════════
 function setLineMode(mode){
   if (App.isPlaybackActiveFlag) { toast('Önce oynatmayı durdurun.', 'error'); return; }
@@ -1218,11 +1370,22 @@ function toggleGrid(){
 // 15. SCALE / DEVICE
 // ═══════════════════════════════════════════════════════════════
 function scalePitch(forceScale = null){
+  const isMobile = window.innerWidth <= 768;
   const wrapperWidth = pitchWrapper.clientWidth;
   let scale;
-  if (forceScale !== null) { scale = forceScale; App.manualScale = forceScale; }
-  else if (App.manualScale !== null) { scale = App.manualScale; }
-  else { scale = Math.min(1, wrapperWidth / CFG.PITCH_W); }
+  if (forceScale !== null) {
+    scale = forceScale;
+    App.manualScale = forceScale;
+  } else if (App.manualScale !== null) {
+    scale = App.manualScale;
+  } else {
+    const fitScale = wrapperWidth / CFG.PITCH_W;
+    if (isMobile) {
+      scale = Math.max(0.5, Math.min(1.5, fitScale));
+    } else {
+      scale = Math.min(1, fitScale);
+    }
+  }
   App.currentScale = scale;
   pitch.style.transform = `scale(${scale})`;
   pitchWrapper.style.height = (CFG.PITCH_H * scale) + 'px';
@@ -1244,8 +1407,73 @@ function setDevice(value){
   try { localStorage.setItem('tactics_device_scale', value); } catch(e){}
 }
 
+function scrollPitch(dir){
+  pitchWrapper.scrollLeft += dir * 300;
+}
+
 // ═══════════════════════════════════════════════════════════════
-// 16. PINCH ZOOM
+// 16. MOBILE PANEL & FULLSCREEN
+// ═══════════════════════════════════════════════════════════════
+function togglePanel(){
+  const panel = $('#mainPanel');
+  const backdrop = $('#panelBackdrop');
+  if (!panel) return;
+  const isOpen = panel.classList.toggle('open');
+  if (backdrop) backdrop.classList.toggle('active', isOpen);
+  document.body.style.overflow = isOpen ? 'hidden' : '';
+}
+
+function toggleFullscreen(){
+  document.body.classList.toggle('fullscreen-pitch');
+  const isFs = document.body.classList.contains('fullscreen-pitch');
+  if (isFs) {
+    if (document.documentElement.requestFullscreen) {
+      document.documentElement.requestFullscreen().catch(()=>{});
+    }
+    const panel = $('#mainPanel');
+    if (panel && panel.classList.contains('open')) togglePanel();
+    toast('Tam ekran modu — çıkmak için ✕', 'info', 2000);
+  } else {
+    if (document.exitFullscreen && document.fullscreenElement) {
+      document.exitFullscreen().catch(()=>{});
+    }
+  }
+  setTimeout(() => scalePitch(), 150);
+}
+
+document.addEventListener('fullscreenchange', () => {
+  if (!document.fullscreenElement && document.body.classList.contains('fullscreen-pitch')) {
+    document.body.classList.remove('fullscreen-pitch');
+    setTimeout(() => scalePitch(), 100);
+  }
+});
+
+function updateRecordButtons(recording){
+  const btn = $('#recordBtn');
+  const mobBtn = $('#mobileRecBtn');
+  if (btn) {
+    btn.textContent = recording ? '⏹ Durdur' : '🔴 Kaydet';
+    btn.style.background = recording ? 'var(--danger)' : 'var(--warning)';
+  }
+  if (mobBtn) {
+    mobBtn.classList.toggle('recording', recording);
+    mobBtn.textContent = recording ? '⏹' : '🔴';
+  }
+}
+
+function checkPortraitHint(){
+  if (window.innerWidth <= 768 && window.innerHeight > window.innerWidth) {
+    if (!sessionStorage.getItem('portraitHintShown')) {
+      setTimeout(() => {
+        toast('💡 Daha iyi görünüm için telefonu yan çevirin', 'info', 4000);
+        sessionStorage.setItem('portraitHintShown', '1');
+      }, 2000);
+    }
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════
+// 17. PINCH ZOOM
 // ═══════════════════════════════════════════════════════════════
 pitchWrapper.addEventListener('touchstart', e => {
   if (e.touches.length === 2 && !App.activeItem) {
@@ -1273,7 +1501,7 @@ pitchWrapper.addEventListener('touchmove', e => {
 pitchWrapper.addEventListener('touchend', () => { App.pinchState = null; });
 
 // ═══════════════════════════════════════════════════════════════
-// 17. BOARD SETUP
+// 18. BOARD SETUP
 // ═══════════════════════════════════════════════════════════════
 function setupBoard(opts = {}){
   const count = parseInt($('#playerCount').value) || SPORTS[App.currentSport].players;
@@ -1323,7 +1551,7 @@ function setupBoard(opts = {}){
 }
 
 // ═══════════════════════════════════════════════════════════════
-// 18. SPORT SWITCH
+// 19. SPORT SWITCH
 // ═══════════════════════════════════════════════════════════════
 function switchSport(sport){
   if (App.isPlaybackActiveFlag) { toast('Önce oynatmayı durdurun.', 'error'); return; }
@@ -1339,7 +1567,7 @@ function switchSport(sport){
 }
 
 // ═══════════════════════════════════════════════════════════════
-// 19. SCENARIO MANAGEMENT
+// 20. SCENARIO MANAGEMENT
 // ═══════════════════════════════════════════════════════════════
 function renderScenarioButtons(){
   scenarioList.innerHTML = '';
@@ -1456,7 +1684,7 @@ function applyScenarioData(data, opts = {}){
 }
 
 // ═══════════════════════════════════════════════════════════════
-// 20. UNDO / REDO
+// 21. UNDO / REDO
 // ═══════════════════════════════════════════════════════════════
 function getSnapshot(){
   return $$('.draggable').map(item => ({
@@ -1546,7 +1774,7 @@ function redoAction(){
 }
 
 // ═══════════════════════════════════════════════════════════════
-// 21. EQUIPMENT EDIT MODAL
+// 22. EQUIPMENT EDIT
 // ═══════════════════════════════════════════════════════════════
 function openEditModal(){
   if (App.isPlaybackActiveFlag) { toast('Önce oynatmayı durdurun.', 'error'); return; }
@@ -1587,7 +1815,7 @@ function scaleItem(factor){
 }
 
 // ═══════════════════════════════════════════════════════════════
-// 22. AUTOSAVE
+// 23. AUTOSAVE
 // ═══════════════════════════════════════════════════════════════
 function scheduleAutosave(){
   clearTimeout(App.autosaveTimer);
@@ -1620,7 +1848,7 @@ function restoreAutosave(){
 }
 
 // ═══════════════════════════════════════════════════════════════
-// 23. SIMULATION
+// 24. SIMULATION
 // ═══════════════════════════════════════════════════════════════
 async function runSimulation(){
   if (App.isPlaybackActiveFlag || App.isSimRunning) return;
@@ -1648,17 +1876,15 @@ async function runSimulation(){
 }
 
 // ═══════════════════════════════════════════════════════════════
-// 24. RECORDING
+// 25. RECORDING
 // ═══════════════════════════════════════════════════════════════
 async function toggleRecording(){
   if (App.isPlaybackActiveFlag) { toast('Önce oynatmayı durdurun.', 'error'); return; }
   if (App.isSimRunning) return;
 
-  const btn = $('#recordBtn');
   if (App.isRecording) {
     App.isRecording = false;
-    btn.textContent = '🔴 Kaydet';
-    btn.style.background = '#ff9800';
+    updateRecordButtons(false);
     await finalizeRecording();
   } else {
     if (App.recordingSteps.length > 0) {
@@ -1667,8 +1893,7 @@ async function toggleRecording(){
       App.recordingSteps = [];
     }
     App.isRecording = true;
-    btn.textContent = '⏹ Durdur';
-    btn.style.background = '#f44336';
+    updateRecordButtons(true);
     await runSimulationAndRecord();
   }
 }
@@ -1693,8 +1918,7 @@ async function runSimulationAndRecord(){
     }
 
     App.isRecording = false;
-    $('#recordBtn').textContent = '🔴 Kaydet';
-    $('#recordBtn').style.background = '#ff9800';
+    updateRecordButtons(false);
     await finalizeRecording();
   } finally {
     btn.disabled = false;
@@ -1754,7 +1978,7 @@ function getCurrentPositions(){
 }
 
 // ═══════════════════════════════════════════════════════════════
-// 25. FILE LIST (with share button)
+// 26. FILE LIST
 // ═══════════════════════════════════════════════════════════════
 async function openFileList(){
   if (App.isPlaybackActiveFlag) { toast('Önce oynatmayı durdurun.', 'error'); return; }
@@ -1839,7 +2063,7 @@ async function openFileList(){
 function closeFileList(){ $('#fileListModal').classList.remove('active'); }
 
 // ═══════════════════════════════════════════════════════════════
-// 26. PLAYBACK
+// 27. PLAYBACK
 // ═══════════════════════════════════════════════════════════════
 function isPlaybackActive(){ return App.isPlaybackActiveFlag; }
 
@@ -1854,7 +2078,7 @@ async function startPlayback(recId){
     if (rec.sport) {
       App.currentSport = rec.sport;
       $('#sportSelect').value = rec.sport;
-      pitch.style.background = SPORTS[rec.sport]?.color || '#2e7d32';
+      pitch.style.background = SPORTS[rec.sport]?.color || '#15803d';
       drawCourt(rec.sport);
     }
     App.playbackData = rec;
@@ -1957,7 +2181,7 @@ function stopPlayback(){
 }
 
 // ═══════════════════════════════════════════════════════════════
-// 27. VIDEO EXPORT
+// 28. VIDEO EXPORT
 // ═══════════════════════════════════════════════════════════════
 async function exportVideo(){
   if (App.isPlaybackActiveFlag) { toast('Önce oynatmayı durdurun.', 'error'); return; }
@@ -2025,7 +2249,7 @@ async function exportVideo(){
 }
 
 // ═══════════════════════════════════════════════════════════════
-// 28. PROJECT EXPORT / IMPORT (Full State + Recordings)
+// 29. PROJECT EXPORT / IMPORT
 // ═══════════════════════════════════════════════════════════════
 const EXPORT_FORMAT = 'taktik-board-export';
 const EXPORT_VERSION = 2;
@@ -2060,7 +2284,6 @@ async function buildProjectSnapshot(opts = {}){
     version: EXPORT_VERSION,
     exportedAt: new Date().toISOString(),
     app: { name: 'Pro Taktik Tahtası', author: 'Osman Efe Tekinaslan' },
-
     settings: {
       sport: App.currentSport,
       playerCount: parseInt($('#playerCount').value) || 11,
@@ -2071,7 +2294,6 @@ async function buildProjectSnapshot(opts = {}){
       deviceScale: App.manualScale === null ? 'auto' : String(App.manualScale),
       currentScenario: App.currentScenario,
     },
-
     scenarios: JSON.parse(JSON.stringify(App.scenarioData)),
     scenarioCount: App.scenarioCount,
     recordings: [],
@@ -2088,9 +2310,7 @@ async function buildProjectSnapshot(opts = {}){
         scenarioCount: r.scenarioCount || 8,
         steps: r.steps || [],
       }));
-    } catch(e) {
-      console.warn('Kayıtlar eklenemedi:', e);
-    }
+    } catch(e) { console.warn('Kayıtlar eklenemedi:', e); }
   }
 
   snap.meta = {
@@ -2294,7 +2514,7 @@ async function applyRecordingImport(recordings, mode){
 }
 
 // ═══════════════════════════════════════════════════════════════
-// 29. RESET
+// 30. RESET
 // ═══════════════════════════════════════════════════════════════
 async function resetAll(){
   const ok = await showConfirm('Sıfırla?', 'Tüm sahayı ve senaryoları sıfırla? Bu işlem geri alınamaz.', { danger:true, okText:'Sıfırla' });
@@ -2321,7 +2541,7 @@ async function resetAll(){
 }
 
 // ═══════════════════════════════════════════════════════════════
-// 30. KEYBOARD
+// 31. KEYBOARD
 // ═══════════════════════════════════════════════════════════════
 document.addEventListener('keydown', e => {
   const tag = (e.target.tagName || '').toLowerCase();
@@ -2344,6 +2564,8 @@ document.addEventListener('keydown', e => {
     if ($('#dynamic-modal').classList.contains('active')) { closeDynamicModal(); return; }
     if ($('#fileListModal').classList.contains('active')) { closeFileList(); return; }
     if ($('#editModal').classList.contains('active')) { closeEditModal(); return; }
+    if ($('#mainPanel').classList.contains('open')) { togglePanel(); return; }
+    if (document.body.classList.contains('fullscreen-pitch')) { toggleFullscreen(); return; }
     if (App.lineMode) setLineMode(null);
     if (App.eraserMode) toggleEraser();
   }
@@ -2359,7 +2581,7 @@ $$('.modal-overlay').forEach(overlay => {
 });
 
 // ═══════════════════════════════════════════════════════════════
-// 31. INIT
+// 32. INIT
 // ═══════════════════════════════════════════════════════════════
 function initPlayerCountSelect(){
   const sel = $('#playerCount');
@@ -2375,6 +2597,12 @@ function initPlayerCountSelect(){
 
 window.addEventListener('resize', () => {
   if (App.manualScale === null) scalePitch();
+});
+
+window.addEventListener('orientationchange', () => {
+  setTimeout(() => {
+    if (App.manualScale === null) scalePitch();
+  }, 200);
 });
 
 async function init(){
@@ -2421,6 +2649,7 @@ async function init(){
   }
 
   scheduleAutosave();
+  checkPortraitHint();
 }
 
 window.addEventListener('DOMContentLoaded', () => { init(); });
