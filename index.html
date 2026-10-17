@@ -53,7 +53,7 @@ h2 small{font-size:clamp(12px,2vw,16px);color:var(--text-secondary);font-weight:
 .panel{background:var(--panel-bg);padding:10px 15px;border-radius:12px;
   display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:center;
   border:1px solid var(--border-subtle);box-shadow:var(--shadow-md);
-  width:100%;max-width:2000px;margin-bottom:8px;position:relative}
+  width:100%;margin-bottom:8px;position:relative}
 .panel select,.panel button{padding:8px 14px;cursor:pointer;border:none;border-radius:var(--radius-sm);
   font-weight:600;font-size:clamp(12px,1.2vw,14px);transition:all var(--transition-fast);
   color:#fff;min-height:38px;touch-action:manipulation}
@@ -105,11 +105,11 @@ h2 small{font-size:clamp(12px,2vw,16px);color:var(--text-secondary);font-weight:
 .btn-grid.active{background:#fbbf24;color:#000;border-color:#fff}
 .btn-line:focus-visible,.btn-eraser:focus-visible,.btn-grid:focus-visible{outline:2px solid var(--primary);outline-offset:2px}
 
-#pitch-wrapper{width:100%;max-width:2000px;position:relative;overflow:auto;
+#pitch-wrapper{width:100%;position:relative;overflow:auto;
   border-radius:8px;box-shadow:0 10px 30px rgba(0,0,0,0.8);margin:6px 0;
   touch-action:pan-x pan-y;overscroll-behavior:contain;
   -webkit-overflow-scrolling:touch}
-#pitch-sizer{position:relative;overflow:hidden;margin:0 auto}
+#pitch-sizer{position:relative;overflow:hidden;margin:0}
 #pitch-container{position:absolute;top:0;left:0;width:2000px;height:900px;
   background:linear-gradient(180deg,#15803d 0%,#166534 50%,#15803d 100%);
   border:3px solid rgba(255,255,255,0.15);transform-origin:top left;
@@ -162,7 +162,7 @@ h2 small{font-size:clamp(12px,2vw,16px);color:var(--text-secondary);font-weight:
 
 .line-item{z-index:5}
 
-#equipment-palette{width:100%;max-width:2000px;min-height:80px;background:var(--palette-bg);
+#equipment-palette{width:100%;min-height:80px;background:var(--palette-bg);
   border:2px solid var(--border-subtle);border-radius:8px;margin:6px 0;padding:8px 10px;
   display:flex;flex-wrap:wrap;align-items:center;justify-content:flex-start;gap:8px;
   box-shadow:inset 0 0 20px rgba(0,0,0,0.3);overflow-x:auto}
@@ -241,7 +241,7 @@ h2 small{font-size:clamp(12px,2vw,16px);color:var(--text-secondary);font-weight:
 #playback-controls .btn-restart{background:var(--success);display:none}
 
 .scenario-container{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:center;
-  max-width:2000px;margin:6px 0}
+  width:100%;margin:6px 0}
 .scenario-box{display:flex;gap:6px;flex-wrap:wrap}
 .scenario-btn{background:var(--bg-elevated);color:#fff;border:2px solid transparent;
   width:42px;height:42px;border-radius:var(--radius-sm);font-size:16px;font-weight:700;
@@ -564,6 +564,8 @@ const CFG = {
   PITCH_W: 2000, PITCH_H: 900, GRID: 20,
   STEP_MS: 1400, EXPORT_HOLD_MS: 1000, MAX_HISTORY: 50,
   AUTOSAVE_KEY: 'tactics_autosave_v2',
+  SCALE_KEY: 'tactics_device_scale',
+  SCALE_CLEAN_KEY: 'tactics_scale_cleaned_v3',
   DB_NAME: 'TacticalRecordingsDB', DB_VERSION: 2, DB_STORE: 'recordings',
 };
 const App = {
@@ -1331,23 +1333,29 @@ function toggleGrid(){
 
 function scalePitch(forceScale = null){
   const isFullscreen = document.body.classList.contains('fullscreen-pitch');
-  const wrapperWidth = isFullscreen
-    ? window.innerWidth
-    : (pitchWrapper.clientWidth || (window.innerWidth - 24));
   const W = App.pitchW, H = App.pitchH;
-  const fitW = wrapperWidth / W;
-  let scale;
 
+  // Wrapper genişliğini güvenilir şekilde al
+  let wrapperWidth;
+  if (isFullscreen) {
+    wrapperWidth = window.innerWidth;
+  } else {
+    const rect = pitchWrapper.getBoundingClientRect();
+    wrapperWidth = rect.width || (window.innerWidth - 20);
+  }
+
+  let scale;
   if (forceScale !== null) {
     scale = forceScale;
     App.manualScale = forceScale;
   } else if (App.manualScale !== null) {
     scale = App.manualScale;
   } else {
-    scale = Math.min(1, fitW);
+    // Her zaman ekran genişliğine göre tam fit
+    scale = wrapperWidth / W;
   }
 
-  scale = Math.max(0.12, Math.min(2.5, scale));
+  scale = Math.max(0.12, Math.min(4, scale));
   App.currentScale = scale;
   pitch.style.transform = `scale(${scale})`;
 
@@ -1378,7 +1386,7 @@ function setDevice(value){
       toast(`Ölçek ${s} olarak ayarlandı`, 'success');
     }
   }
-  try { localStorage.setItem('tactics_device_scale', value); } catch(e){}
+  try { localStorage.setItem(CFG.SCALE_KEY, value); } catch(e){}
 }
 
 function transformPath90CW(path, oldH){
@@ -1678,7 +1686,7 @@ pitchWrapper.addEventListener('touchmove', e => {
       e.touches[0].clientX - e.touches[1].clientX,
       e.touches[0].clientY - e.touches[1].clientY
     );
-    const newScale = Math.max(0.12, Math.min(2.5, App.pinchState.startScale * (d / App.pinchState.d)));
+    const newScale = Math.max(0.12, Math.min(4, App.pinchState.startScale * (d / App.pinchState.d)));
     const rect = pitchWrapper.getBoundingClientRect();
     const midX = (e.touches[0].clientX + e.touches[1].clientX) / 2 - rect.left;
     const midY = (e.touches[0].clientY + e.touches[1].clientY) / 2 - rect.top;
@@ -2883,12 +2891,18 @@ async function init(){
   initPlayerCountSelect();
 
   try {
+    // ⚠️ Bir kerelik eski bozuk ölçek değerini temizle
+    if (!localStorage.getItem(CFG.SCALE_CLEAN_KEY)) {
+      localStorage.removeItem(CFG.SCALE_KEY);
+      localStorage.setItem(CFG.SCALE_CLEAN_KEY, '1');
+    }
+
     const isMobileInit = window.matchMedia('(max-width: 900px)').matches;
-    const saved = localStorage.getItem('tactics_device_scale');
+    const saved = localStorage.getItem(CFG.SCALE_KEY);
     if (saved && saved !== 'auto' && !isMobileInit) {
       const s = parseFloat(saved);
       if (!isNaN(s)) { App.manualScale = s; $('#deviceSelect').value = saved; }
-    } else if (isMobileInit) {
+    } else {
       App.manualScale = null;
       $('#deviceSelect').value = 'auto';
     }
@@ -2917,7 +2931,12 @@ async function init(){
   }
 
   scalePitch();
-  requestAnimationFrame(() => { if (App.manualScale === null) scalePitch(); });
+  requestAnimationFrame(() => {
+    if (App.manualScale === null) scalePitch();
+  });
+  setTimeout(() => {
+    if (App.manualScale === null) scalePitch();
+  }, 100);
 
   try { await openDB(); }
   catch(e) {
