@@ -1389,6 +1389,60 @@ function transformPath90CW(path, oldH){
   });
 }
 
+function estimateItemSize(pos, sport) {
+  if (pos.id && (pos.id.startsWith('H') || pos.id.startsWith('A'))) return { w: 54, h: 54 };
+  if (pos.id === 'ball-main') {
+    if (sport === 'basketball') return { w: 44, h: 44 };
+    if (sport === 'hockey') return { w: 26, h: 26 };
+    if (sport === 'handball') return { w: 38, h: 38 };
+    return { w: 36, h: 36 };
+  }
+  if (pos.type === 'mannequin') return { w: 24, h: 36 };
+  if (pos.type === 'cone') return { w: 40, h: 36 };
+  if (pos.type === 'ring') return { w: 44, h: 44 };
+  if (pos.type === 'hurdle') return { w: 52, h: 30 };
+  if (pos.type === 'ladder') return { w: 24, h: 50 };
+  if (pos.type === 'barrier') return { w: 32, h: 22 };
+  if (pos.type === 'pole') return { w: 8, h: 36 };
+  if (pos.type === 'tire') return { w: 32, h: 32 };
+  if (pos.type === 'block') return { w: 30, h: 30 };
+  if (pos.type === 'goal-arch') return { w: 48, h: 48 };
+  if (pos.type === 'goal-net') return { w: 34, h: 26 };
+  if (pos.type === 'ball') {
+    if (pos.color === 'basketball') return { w: 44, h: 44 };
+    if (pos.color === 'hockey') return { w: 26, h: 26 };
+    if (pos.color === 'handball') return { w: 38, h: 38 };
+    return { w: 36, h: 36 };
+  }
+  return { w: 30, h: 30 };
+}
+
+function rotateScenarioDataCW(arr, W0, H0, sport) {
+  return arr.map(pos => {
+    const np = JSON.parse(JSON.stringify(pos));
+    if (pos.id && pos.id.startsWith('LINE_') && pos.path) {
+      np.path = transformPath90CW(pos.path, H0);
+      return np;
+    }
+    const { w, h } = estimateItemSize(pos, sport);
+    const x = parseFloat(pos.x) || 0;
+    const y = parseFloat(pos.y) || 0;
+    const cx = x + w / 2;
+    const cy = y + h / 2;
+    const newCx = H0 - cy;
+    const newCy = cx;
+    const newX = newCx - w / 2;
+    const newY = newCy - h / 2;
+    np.x = Math.max(0, Math.min(H0 - w, newX)) + 'px';
+    np.y = Math.max(0, Math.min(W0 - h, newY)) + 'px';
+    if (pos.type) {
+      const oldRot = parseFloat(pos.rotation) || 0;
+      np.rotation = String((oldRot + 90) % 360);
+    }
+    return np;
+  });
+}
+
 function rotateBoard(){
   if (App.isPlaybackActiveFlag) { toast('Önce oynatmayı durdurun.', 'error'); return; }
   if (App.isSimRunning) return;
@@ -1441,8 +1495,16 @@ function rotateBoard(){
 
   drawCourt(App.currentSport);
   scalePitch();
-
   saveCurrentState();
+
+  // DİĞER senaryoları da döndür (koordinat sistemi değişti!)
+  for (const key in App.scenarioData) {
+    const sn = parseInt(key);
+    if (sn === App.currentScenario) continue;
+    if (!Array.isArray(App.scenarioData[sn])) continue;
+    App.scenarioData[sn] = rotateScenarioDataCW(App.scenarioData[sn], W0, H0, App.currentSport);
+  }
+
   scheduleAutosave();
   pushSnapshot();
   const state = (App.boardRotation === 0) ? 'yatay' :
@@ -1742,7 +1804,8 @@ async function deleteScenario(num){
   if (App.currentScenario > num) App.currentScenario--;
   else if (App.currentScenario === num) App.currentScenario = Math.min(App.currentScenario, App.scenarioCount);
   renderScenarioButtons();
-  switchScenario(App.currentScenario);
+  // switchScenario KULLANMA — saveCurrentState() eski DOM'u yeni senaryoya yazar
+  applyScenarioData(App.scenarioData[App.currentScenario], { animate: false });
   toast(`Senaryo ${num} silindi.`, 'info');
   scheduleAutosave();
 }
@@ -1845,6 +1908,31 @@ function applyScenarioData(data, opts = {}){
   const animate = opts.animate !== false;
   const transitionDur = opts.transitionMs || 1200;
 
+  // Mevcut oyuncu limitlerini oku (desenkronu önlemek için)
+  const count = parseInt($('#playerCount').value) || 11;
+  const hasRival = $('#rivalTeam').checked;
+  const hasBall = SPORTS[App.currentSport].ball && $('#showBall').checked;
+
+  // Limit dışındaki oyuncuları DOM'dan sil
+  for (let i = count + 1; i <= 30; i++) {
+    const h = document.getElementById('H' + i);
+    if (h) h.remove();
+    if (!hasRival) {
+      const a = document.getElementById('A' + i);
+      if (a) a.remove();
+    }
+  }
+  if (!hasRival) {
+    for (let i = 1; i <= count; i++) {
+      const a = document.getElementById('A' + i);
+      if (a) a.remove();
+    }
+  }
+  if (!hasBall) {
+    const b = document.getElementById('ball-main');
+    if (b) b.remove();
+  }
+
   data.forEach(pos => {
     if (pos.id.startsWith('LINE_')) {
       if (pos.path) createLine(pos.id, pos.path);
@@ -1857,6 +1945,18 @@ function applyScenarioData(data, opts = {}){
       applyItemTransform(el);
       return;
     }
+    // Sadece mevcut ayarlara uyan oyuncuları ekle
+    if (pos.id.startsWith('H')) {
+      const n = parseInt(pos.id.slice(1));
+      if (n > count) return;
+    }
+    if (pos.id.startsWith('A')) {
+      if (!hasRival) return;
+      const n = parseInt(pos.id.slice(1));
+      if (n > count) return;
+    }
+    if (pos.id === 'ball-main' && !hasBall) return;
+
     let el = document.getElementById(pos.id);
     if (!el) {
       if (pos.id === 'ball-main') el = createBall(parseInt(pos.x), parseInt(pos.y));
@@ -2352,7 +2452,8 @@ function stopPlayback(){
     drawCourt(App.previousSport);
     App.previousSport = null;
   }
-  switchScenario(App.currentScenario);
+  // switchScenario KULLANMA — saveCurrentState() playback'in son adımını kayda yazar
+  applyScenarioData(App.scenarioData[App.currentScenario], { animate: false });
 }
 
 async function exportVideo(){
