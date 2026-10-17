@@ -32,9 +32,8 @@ body{
   padding-top:max(10px,env(safe-area-inset-top));
   padding-bottom:max(10px,env(safe-area-inset-bottom));
 }
-
-/* ═══════════════════ SCREEN SWITCHING ═══════════════════ */
 body.home-active { padding: 0 !important; display: block !important; overflow-y: auto; }
+
 #homeScreen {
   display: none;
   width: 100%;
@@ -52,7 +51,6 @@ body.home-active { padding: 0 !important; display: block !important; overflow-y:
 }
 #boardScreen.active { display: flex; }
 
-/* ═══════════════════ HOME SCREEN ═══════════════════ */
 .home-hero {
   width: 100%;
   padding: 40px 20px 28px;
@@ -299,6 +297,7 @@ body.home-active { padding: 0 !important; display: block !important; overflow-y:
   justify-content: center;
   gap: 10px;
   font-family: inherit;
+  width: 100%;
 }
 .btn-home-continue:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(16,185,129,0.5); }
 .btn-home-continue:active { transform: translateY(0); }
@@ -320,6 +319,7 @@ body.home-active { padding: 0 !important; display: block !important; overflow-y:
   gap: 10px;
   letter-spacing: 0.3px;
   font-family: inherit;
+  width: 100%;
 }
 .btn-home-primary:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(59,130,246,0.5); }
 .btn-home-primary:active { transform: translateY(0); }
@@ -339,6 +339,7 @@ body.home-active { padding: 0 !important; display: block !important; overflow-y:
   justify-content: center;
   gap: 10px;
   font-family: inherit;
+  width: 100%;
 }
 .btn-home-secondary:hover { background: rgba(51,65,85,0.9); transform: translateY(-1px); }
 
@@ -353,7 +354,6 @@ body.home-active { padding: 0 !important; display: block !important; overflow-y:
   margin-top: auto;
 }
 
-/* ═══════════════════ EXISTING STYLES ═══════════════════ */
 h2{font-size:clamp(20px,4vw,28px);letter-spacing:0.5px;margin:5px 0 10px;
   text-shadow:0 4px 8px rgba(0,0,0,0.6);text-align:center}
 h2 small{font-size:clamp(12px,2vw,16px);color:var(--text-secondary);font-weight:normal}
@@ -733,7 +733,6 @@ body.fullscreen-pitch #playback-controls{
 </head>
 <body>
 
-<!-- ═══════════════════ HOME SCREEN ═══════════════════ -->
 <div id="homeScreen" class="active">
   <div class="home-hero">
     <h1>🏟️ Sporcu Taktik Tahtası</h1>
@@ -787,12 +786,11 @@ body.fullscreen-pitch #playback-controls{
   </div>
   
   <div class="home-footer">
-    v3.0 · Profesyonel Taktik Tahtası<br>
+    v3.1 · Profesyonel Taktik Tahtası<br>
     Tüm hakları saklıdır © 2025
   </div>
 </div>
 
-<!-- ═══════════════════ BOARD SCREEN ═══════════════════ -->
 <div id="boardScreen">
   <div class="mobile-topbar" id="mobileTopbar">
     <button class="mob-icon mob-home" onclick="goHome()" aria-label="Ana Sayfa">🏠</button>
@@ -910,7 +908,6 @@ body.fullscreen-pitch #playback-controls{
   </div>
 </div>
 
-<!-- ═══════════════════ MODALS & SHARED ═══════════════════ -->
 <div class="modal-overlay" id="dynamic-modal"></div>
 
 <div class="modal-overlay" id="fileListModal">
@@ -974,12 +971,12 @@ const App = {
   isDrawing: false, drawStartX: 0, drawStartY: 0, drawPath: '',
   playbackData: null, playbackIndex: 0, isPaused: false,
   playbackSpeed: 1, playbackTimer: null, isPlaybackActiveFlag: false,
+  prePlaybackState: null,
   isRecording: false, recordingSteps: [],
   autosaveTimer: null, pinchState: null,
   boardInitialized: false,
 };
 
-// Home wizard state
 const Home = {
   sport: 'football',
   playerCount: 11,
@@ -1241,10 +1238,7 @@ const SPORTS = {
   athletics:  { name:'Atletizm',    emoji:'🏃', players:4,  ball:false, color:'#991b1b' },
 };
 
-/* ═══════════════════ HOME SCREEN LOGIC ═══════════════════ */
-
 function renderHomeControls(){
-  // Sport grid
   const sg = $('#homeSportGrid');
   sg.innerHTML = '';
   Object.entries(SPORTS).forEach(([key, s]) => {
@@ -1256,13 +1250,9 @@ function renderHomeControls(){
     sg.appendChild(btn);
   });
 
-  // Player grid
   renderHomePlayerGrid();
-
-  // Options
   renderHomeOptions();
 
-  // Device
   const dr = $('#homeDeviceRow');
   dr.innerHTML = '';
   const devices = [
@@ -1369,7 +1359,6 @@ async function homeStartNewTactic(){
   
   try { localStorage.removeItem(CFG.AUTOSAVE_KEY); } catch(e) {}
   
-  // Fresh state
   App.currentSport = Home.sport;
   App.scenarioData = {};
   App.scenarioCount = 1;
@@ -1400,7 +1389,6 @@ async function homeContinue(){
 }
 
 async function homeOpenFiles(){
-  // Ensure board is initialized before showing playback modal
   if (!App.boardInitialized) {
     const hasSave = checkAutosaveExists();
     await enterBoardScreen(hasSave, { silent: true });
@@ -1421,20 +1409,16 @@ async function enterBoardScreen(restore, opts = {}){
   
   const restored = restore ? restoreAutosave() : false;
   
-  // Set pitch size
   pitch.style.width = App.pitchW + 'px';
   pitch.style.height = App.pitchH + 'px';
   
-  // Sync UI controls
   $('#sportSelect').value = App.currentSport;
   pitch.style.background = SPORTS[App.currentSport].color;
   drawCourt(App.currentSport);
   
   if (restored) {
-    // restoreAutosave already synced playerCount, rival, showBall, training
     if (!App.currentSport) App.currentSport = 'football';
   } else {
-    // Fresh - apply Home settings
     $('#playerCount').value = Home.playerCount;
     $('#rivalTeam').checked = Home.rivalTeam;
     $('#showBall').checked = Home.showBall;
@@ -1444,7 +1428,6 @@ async function enterBoardScreen(restore, opts = {}){
   
   if (App.currentSport === 'athletics') $('#showBall').checked = false;
   
-  // Set device
   if (App.manualScale === null) {
     $('#deviceSelect').value = 'auto';
   } else {
@@ -1454,7 +1437,6 @@ async function enterBoardScreen(restore, opts = {}){
   renderScenarioButtons();
   layer.innerHTML = '';
   
-  // Setup board with skipSave if restoring (preserve autosave data)
   setupBoard({ preserve: false, skipSave: restored });
   
   if (restored) {
@@ -1467,7 +1449,6 @@ async function enterBoardScreen(restore, opts = {}){
   
   showBoardScreen();
   
-  // Scale AFTER board is visible
   requestAnimationFrame(() => {
     if (App.manualScale !== null) {
       scalePitch(App.manualScale);
@@ -1500,7 +1481,6 @@ async function goHome(){
   saveCurrentState();
   scheduleAutosave();
   
-  // Sync Home with current board state
   Home.sport = App.currentSport;
   Home.playerCount = parseInt($('#playerCount').value) || 11;
   Home.rivalTeam = $('#rivalTeam').checked;
@@ -1515,8 +1495,6 @@ async function goHome(){
   
   showHomeScreen();
 }
-
-/* ═══════════════════ PITCH/BORDER LOGIC ═══════════════════ */
 
 function clearCourt(){
   $$('#pitch-container > .line, #pitch-container > .grass-area').forEach(el => el.remove());
@@ -2822,7 +2800,6 @@ function restoreAutosave(){
     } else {
       App.pitchW = 2000; App.pitchH = 900;
     }
-    // Sync UI controls (before board init)
     if (data.playerCount) $('#playerCount').value = data.playerCount;
     $('#rivalTeam').checked = !!data.rivalTeam;
     $('#showBall').checked = data.showBall !== false;
@@ -2937,6 +2914,14 @@ async function finalizeRecording(){
     steps: App.recordingSteps,
     scenarioCount: App.scenarioCount,
     sport: App.currentSport,
+    settings: {
+      playerCount: parseInt($('#playerCount').value) || 11,
+      rivalTeam: $('#rivalTeam').checked,
+      showBall: $('#showBall').checked,
+      trainingMode: $('#trainingMode').checked,
+      gridMode: App.gridMode,
+      boardRotation: App.boardRotation,
+    },
   };
   try {
     await dbAdd(recording);
@@ -2997,7 +2982,8 @@ async function openFileList(){
       dateEl.className = 'date';
       const sport = rec.sport || 'football';
       const stepCount = rec.steps?.length || 0;
-      dateEl.textContent = `${new Date(rec.date).toLocaleString('tr-TR')} · ${stepCount} adım ${SPORTS[sport]?.emoji || ''}`;
+      const pc = rec.settings?.playerCount || '?';
+      dateEl.textContent = `${new Date(rec.date).toLocaleString('tr-TR')} · ${stepCount} adım · ${pc} kişi ${SPORTS[sport]?.emoji || ''}`;
       row.appendChild(dateEl);
 
       const actions = document.createElement('div');
@@ -3048,19 +3034,70 @@ async function openFileList(){
 function closeFileList(){ $('#fileListModal').classList.remove('active'); }
 
 async function startPlayback(recId){
-  if (App.isPlaybackActiveFlag) return;
+  if (App.isPlaybackActiveFlag) { toast('Zaten oynatılıyor — önce durdurun.', 'error'); return; }
   if (!dbAvailable) { toast('Kayıt sistemi kullanılamıyor.', 'error'); return; }
   try {
     const rec = await dbGet(recId);
     if (!rec) { toast('Kayıt bulunamadı.', 'error'); return; }
     closeFileList();
-    App.previousSport = App.currentSport;
-    if (rec.sport) {
-      App.currentSport = rec.sport;
-      $('#sportSelect').value = rec.sport;
-      pitch.style.background = SPORTS[rec.sport]?.color || '#15803d';
-      drawCourt(rec.sport);
+
+    App.prePlaybackState = {
+      sport: App.currentSport,
+      playerCount: parseInt($('#playerCount').value) || 11,
+      rivalTeam: $('#rivalTeam').checked,
+      showBall: $('#showBall').checked,
+      trainingMode: $('#trainingMode').checked,
+      gridMode: App.gridMode,
+      pitchW: App.pitchW,
+      pitchH: App.pitchH,
+      boardRotation: App.boardRotation,
+      currentScenario: App.currentScenario,
+    };
+
+    const rs = rec.settings || {};
+
+    const playSport = rec.sport || rs.sport || 'football';
+    if (SPORTS[playSport]) {
+      App.currentSport = playSport;
+      $('#sportSelect').value = playSport;
+      pitch.style.background = SPORTS[playSport].color;
     }
+
+    let playCount = rs.playerCount;
+    if (!playCount && Array.isArray(rec.steps) && rec.steps[0] && Array.isArray(rec.steps[0].positions)) {
+      rec.steps[0].positions.forEach(p => {
+        if (p.id && p.id.startsWith('H')) {
+          const n = parseInt(p.id.slice(1));
+          if (!isNaN(n) && n > (playCount || 0)) playCount = n;
+        }
+      });
+    }
+    if (!playCount) playCount = SPORTS[App.currentSport].players;
+    playCount = Math.min(11, Math.max(1, playCount));
+    $('#playerCount').value = playCount;
+
+    $('#rivalTeam').checked = !!rs.rivalTeam;
+    $('#showBall').checked = (rs.showBall !== false) && !!SPORTS[App.currentSport].ball;
+    $('#trainingMode').checked = !!rs.trainingMode;
+
+    if (!!rs.gridMode !== App.gridMode) toggleGrid();
+
+    const rot = rs.boardRotation || 0;
+    if (rot === 90 || rot === 270) {
+      App.pitchW = 900; App.pitchH = 2000;
+    } else {
+      App.pitchW = 2000; App.pitchH = 900;
+    }
+    App.boardRotation = rot;
+    pitch.style.width  = App.pitchW + 'px';
+    pitch.style.height = App.pitchH + 'px';
+
+    drawCourt(App.currentSport);
+
+    paletteEl.style.display = $('#trainingMode').checked ? 'flex' : 'none';
+    if ($('#trainingMode').checked) renderPalette();
+    trashBin.style.display = $('#trainingMode').checked ? 'flex' : 'none';
+
     App.playbackData = rec;
     App.playbackIndex = 0;
     App.isPaused = false;
@@ -3070,8 +3107,12 @@ async function startPlayback(recId){
     $('#playPauseBtn').textContent = '⏸ Duraklat';
     $('#playbackStatus').textContent = '▶️ Oynatılıyor';
     $('#restartBtn').style.display = 'none';
+
+    scalePitch();
     applyPlaybackStep(App.playbackData.steps[0]);
     scheduleNextStep();
+
+    toast(`▶ ${rec.name}`, 'info');
   } catch(e) { toast('Hata: ' + e.message, 'error'); }
 }
 
@@ -3085,11 +3126,10 @@ function scheduleNextStep(){
   clearTimeout(App.playbackTimer);
   if (App.isPaused || !App.playbackData) return;
   if (App.playbackIndex >= App.playbackData.steps.length - 1) {
-    $('#playPauseBtn').textContent = '▶ Oynat';
-    $('#playbackStatus').textContent = '✅ Tamamlandı';
+    $('#playPauseBtn').textContent = '▶ Baştan';
+    $('#playbackStatus').textContent = '✅ Tamamlandı — kapatmak için Durdur';
     $('#restartBtn').style.display = 'inline-block';
-    App.isPlaybackActiveFlag = false;
-    toast('Oynatma tamamlandı.', 'success');
+    toast('Oynatma tamamlandı. Kapatmak için ⏹ Durdur.', 'success');
     return;
   }
   const delay = CFG.STEP_MS / App.playbackSpeed;
@@ -3150,14 +3190,42 @@ function stopPlayback(){
   App.isPlaybackActiveFlag = false;
   $('#playback-controls').style.display = 'none';
   $('#restartBtn').style.display = 'none';
-  if (App.previousSport) {
-    App.currentSport = App.previousSport;
-    $('#sportSelect').value = App.previousSport;
-    pitch.style.background = SPORTS[App.previousSport].color;
-    drawCourt(App.previousSport);
-    App.previousSport = null;
+
+  if (App.prePlaybackState) {
+    const s = App.prePlaybackState;
+    App.currentSport = s.sport;
+    App.pitchW = s.pitchW;
+    App.pitchH = s.pitchH;
+    App.boardRotation = s.boardRotation;
+
+    $('#sportSelect').value = s.sport;
+    $('#playerCount').value = s.playerCount;
+    $('#rivalTeam').checked = s.rivalTeam;
+    $('#showBall').checked = s.showBall;
+    $('#trainingMode').checked = s.trainingMode;
+
+    if (s.gridMode !== App.gridMode) toggleGrid();
+
+    pitch.style.width  = s.pitchW + 'px';
+    pitch.style.height = s.pitchH + 'px';
+    pitch.style.background = SPORTS[s.sport].color;
+
+    paletteEl.style.display = $('#trainingMode').checked ? 'flex' : 'none';
+    if ($('#trainingMode').checked) renderPalette();
+    trashBin.style.display = $('#trainingMode').checked ? 'flex' : 'none';
+
+    drawCourt(s.sport);
+
+    App.currentScenario = s.currentScenario;
+    App.prePlaybackState = null;
+
+    renderScenarioButtons();
+    scalePitch();
+    applyScenarioData(App.scenarioData[App.currentScenario], { animate: false });
+    toast('▶ Oynatma kapatıldı, önceki duruma dönüldü.', 'info');
+  } else {
+    applyScenarioData(App.scenarioData[App.currentScenario], { animate: false });
   }
-  applyScenarioData(App.scenarioData[App.currentScenario], { animate: false });
 }
 
 async function exportVideo(){
@@ -3284,6 +3352,7 @@ async function buildProjectSnapshot(opts = {}){
         sport: r.sport || 'football',
         scenarioCount: r.scenarioCount || 1,
         steps: r.steps || [],
+        settings: r.settings || null,
       }));
     } catch(e) { console.warn('Kayıtlar eklenemedi:', e); }
   }
@@ -3337,6 +3406,7 @@ async function exportSingleRecording(recId){
         sport: rec.sport || 'football',
         scenarioCount: rec.scenarioCount || 1,
         steps: rec.steps || [],
+        settings: rec.settings || null,
       }],
       meta: { totalScenarios: 0, totalRecordings: 1, totalSteps: rec.steps?.length || 0 },
     };
@@ -3486,6 +3556,7 @@ async function applyRecordingImport(recordings, mode){
         sport: rec.sport || 'football',
         scenarioCount: rec.scenarioCount || 1,
         steps: rec.steps || [],
+        settings: rec.settings || null,
       };
       try { await dbAdd(payload); added++; }
       catch(e) { failed++; console.warn('Kayıt eklenemedi:', e); }
@@ -3594,7 +3665,6 @@ window.addEventListener('orientationchange', () => {
 async function init(){
   initPlayerCountSelect();
 
-  // One-time cleanup of broken scale values
   try {
     if (!localStorage.getItem(CFG.SCALE_CLEAN_KEY)) {
       localStorage.removeItem(CFG.SCALE_KEY);
@@ -3602,21 +3672,17 @@ async function init(){
     }
   } catch(e){}
 
-  // Setup home controls
   renderHomeControls();
   
-  // Show "Continue" button if autosave exists
   if (checkAutosaveExists()) {
     $('#homeContinueWrap').style.display = 'block';
   }
   
-  // Open DB in background
   try { await openDB(); }
   catch(e) {
     dbAvailable = false;
   }
   
-  // Show home screen (default)
   showHomeScreen();
   
   if (typeof html2canvas === 'undefined') {
