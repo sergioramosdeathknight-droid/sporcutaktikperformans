@@ -567,7 +567,7 @@ const CFG = {
   DB_NAME: 'TacticalRecordingsDB', DB_VERSION: 2, DB_STORE: 'recordings',
 };
 const App = {
-  currentScenario: 1, scenarioCount: 8, scenarioData: {},
+  currentScenario: 1, scenarioCount: 1, scenarioData: {},
   currentSport: 'football', previousSport: null,
   lineMode: null, eraserMode: false, gridMode: false,
   isSimRunning: false,
@@ -1497,7 +1497,6 @@ function rotateBoard(){
   scalePitch();
   saveCurrentState();
 
-  // DİĞER senaryoları da döndür (koordinat sistemi değişti!)
   for (const key in App.scenarioData) {
     const sn = parseInt(key);
     if (sn === App.currentScenario) continue;
@@ -1804,7 +1803,6 @@ async function deleteScenario(num){
   if (App.currentScenario > num) App.currentScenario--;
   else if (App.currentScenario === num) App.currentScenario = Math.min(App.currentScenario, App.scenarioCount);
   renderScenarioButtons();
-  // switchScenario KULLANMA — saveCurrentState() eski DOM'u yeni senaryoya yazar
   applyScenarioData(App.scenarioData[App.currentScenario], { animate: false });
   toast(`Senaryo ${num} silindi.`, 'info');
   scheduleAutosave();
@@ -1908,12 +1906,10 @@ function applyScenarioData(data, opts = {}){
   const animate = opts.animate !== false;
   const transitionDur = opts.transitionMs || 1200;
 
-  // Mevcut oyuncu limitlerini oku (desenkronu önlemek için)
   const count = parseInt($('#playerCount').value) || 11;
   const hasRival = $('#rivalTeam').checked;
   const hasBall = SPORTS[App.currentSport].ball && $('#showBall').checked;
 
-  // Limit dışındaki oyuncuları DOM'dan sil
   for (let i = count + 1; i <= 30; i++) {
     const h = document.getElementById('H' + i);
     if (h) h.remove();
@@ -1945,7 +1941,6 @@ function applyScenarioData(data, opts = {}){
       applyItemTransform(el);
       return;
     }
-    // Sadece mevcut ayarlara uyan oyuncuları ekle
     if (pos.id.startsWith('H')) {
       const n = parseInt(pos.id.slice(1));
       if (n > count) return;
@@ -2123,7 +2118,7 @@ function restoreAutosave(){
     const data = JSON.parse(raw);
     if (!data.scenarios || Object.keys(data.scenarios).length === 0) return false;
     App.scenarioData = data.scenarios;
-    App.scenarioCount = data.scenarioCount || 8;
+    App.scenarioCount = data.scenarioCount || 1;
     App.currentScenario = data.currentScenario || 1;
     App.currentSport = data.sport || 'football';
     App.boardRotation = data.boardRotation || 0;
@@ -2452,7 +2447,6 @@ function stopPlayback(){
     drawCourt(App.previousSport);
     App.previousSport = null;
   }
-  // switchScenario KULLANMA — saveCurrentState() playback'in son adımını kayda yazar
   applyScenarioData(App.scenarioData[App.currentScenario], { animate: false });
 }
 
@@ -2578,7 +2572,7 @@ async function buildProjectSnapshot(opts = {}){
         name: r.name,
         date: r.date,
         sport: r.sport || 'football',
-        scenarioCount: r.scenarioCount || 8,
+        scenarioCount: r.scenarioCount || 1,
         steps: r.steps || [],
       }));
     } catch(e) { console.warn('Kayıtlar eklenemedi:', e); }
@@ -2626,12 +2620,12 @@ async function exportSingleRecording(recId){
         deviceScale: 'auto', currentScenario: 1, boardRotation: 0,
       },
       scenarios: {},
-      scenarioCount: rec.scenarioCount || 8,
+      scenarioCount: rec.scenarioCount || 1,
       recordings: [{
         name: rec.name,
         date: rec.date,
         sport: rec.sport || 'football',
-        scenarioCount: rec.scenarioCount || 8,
+        scenarioCount: rec.scenarioCount || 1,
         steps: rec.steps || [],
       }],
       meta: { totalScenarios: 0, totalRecordings: 1, totalSteps: rec.steps?.length || 0 },
@@ -2674,7 +2668,7 @@ async function importJSON(){
             currentScenario: data.currentScenario || 1, boardRotation: 0,
           },
           scenarios: data.scenarios,
-          scenarioCount: data.scenarioCount || 8,
+          scenarioCount: data.scenarioCount || 1,
           recordings: [],
           meta: { totalScenarios: Object.keys(data.scenarios).length, totalRecordings: 0, totalSteps: 0 },
         };
@@ -2696,7 +2690,7 @@ async function importJSON(){
       const s = data.settings || {};
       if (s.sport && SPORTS[s.sport]) App.currentSport = s.sport;
       App.scenarioData = data.scenarios || {};
-      App.scenarioCount = data.scenarioCount || 8;
+      App.scenarioCount = data.scenarioCount || 1;
       App.currentScenario = s.currentScenario || 1;
 
       App.boardRotation = s.boardRotation || 0;
@@ -2780,7 +2774,7 @@ async function applyRecordingImport(recordings, mode){
         name: rec.name || 'İçe aktarılan kayıt',
         date: rec.date || new Date().toISOString(),
         sport: rec.sport || 'football',
-        scenarioCount: rec.scenarioCount || 8,
+        scenarioCount: rec.scenarioCount || 1,
         steps: rec.steps || [],
       };
       try { await dbAdd(payload); added++; }
@@ -2798,7 +2792,7 @@ async function resetAll(){
   if (!ok) return;
   if (App.isPlaybackActiveFlag) stopPlayback();
   App.scenarioData = {};
-  App.scenarioCount = 8;
+  App.scenarioCount = 1;
   App.currentScenario = 1;
   App.history = [];
   App.historyIndex = -1;
