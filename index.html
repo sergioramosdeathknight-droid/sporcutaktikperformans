@@ -54,6 +54,20 @@ body.home-active { padding: 0 !important; display: block !important; overflow-y:
 .home-section h2 { font-size: 14px; margin: 0 0 12px; color: var(--text-primary); display: flex; align-items: center; gap: 6px; font-weight: 700; letter-spacing: 0.2px; }
 .home-section h2 small { font-size: 11px; color: var(--text-muted); font-weight: 400; margin-left: auto; }
 
+.section-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(135px, 1fr)); gap: 8px; }
+.section-card { background: rgba(51,65,85,0.5); border: 2px solid transparent; border-radius: var(--radius-md); padding: 12px 10px; cursor: pointer; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; color: var(--text-primary); transition: all 200ms; position: relative; font-family: inherit; text-align: left; min-height: 72px; }
+.section-card:hover { background: rgba(51,65,85,0.85); transform: translateY(-2px); }
+.section-card.active { background: rgba(59,130,246,0.18); border-color: var(--primary); box-shadow: 0 0 0 1px rgba(59,130,246,0.3), 0 8px 20px rgba(59,130,246,0.2); }
+.section-card .sec-icon { font-size: 22px; line-height: 1; }
+.section-card .sec-name { font-weight: 700; font-size: 12.5px; color: var(--text-primary); line-height: 1.2; word-break: break-word; }
+.section-card .sec-meta { font-size: 10px; color: var(--text-muted); font-weight: 500; }
+.section-card .sec-del { position: absolute; top: 4px; right: 4px; background: rgba(239,68,68,0.15); border: none; color: #fca5a5; cursor: pointer; font-size: 12px; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; opacity: 0; transition: all 150ms; padding: 0; }
+.section-card:hover .sec-del { opacity: 1; }
+.section-card .sec-del:hover { background: var(--danger); color: #fff; }
+.section-add { border: 2px dashed var(--border-strong); background: transparent; color: var(--text-secondary); align-items: center; justify-content: center; text-align: center; }
+.section-add:hover { border-color: var(--primary); color: var(--primary); background: rgba(59,130,246,0.05); }
+.section-add .sec-icon { font-size: 24px; font-weight: 300; }
+
 .sport-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 8px; }
 .sport-card { background: rgba(51,65,85,0.5); border: 2px solid transparent; border-radius: var(--radius-md); padding: 12px 6px; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 4px; color: var(--text-primary); transition: all 200ms cubic-bezier(0.4,0,0.2,1); font-family: inherit; }
 .sport-card:hover { background: rgba(51,65,85,0.85); transform: translateY(-2px); }
@@ -162,6 +176,7 @@ h2 small{font-size:clamp(12px,2vw,16px);color:var(--text-secondary);font-weight:
 .line{position:absolute;border:3px solid var(--line-white);pointer-events:none;box-sizing:border-box}
 .grass-area{position:absolute;border-radius:50%;background:#15803d;pointer-events:none;z-index:1}
 
+/* Sürükleme — v3.2 uyumlu: left/top + cache (no GPU layer, no will-change, no rAF) */
 .draggable{position:absolute;cursor:grab;display:flex;align-items:center;justify-content:center;touch-action:none;user-select:none;-webkit-user-select:none;z-index:10;transition:none}
 .draggable:active{cursor:grabbing;z-index:100}
 .draggable-eq{box-shadow:0 4px 8px rgba(0,0,0,0.4);z-index:10}
@@ -243,6 +258,7 @@ h2 small{font-size:clamp(12px,2vw,16px);color:var(--text-secondary);font-weight:
 .modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(15,23,42,0.7);z-index:1000;justify-content:center;align-items:center;padding:20px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .modal-overlay.active{display:flex}
 .modal-box{background:#1e293b;border-radius:var(--radius-lg);padding:20px;max-width:600px;width:100%;max-height:80vh;overflow-y:auto;border:1px solid var(--border-subtle);box-shadow:var(--shadow-lg);animation:modalIn 250ms cubic-bezier(0.34,1.56,0.64,1)}
+.modal-box.wide { max-width: 820px; }
 @keyframes modalIn{from{opacity:0;transform:scale(0.9) translateY(-20px)}to{opacity:1;transform:none}}
 .modal-box h3{margin-top:0;border-bottom:1px solid var(--border-subtle);padding-bottom:10px}
 .modal-close{float:right;background:var(--danger);border:none;color:#fff;padding:6px 16px;border-radius:var(--radius-full);cursor:pointer;min-height:32px;font-weight:600}
@@ -256,14 +272,39 @@ h2 small{font-size:clamp(12px,2vw,16px);color:var(--text-secondary);font-weight:
 .modal-actions .btn-cancel{background:var(--bg-elevated);color:#fff}
 .progress-bar{width:100%;height:8px;background:var(--bg-elevated);border-radius:4px;overflow:hidden;margin:12px 0}
 .progress-fill{height:100%;background:var(--success);transition:width .2s;width:0%}
-.file-list-item{background:var(--bg-elevated);padding:12px 14px;margin:6px 0;border-radius:var(--radius-md);display:flex;justify-content:space-between;align-items:center;gap:8px;transition:all var(--transition-fast);flex-wrap:wrap}
+
+.file-filters { display: flex; gap: 8px; margin: 8px 0 12px; flex-wrap: wrap; }
+.file-filters input[type=text] { flex: 1 1 200px; min-width: 140px; padding: 10px 12px; background: var(--bg-elevated); color: var(--text-primary); border: 1px solid var(--border-strong); border-radius: var(--radius-md); font-size: 13px; font-family: inherit; outline: none; transition: all var(--transition-fast); box-sizing: border-box; }
+.file-filters input[type=text]:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(59,130,246,0.2); }
+.file-filters select { padding: 10px 12px; background: var(--bg-elevated); color: var(--text-primary); border: 1px solid var(--border-strong); border-radius: var(--radius-md); font-size: 13px; cursor: pointer; min-height: 40px; font-family: inherit; outline: none; }
+.file-filters select:focus { border-color: var(--primary); }
+
+.file-stats-bar { display: flex; gap: 14px; flex-wrap: wrap; font-size: 12px; color: var(--text-secondary); background: rgba(59,130,246,0.08); padding: 10px 14px; border-radius: var(--radius-md); margin-bottom: 12px; border: 1px solid rgba(59,130,246,0.2); }
+.file-stats-bar strong { color: var(--text-primary); }
+
+.file-group-header { display: flex; align-items: center; gap: 8px; padding: 12px 4px 6px; margin-top: 6px; font-size: 13px; color: var(--text-secondary); border-bottom: 1px solid var(--border-subtle); }
+.file-group-header .count { background: var(--bg-elevated); padding: 1px 8px; border-radius: var(--radius-full); font-size: 11px; font-weight: 700; }
+
+.file-list-item{background:var(--bg-elevated);padding:10px 12px;margin:6px 0;border-radius:var(--radius-md);display:flex;gap:12px;align-items:center;transition:all var(--transition-fast);flex-wrap:nowrap}
 .file-list-item:hover{background:#475569}
-.file-list-item .name{font-weight:700;cursor:pointer;flex:1;min-width:100px}
-.file-list-item .date{color:var(--text-secondary);font-size:.8rem}
-.file-list-item .actions{display:flex;gap:4px}
-.file-list-item .actions button{background:var(--bg-surface);border:none;color:#fff;padding:6px 10px;border-radius:var(--radius-sm);cursor:pointer;font-size:12px;min-height:32px;transition:all var(--transition-fast)}
-.file-list-item .actions button:hover{background:#64748b}
-.file-list-item .actions .del{background:var(--danger)}
+.file-icon { width: 42px; height: 42px; border-radius: var(--radius-md); background: var(--bg-surface); display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+.file-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+.file-name { font-weight: 700; font-size: 14px; color: var(--text-primary); cursor: pointer; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.file-name:hover { color: var(--primary); }
+.file-details { display: flex; gap: 6px; flex-wrap: wrap; font-size: 11px; color: var(--text-secondary); }
+.file-badge { background: var(--bg-surface); padding: 2px 8px; border-radius: var(--radius-full); white-space: nowrap; }
+.file-badge.sec { background: rgba(59,130,246,0.2); color: #93c5fd; }
+.file-badge.sport { background: rgba(34,197,94,0.15); color: #86efac; }
+.file-badge.date { color: var(--text-muted); }
+.file-actions { display: flex; gap: 4px; flex-wrap: nowrap; }
+.file-actions button { background: var(--bg-surface); border: none; color: #fff; padding: 6px 8px; border-radius: var(--radius-sm); cursor: pointer; font-size: 13px; min-height: 34px; min-width: 34px; transition: all var(--transition-fast); }
+.file-actions button:hover { background: #64748b; transform: translateY(-1px); }
+.file-actions .del { background: rgba(239,68,68,0.2); }
+.file-actions .del:hover { background: var(--danger); }
+.file-actions .play { background: rgba(34,197,94,0.2); }
+.file-actions .play:hover { background: var(--success); }
+@media (max-width: 640px) { .file-list-item { flex-wrap: wrap; } .file-actions { width: 100%; justify-content: flex-end; } }
+
 .empty-msg{color:var(--text-muted);text-align:center;padding:20px}
 
 #toast-container{position:fixed;bottom:20px;right:20px;z-index:9999;display:flex;flex-direction:column;gap:8px;pointer-events:none;max-width:calc(100vw - 40px)}
@@ -289,7 +330,6 @@ h2 small{font-size:clamp(12px,2vw,16px);color:var(--text-secondary);font-weight:
 #items-layer .line-item path{stroke-width:var(--line-stroke,3px)}
 
 .btn-paste.has-clip{background:var(--success)!important;box-shadow:0 0 12px rgba(34,197,94,0.6)}
-
 .tooltip-hint{font-size:clamp(11px,1vw,13px);color:var(--text-secondary);background:var(--bg-surface);padding:6px 14px;border-radius:var(--radius-full);display:inline-block;margin:4px 0;text-align:center;border:1px solid var(--border-subtle)}
 .tooltip-hint a{color:var(--warning);text-decoration:none;font-weight:700}
 
@@ -324,7 +364,6 @@ body.fullscreen-pitch #playback-controls{position:fixed!important;bottom:0!impor
   .dir-group{grid-template-columns:repeat(3,44px)}
   .tooltip-hint{font-size:11px;padding:4px 10px}
 }
-
 @media (max-width:950px) and (orientation:landscape){
   .mobile-topbar{display:flex}
   body{padding:4px}
@@ -344,61 +383,45 @@ body.fullscreen-pitch #playback-controls{position:fixed!important;bottom:0!impor
     <p class="tagline">Profesyonel Taktik Aracı</p>
     <span class="author">Osman Efe Tekinaslan</span>
   </div>
-  
   <div class="home-content">
     <div class="home-hint">
       <span class="hint-icon">💡</span>
-      <span>Aşağıdan ayarlarını seç, <strong>Yeni Taktik</strong>'e bas ve sahaya geç. Taktik hazırladıktan sonra <strong>🏠</strong> ile buraya dönüp devam edebilirsin.</span>
+      <span>Önce bir <strong>bölüm</strong> seç, sonra ayarlarını yap ve <strong>Yeni Taktik</strong>'e bas. Her bölümün kayıtları ve otomatik kaydı birbirinden bağımsızdır.</span>
     </div>
-
     <div id="homeContinueWrap" style="display:none">
-      <button class="btn-home-continue" onclick="homeContinue()">
-        <span>📂</span> Kaldığın Yerden Devam Et
-      </button>
+      <button class="btn-home-continue" onclick="homeContinue()"><span>📂</span> Kaldığın Yerden Devam Et</button>
     </div>
-    
+    <section class="home-section">
+      <h2>📁 Bölümler <small>Çalışma alanı</small></h2>
+      <div class="section-grid" id="homeSectionGrid"></div>
+    </section>
     <section class="home-section">
       <h2>⚽ Branş <small>Hangi spor dalı?</small></h2>
       <div class="sport-grid" id="homeSportGrid"></div>
     </section>
-    
     <section class="home-section">
       <h2>👥 Kadro <small>Oyuncu sayısı</small></h2>
       <div class="player-grid" id="homePlayerGrid"></div>
     </section>
-
     <section class="home-section" id="homeRivalSection" style="display:none">
       <h2>🆚 Rakip Kadro <small>Kaç rakip oyuncu?</small></h2>
       <div class="player-grid" id="homeRivalGrid"></div>
     </section>
-    
     <section class="home-section">
       <h2>⚙️ Seçenekler <small>Sahaya eklenecekler</small></h2>
       <div class="option-tiles" id="homeOptions"></div>
     </section>
-    
     <section class="home-section">
       <h2>📱 Ekran Ölçeği <small>Yakınlaştırma</small></h2>
       <div class="device-row" id="homeDeviceRow"></div>
     </section>
-    
     <div class="home-actions">
-      <button class="btn-home-primary" onclick="homeStartNewTactic()">
-        <span>🚀</span> Yeni Taktik Oluştur
-      </button>
-      <button class="btn-home-secondary" onclick="homeOpenFiles()">
-        <span>📁</span> Kayıtlı Simülasyonlar
-      </button>
-      <button class="btn-home-secondary" onclick="homeImport()">
-        <span>📥</span> Proje İçe Aktar
-      </button>
+      <button class="btn-home-primary" onclick="homeStartNewTactic()"><span>🚀</span> Yeni Taktik Oluştur</button>
+      <button class="btn-home-secondary" onclick="homeOpenFiles()"><span>📁</span> Kayıtlı Simülasyonlar</button>
+      <button class="btn-home-secondary" onclick="homeImport()"><span>📥</span> Proje İçe Aktar</button>
     </div>
   </div>
-  
-  <div class="home-footer">
-    v3.2 · Profesyonel Taktik Tahtası<br>
-    Tüm hakları saklıdır © 2025
-  </div>
+  <div class="home-footer">v3.6 · Profesyonel Taktik Tahtası<br>Tüm hakları saklıdır © 2025</div>
 </div>
 
 <div id="boardScreen">
@@ -410,18 +433,15 @@ body.fullscreen-pitch #playback-controls{position:fixed!important;bottom:0!impor
     <button class="mob-icon" onclick="toggleFullscreen()" aria-label="Tam ekran">⛶</button>
   </div>
 
-  <h2>🏟️ Sporcu Taktik Tahtası <small>- Osman Efe Tekinaslan</small></h2>
+  <h2>🏟️ Sporcu Taktik Tahtası <small id="boardSectionBadge">- Osman Efe Tekinaslan</small></h2>
 
   <div class="panel" id="mainPanel">
     <button class="panel-close" onclick="togglePanel()" aria-label="Kapat">✕</button>
-    
     <button class="btn-home" onclick="goHome()" title="Ana Sayfa">🏠</button>
-
     <div>
       <label style="color:var(--text-secondary);font-size:13px;">Kadro:</label>
       <select id="playerCount" onchange="setupBoard({preserve:true})"></select>
     </div>
-
     <div class="checkbox-group">
       <label><input type="checkbox" id="rivalTeam" onchange="onRivalToggle()"> Rakip</label>
       <label><input type="checkbox" id="showBall" onchange="setupBoard({preserve:true})" checked> Top</label>
@@ -429,12 +449,10 @@ body.fullscreen-pitch #playback-controls{position:fixed!important;bottom:0!impor
         <input type="checkbox" id="trainingMode" onchange="setupBoard({preserve:true})"> Eğitim
       </label>
     </div>
-
     <div id="rivalCountWrap">
       <span>Rakip:</span>
       <select id="rivalCount" onchange="setupBoard({preserve:true})"></select>
     </div>
-
     <button class="btn-reset" onclick="resetAll()">🔄 Sıfırla</button>
     <button class="btn-sim" onclick="runSimulation()">▶ Simülasyon</button>
     <button class="btn-record" id="recordBtn" onclick="toggleRecording()">🔴 Kaydet</button>
@@ -442,7 +460,6 @@ body.fullscreen-pitch #playback-controls{position:fixed!important;bottom:0!impor
     <button class="btn-export" onclick="exportVideo()">🎬 Video</button>
     <button class="btn-share" onclick="openExportMenu()">📤 Dışa</button>
     <button class="btn-share" onclick="importJSON()">📥 İçe</button>
-
     <span style="color:var(--text-secondary);font-size:13px;">Çizgi:</span>
     <div class="tool-group">
       <button class="btn-line" data-mode="free" onclick="setLineMode('free')">✏️</button>
@@ -450,7 +467,6 @@ body.fullscreen-pitch #playback-controls{position:fixed!important;bottom:0!impor
       <button class="btn-line" data-mode="arrow" onclick="setLineMode('arrow')">➡️</button>
       <button class="btn-line off active" onclick="setLineMode(null)">❌</button>
     </div>
-
     <button class="btn-eraser" id="eraserBtn" onclick="toggleEraser()">🧹 Silgi</button>
     <button class="btn-grid" id="gridBtn" onclick="toggleGrid()">🔲 Izgara</button>
     <button class="btn-rotate" onclick="rotateBoard()">↻ Döndür</button>
@@ -461,7 +477,6 @@ body.fullscreen-pitch #playback-controls{position:fixed!important;bottom:0!impor
     <button class="btn-undo" onclick="undoAction()">↩️</button>
     <button class="btn-redo" onclick="redoAction()">↪️</button>
     <button class="btn-edit" onclick="openEditModal()">🔧</button>
-
     <div class="sport-selector">
       <span>Branş:</span>
       <select id="sportSelect" onchange="switchSport(this.value)">
@@ -473,7 +488,6 @@ body.fullscreen-pitch #playback-controls{position:fixed!important;bottom:0!impor
         <option value="athletics">🏃 Atletizm</option>
       </select>
     </div>
-
     <div class="sport-selector">
       <span>Cihaz:</span>
       <select id="deviceSelect" onchange="setDevice(this.value)">
@@ -526,9 +540,20 @@ body.fullscreen-pitch #playback-controls{position:fixed!important;bottom:0!impor
 <div class="modal-overlay" id="dynamic-modal"></div>
 
 <div class="modal-overlay" id="fileListModal">
-  <div class="modal-box">
+  <div class="modal-box wide">
     <button class="modal-close" onclick="closeFileList()">✕</button>
     <h3>📁 Kaydedilmiş Simülasyonlar</h3>
+    <div class="file-filters">
+      <input type="text" id="fileSearchInput" placeholder="🔍 Ara (isim, bölüm)..." oninput="renderFileList()">
+      <select id="fileSectionFilter" onchange="renderFileList()"><option value="">Tüm Bölümler</option></select>
+      <select id="fileSortFilter" onchange="renderFileList()">
+        <option value="date-desc">📅 En Yeni</option>
+        <option value="date-asc">📅 En Eski</option>
+        <option value="name-asc">🔤 İsim (A-Z)</option>
+        <option value="name-desc">🔤 İsim (Z-A)</option>
+      </select>
+    </div>
+    <div id="fileStatsBar" class="file-stats-bar"></div>
     <div id="fileListContainer"><div class="empty-msg">Yükleniyor...</div></div>
   </div>
 </div>
@@ -568,10 +593,55 @@ const CFG = {
   PITCH_W: 2000, PITCH_H: 900, GRID: 20,
   STEP_MS: 1400, EXPORT_HOLD_MS: 1000, MAX_HISTORY: 50,
   AUTOSAVE_KEY: 'tactics_autosave_v2',
+  SECTIONS_KEY: 'tactics_sections_v1',
   SCALE_KEY: 'tactics_device_scale',
   SCALE_CLEAN_KEY: 'tactics_scale_cleaned_v3',
   DB_NAME: 'TacticalRecordingsDB', DB_VERSION: 2, DB_STORE: 'recordings',
 };
+
+const Sections = {
+  KEY: CFG.SECTIONS_KEY, list: [], activeId: 'genel',
+  defaults() { return [
+    { id: 'genel', name: 'Genel Çalışmalar', icon: '📋', createdAt: Date.now() },
+    { id: 'antrenman', name: 'Antrenman', icon: '🏃', createdAt: Date.now() },
+    { id: 'taktik', name: 'Maç Taktikleri', icon: '⚽', createdAt: Date.now() },
+  ]; },
+  load() {
+    try {
+      const raw = localStorage.getItem(this.KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        this.list = Array.isArray(parsed.list) && parsed.list.length > 0 ? parsed.list : this.defaults();
+        this.activeId = parsed.activeId || this.list[0].id;
+      } else { this.list = this.defaults(); this.activeId = 'genel'; this.save(); }
+    } catch(e) { this.list = this.defaults(); this.activeId = 'genel'; }
+    if (!this.list.find(s => s.id === this.activeId)) this.activeId = this.list[0].id;
+  },
+  save() { try { localStorage.setItem(this.KEY, JSON.stringify({ list: this.list, activeId: this.activeId })); } catch(e) {} },
+  getActive() { return this.list.find(s => s.id === this.activeId) || this.list[0] || { id: 'genel', name: 'Genel', icon: '📋' }; },
+  getById(id) { return this.list.find(s => s.id === id); },
+  setActive(id) { if (!this.list.find(s => s.id === id)) return false; this.activeId = id; this.save(); return true; },
+  add(name, icon) { const id = 'sec_' + Math.random().toString(36).slice(2, 10); this.list.push({ id, name, icon: icon || '📁', createdAt: Date.now() }); this.save(); return id; },
+  remove(id) { if (this.list.length <= 1) return false; this.list = this.list.filter(s => s.id !== id); if (this.activeId === id) this.activeId = this.list[0].id; this.save(); return true; },
+  autosaveKey(sectionId) { return `${CFG.AUTOSAVE_KEY}_${sectionId || this.activeId}`; },
+  guessIcon(name) {
+    const n = (name || '').toLowerCase();
+    if (n.includes('antrenman') || n.includes('idman')) return '🏃';
+    if (n.includes('maç') || n.includes('taktik') || n.includes('mac')) return '⚽';
+    if (n.includes('kondisyon') || n.includes('fitness')) return '💪';
+    if (n.includes('teknik') || n.includes('eğitim')) return '🎓';
+    if (n.includes('basket')) return '🏀';
+    if (n.includes('voley')) return '🏐';
+    if (n.includes('hent')) return '🤾';
+    if (n.includes('hokey')) return '🏑';
+    if (n.includes('atlet')) return '🏃';
+    if (n.includes('genel')) return '📋';
+    if (n.includes('özel') || n.includes('ozel')) return '⭐';
+    if (n.includes('şampiyon') || n.includes('sampiyon')) return '🏆';
+    return '📁';
+  }
+};
+
 const App = {
   currentScenario: 1, scenarioCount: 1, scenarioData: {},
   currentSport: 'football', previousSport: null,
@@ -590,17 +660,14 @@ const App = {
   isRecording: false, recordingSteps: [],
   autosaveTimer: null, pinchState: null,
   boardInitialized: false,
+  // Drag cache — pointerdown'da bir defa ölçülür, pointermove'da tekrar okunmaz
+  dragW: 0, dragH: 0, dragScale: 1, dragItemScale: 1,
+  dragPitchRect: null, dragTrashRect: null,
 };
 
 const Home = {
-  sport: 'football',
-  playerCount: 11,
-  rivalTeam: false,
-  rivalCount: 11,
-  showBall: true,
-  trainingMode: false,
-  gridMode: false,
-  device: 'auto',
+  sport: 'football', playerCount: 11, rivalTeam: false, rivalCount: 11,
+  showBall: true, trainingMode: false, gridMode: false, device: 'auto',
 };
 
 const $ = s => document.querySelector(s);
@@ -625,10 +692,7 @@ function toast(msg, type='info', duration=3000){
   t.textContent = msg;
   c.appendChild(t);
   requestAnimationFrame(() => t.classList.add('show'));
-  setTimeout(() => {
-    t.classList.remove('show');
-    setTimeout(() => t.remove(), 400);
-  }, duration);
+  setTimeout(() => { t.classList.remove('show'); setTimeout(() => t.remove(), 400); }, duration);
 }
 
 function closeDynamicModal(){ const o = $('#dynamic-modal'); o.classList.remove('active'); o.innerHTML = ''; }
@@ -637,7 +701,6 @@ function showPrompt(title, defaultValue='', message=''){
   return new Promise(resolve => {
     const o = $('#dynamic-modal'); o.innerHTML = '';
     const box = document.createElement('div'); box.className = 'modal-box';
-    box.setAttribute('role','dialog'); box.setAttribute('aria-modal','true');
     box.innerHTML = `
       <h3>${escapeHtml(title)}</h3>
       ${message ? `<p style="color:var(--text-secondary);font-size:13px;margin:0 0 10px">${escapeHtml(message)}</p>` : ''}
@@ -664,7 +727,6 @@ function showConfirm(title, message, opts={}){
   return new Promise(resolve => {
     const o = $('#dynamic-modal'); o.innerHTML = '';
     const box = document.createElement('div'); box.className = 'modal-box';
-    box.setAttribute('role','dialog'); box.setAttribute('aria-modal','true');
     box.innerHTML = `
       <h3>${escapeHtml(title)}</h3>
       <p style="color:var(--text-secondary);white-space:pre-wrap;margin:0 0 10px">${escapeHtml(message)}</p>
@@ -673,14 +735,15 @@ function showConfirm(title, message, opts={}){
         <button class="${opts.danger ? 'btn-danger' : 'btn-primary'}" id="dyn-ok">${escapeHtml(opts.okText || 'Tamam')}</button>
       </div>`;
     o.appendChild(box); o.classList.add('active');
-    const finish = v => { closeDynamicModal(); resolve(v); };
+    let resolved = false;
+    const keyHandler = e => {
+      if (e.key === 'Escape') { e.preventDefault(); finish(false); }
+      else if (e.key === 'Enter') { e.preventDefault(); finish(true); }
+    };
+    const finish = v => { if (resolved) return; resolved = true; document.removeEventListener('keydown', keyHandler); closeDynamicModal(); resolve(v); };
     box.querySelector('#dyn-ok').onclick = () => finish(true);
     box.querySelector('#dyn-cancel').onclick = () => finish(false);
     box.querySelector('#dyn-ok').focus();
-    const keyHandler = e => {
-      if (e.key === 'Escape') { e.preventDefault(); finish(false); document.removeEventListener('keydown', keyHandler); }
-      if (e.key === 'Enter') { e.preventDefault(); finish(true); document.removeEventListener('keydown', keyHandler); }
-    };
     document.addEventListener('keydown', keyHandler);
     o.onclick = e => { if (e.target === o) finish(false); };
   });
@@ -690,21 +753,24 @@ function showChoice(title, message, buttons){
   return new Promise(resolve => {
     const o = $('#dynamic-modal'); o.innerHTML = '';
     const box = document.createElement('div'); box.className = 'modal-box';
-    box.setAttribute('role','dialog'); box.setAttribute('aria-modal','true');
     box.innerHTML = `
       <h3>${escapeHtml(title)}</h3>
       <p style="color:var(--text-secondary);white-space:pre-wrap;font-size:13px;line-height:1.5;margin:0 0 10px">${escapeHtml(message)}</p>
       <div class="modal-actions" id="choice-buttons"></div>`;
     const btnContainer = box.querySelector('#choice-buttons');
+    let resolved = false;
+    const keyHandler = e => { if (e.key === 'Escape') { e.preventDefault(); finish(null); } };
+    const finish = v => { if (resolved) return; resolved = true; document.removeEventListener('keydown', keyHandler); closeDynamicModal(); resolve(v); };
     buttons.forEach(b => {
       const btn = document.createElement('button');
       btn.className = b.className || 'btn-primary';
       btn.textContent = b.label;
-      btn.onclick = () => { closeDynamicModal(); resolve(b.value); };
+      btn.onclick = () => finish(b.value);
       btnContainer.appendChild(btn);
     });
     o.appendChild(box); o.classList.add('active');
-    o.onclick = e => { if (e.target === o) { closeDynamicModal(); resolve(null); } };
+    document.addEventListener('keydown', keyHandler);
+    o.onclick = e => { if (e.target === o) finish(null); };
   });
 }
 
@@ -715,9 +781,7 @@ function showProgress(title){
     <h3>${escapeHtml(title)}</h3>
     <p id="prog-text" style="color:var(--text-secondary);margin:0 0 10px">Hazırlanıyor...</p>
     <div class="progress-bar"><div class="progress-fill" id="prog-fill"></div></div>
-    <div class="modal-actions">
-      <button class="btn-danger" id="prog-cancel">İptal</button>
-    </div>`;
+    <div class="modal-actions"><button class="btn-danger" id="prog-cancel">İptal</button></div>`;
   o.appendChild(box); o.classList.add('active');
   return {
     setProgress(pct, text){ $('#prog-fill').style.width = pct + '%'; if (text) $('#prog-text').textContent = text; },
@@ -750,20 +814,13 @@ function openShortcutsModal(e){
   o.appendChild(box); o.classList.add('active');
 }
 
-function screenToPitch(clientX, clientY){
-  const rect = pitch.getBoundingClientRect();
-  return { x: (clientX - rect.left) / App.currentScale, y: (clientY - rect.top) / App.currentScale };
-}
-
 function openDB(){
   return new Promise((resolve, reject) => {
     try {
       const req = indexedDB.open(CFG.DB_NAME, CFG.DB_VERSION);
       req.onupgradeneeded = e => {
         const database = e.target.result;
-        if (!database.objectStoreNames.contains(CFG.DB_STORE)) {
-          database.createObjectStore(CFG.DB_STORE, { keyPath: 'id', autoIncrement: true });
-        }
+        if (!database.objectStoreNames.contains(CFG.DB_STORE)) database.createObjectStore(CFG.DB_STORE, { keyPath: 'id', autoIncrement: true });
       };
       req.onsuccess = e => { db = e.target.result; dbAvailable = true; resolve(db); };
       req.onerror = e => { dbAvailable = false; reject(e.target.error); };
@@ -787,29 +844,105 @@ const SPORTS = {
   athletics:  { name:'Atletizm',    emoji:'🏃', players:4,  ball:false, color:'#991b1b' },
 };
 
+function loadSectionSettingsIntoHome(sectionId) {
+  try {
+    const raw = localStorage.getItem(Sections.autosaveKey(sectionId));
+    if (!raw) return;
+    const data = JSON.parse(raw);
+    if (data.sport && SPORTS[data.sport]) Home.sport = data.sport;
+    if (data.playerCount) Home.playerCount = data.playerCount;
+    Home.rivalTeam = !!data.rivalTeam;
+    if (data.rivalCount) Home.rivalCount = data.rivalCount;
+    Home.showBall = data.showBall !== false;
+    Home.trainingMode = !!data.trainingMode;
+    Home.gridMode = !!data.gridMode;
+  } catch(e) {}
+}
+
+function renderHomeSections() {
+  const grid = $('#homeSectionGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  Sections.list.forEach(sec => {
+    const card = document.createElement('div');
+    card.className = 'section-card' + (sec.id === Sections.activeId ? ' active' : '');
+    const hasSave = checkAutosaveExists(sec.id);
+    card.innerHTML = `
+      <span class="sec-icon">${sec.icon || '📁'}</span>
+      <span class="sec-name">${escapeHtml(sec.name)}</span>
+      <span class="sec-meta">${hasSave ? '💾 Kayıt var' : '🆕 Boş'}</span>
+      ${Sections.list.length > 1 ? '<button class="sec-del" title="Bölümü Sil">✕</button>' : ''}`;
+    card.onclick = (e) => { if (e.target.closest('.sec-del')) return; switchHomeSection(sec.id); };
+    const delBtn = card.querySelector('.sec-del');
+    if (delBtn) delBtn.onclick = async (e) => {
+      e.stopPropagation();
+      const ok = await showConfirm('Bölümü Sil?', `"${sec.name}" bölümü ve içindeki TÜM veriler (otomatik kayıt + tüm simülasyon kayıtları) kalıcı olarak silinecek.`, { danger: true, okText: 'Sil' });
+      if (!ok) return;
+      await deleteSectionData(sec.id);
+      if (Sections.remove(sec.id)) { renderHomeSections(); toast(`📁 "${sec.name}" bölümü silindi.`, 'success'); }
+      else toast('Son bölüm silinemez, en az 1 bölüm kalmalı.', 'error');
+    };
+    grid.appendChild(card);
+  });
+  const addCard = document.createElement('button');
+  addCard.className = 'section-card section-add';
+  addCard.innerHTML = `<span class="sec-icon">＋</span><span class="sec-name">Yeni Bölüm</span><span class="sec-meta">Oluştur</span>`;
+  addCard.onclick = createNewSection;
+  grid.appendChild(addCard);
+}
+
+function switchHomeSection(sectionId) {
+  if (sectionId === Sections.activeId) return;
+  if (!Sections.setActive(sectionId)) return;
+  loadSectionSettingsIntoHome(sectionId);
+  renderHomeSections(); renderHomeControls(); updateContinueButton();
+  toast(`📁 "${Sections.getActive().name}" bölümü aktif`, 'success');
+}
+
+async function createNewSection() {
+  const name = await showPrompt('Yeni Bölüm Oluştur', '', 'Bölüm adı (örn: Antrenman, Maç Taktikleri, Kondisyon):');
+  if (!name || !name.trim()) return;
+  const trimmed = name.trim().slice(0, 30);
+  if (Sections.list.some(s => s.name.toLowerCase() === trimmed.toLowerCase())) { toast('Bu isimde bir bölüm zaten var.', 'error'); return; }
+  const icon = Sections.guessIcon(trimmed);
+  Sections.add(trimmed, icon);
+  Sections.setActive(Sections.list[Sections.list.length - 1].id);
+  renderHomeSections();
+  toast(`📁 "${trimmed}" bölümü oluşturuldu (${icon})`, 'success');
+}
+
+async function deleteSectionData(sectionId) {
+  if (Sections.list.length <= 1) return;
+  try { localStorage.removeItem(Sections.autosaveKey(sectionId)); } catch(e) {}
+  if (dbAvailable) {
+    try {
+      const recs = await dbGetAll();
+      for (const r of recs) {
+        if ((r.sectionId || 'genel') === sectionId) { try { await dbDelete(r.id); } catch(e) {} }
+      }
+    } catch(e) {}
+  }
+}
+
+function updateContinueButton() {
+  const wrap = $('#homeContinueWrap');
+  if (wrap) wrap.style.display = checkAutosaveExists() ? 'block' : 'none';
+}
+
 function renderHomeControls(){
   const sg = $('#homeSportGrid'); sg.innerHTML = '';
   Object.entries(SPORTS).forEach(([key, s]) => {
     const btn = document.createElement('button');
     btn.className = 'sport-card' + (key === Home.sport ? ' active' : '');
-    btn.dataset.sport = key;
     btn.innerHTML = `<span class="emoji">${s.emoji}</span><span class="label">${s.name}</span>`;
     btn.onclick = () => selectHomeSport(key);
     sg.appendChild(btn);
   });
-
   renderHomePlayerGrid();
   renderHomeOptions();
   renderHomeRivalGrid();
-
   const dr = $('#homeDeviceRow'); dr.innerHTML = '';
-  const devices = [
-    { v: 'auto', label: '🖥️ Otomatik' },
-    { v: '1.0', label: 'PC (1.0)' },
-    { v: '0.75', label: 'Tablet (0.75)' },
-    { v: '0.5', label: 'Telefon (0.5)' },
-  ];
-  devices.forEach(d => {
+  [ {v:'auto',label:'🖥️ Otomatik'}, {v:'1.0',label:'PC (1.0)'}, {v:'0.75',label:'Tablet (0.75)'}, {v:'0.5',label:'Telefon (0.5)'} ].forEach(d => {
     const btn = document.createElement('button');
     btn.className = 'device-btn' + (d.v === Home.device ? ' active' : '');
     btn.textContent = d.label;
@@ -819,9 +952,7 @@ function renderHomeControls(){
 }
 
 function renderHomePlayerGrid(){
-  const pg = $('#homePlayerGrid');
-  if (!pg) return;
-  pg.innerHTML = '';
+  const pg = $('#homePlayerGrid'); if (!pg) return; pg.innerHTML = '';
   for (let i = 1; i <= 11; i++) {
     const btn = document.createElement('button');
     btn.className = 'player-btn' + (i === Home.playerCount ? ' active' : '');
@@ -832,12 +963,10 @@ function renderHomePlayerGrid(){
 }
 
 function renderHomeRivalGrid(){
-  const section = $('#homeRivalSection');
-  const rg = $('#homeRivalGrid');
+  const section = $('#homeRivalSection'); const rg = $('#homeRivalGrid');
   if (!section || !rg) return;
   if (Home.rivalTeam) {
-    section.style.display = 'block';
-    rg.innerHTML = '';
+    section.style.display = 'block'; rg.innerHTML = '';
     for (let i = 1; i <= 11; i++) {
       const btn = document.createElement('button');
       btn.className = 'player-btn' + (i === Home.rivalCount ? ' active' : '');
@@ -845,14 +974,11 @@ function renderHomeRivalGrid(){
       btn.onclick = () => { Home.rivalCount = i; renderHomeRivalGrid(); };
       rg.appendChild(btn);
     }
-  } else {
-    section.style.display = 'none';
-  }
+  } else section.style.display = 'none';
 }
 
 function renderHomeOptions(){
-  const oo = $('#homeOptions');
-  if (!oo) return;
+  const oo = $('#homeOptions'); if (!oo) return;
   const opts = [
     { key: 'rivalTeam', icon: '🆚', label: 'Rakip Takım' },
     { key: 'showBall', icon: '⚽', label: 'Top' },
@@ -863,10 +989,7 @@ function renderHomeOptions(){
   opts.forEach(o => {
     const tile = document.createElement('button');
     tile.className = 'option-tile' + (Home[o.key] ? ' active' : '');
-    tile.innerHTML = `
-      <span class="opt-icon">${o.icon}</span>
-      <span class="opt-label">${o.label}</span>
-      <span class="opt-check">${Home[o.key] ? '✓' : ''}</span>`;
+    tile.innerHTML = `<span class="opt-icon">${o.icon}</span><span class="opt-label">${o.label}</span><span class="opt-check">${Home[o.key] ? '✓' : ''}</span>`;
     tile.onclick = () => {
       Home[o.key] = !Home[o.key];
       renderHomeOptions();
@@ -886,13 +1009,24 @@ function selectHomeSport(sport){
   renderHomeControls();
 }
 
-function checkAutosaveExists(){
+function checkAutosaveExists(sectionId){
   try {
-    const raw = localStorage.getItem(CFG.AUTOSAVE_KEY);
+    const key = sectionId ? Sections.autosaveKey(sectionId) : Sections.autosaveKey();
+    const raw = localStorage.getItem(key);
     if (!raw) return false;
     const data = JSON.parse(raw);
     return !!(data && data.scenarios && Object.keys(data.scenarios).length > 0);
   } catch(e) { return false; }
+}
+
+function migrateOldAutosave() {
+  try {
+    const oldRaw = localStorage.getItem(CFG.AUTOSAVE_KEY);
+    if (!oldRaw) return;
+    const targetKey = Sections.autosaveKey('genel');
+    if (!localStorage.getItem(targetKey)) localStorage.setItem(targetKey, oldRaw);
+    localStorage.removeItem(CFG.AUTOSAVE_KEY);
+  } catch(e) {}
 }
 
 function showHomeScreen(){
@@ -908,34 +1042,23 @@ function showBoardScreen(){
   document.body.classList.add('board-active');
   $('#homeScreen').classList.remove('active');
   $('#boardScreen').classList.add('active');
+  const badge = $('#boardSectionBadge');
+  const sec = Sections.getActive();
+  if (badge) badge.textContent = `- ${sec.icon} ${sec.name} · Osman Efe Tekinaslan`;
 }
 
 async function homeStartNewTactic(){
   if (checkAutosaveExists()) {
-    const ok = await showConfirm(
-      'Mevcut Çalışma Silinsin mi?',
-      'Daha önce kaydedilmiş bir taktik var. Yeni taktik başlatılırsa önceki çalışma silinecek.\n\nDevam etmek istersen "İptal" → "Kaldığın Yerden Devam Et".',
-      { danger: true, okText: 'Yeni Başlat' }
-    );
+    const ok = await showConfirm('Mevcut Çalışma Silinsin mi?', `"${Sections.getActive().name}" bölümünde kaydedilmiş bir taktik var. Yeni taktik başlatılırsa önceki çalışma silinecek.\n\nDevam etmek istersen "İptal" → "Kaldığın Yerden Devam Et".`, { danger: true, okText: 'Yeni Başlat' });
     if (!ok) return;
   }
-  
-  try { localStorage.removeItem(CFG.AUTOSAVE_KEY); } catch(e) {}
-  
+  try { localStorage.removeItem(Sections.autosaveKey()); } catch(e) {}
   App.currentSport = Home.sport;
-  App.scenarioData = {};
-  App.scenarioCount = 1;
-  App.currentScenario = 1;
-  App.history = [];
-  App.historyIndex = -1;
-  App.boardRotation = 0;
-  App.pitchW = 2000;
-  App.pitchH = 900;
-  App.currentScale = 1;
+  App.scenarioData = {}; App.scenarioCount = 1; App.currentScenario = 1;
+  App.history = []; App.historyIndex = -1;
+  App.boardRotation = 0; App.pitchW = 2000; App.pitchH = 900; App.currentScale = 1;
   App.manualScale = Home.device === 'auto' ? null : parseFloat(Home.device);
-  App.lastSelectedItem = null;
-  App.clipboard = null;
-  
+  App.lastSelectedItem = null; App.clipboard = null;
   await enterBoardScreen(false);
   toast(`${SPORTS[Home.sport].emoji} ${SPORTS[Home.sport].name} tahtası hazır`, 'success');
 }
@@ -943,8 +1066,7 @@ async function homeStartNewTactic(){
 async function homeContinue(){
   if (!checkAutosaveExists()) { toast('Sürdürülecek çalışma yok.', 'error'); return; }
   App.manualScale = Home.device === 'auto' ? null : parseFloat(Home.device);
-  App.clipboard = null;
-  App.lastSelectedItem = null;
+  App.clipboard = null; App.lastSelectedItem = null;
   await enterBoardScreen(true);
 }
 
@@ -952,10 +1074,7 @@ async function homeOpenFiles(){
   if (!App.boardInitialized) {
     const hasSave = checkAutosaveExists();
     await enterBoardScreen(hasSave, { silent: true });
-  } else {
-    showBoardScreen();
-    requestAnimationFrame(() => scalePitch());
-  }
+  } else { showBoardScreen(); requestAnimationFrame(() => scalePitch()); }
   setTimeout(() => { openFileList(); }, 100);
 }
 
@@ -963,25 +1082,18 @@ async function homeImport(){
   if (!App.boardInitialized) {
     const hasSave = checkAutosaveExists();
     await enterBoardScreen(hasSave, { silent: true });
-  } else {
-    showBoardScreen();
-    requestAnimationFrame(() => scalePitch());
-  }
+  } else { showBoardScreen(); requestAnimationFrame(() => scalePitch()); }
   setTimeout(() => { importJSON(); }, 100);
 }
 
 async function enterBoardScreen(restore, opts = {}){
   App.boardInitialized = true;
-  
   const restored = restore ? restoreAutosave() : false;
-  
   pitch.style.width = App.pitchW + 'px';
   pitch.style.height = App.pitchH + 'px';
-  
   $('#sportSelect').value = App.currentSport;
   pitch.style.background = SPORTS[App.currentSport].color;
   drawCourt(App.currentSport);
-  
   if (restored) {
     if (!App.currentSport) App.currentSport = 'football';
     $('#rivalCountWrap').style.display = $('#rivalTeam').checked ? 'flex' : 'none';
@@ -994,51 +1106,28 @@ async function enterBoardScreen(restore, opts = {}){
     $('#rivalCountWrap').style.display = Home.rivalTeam ? 'flex' : 'none';
     if (Home.gridMode !== App.gridMode) toggleGrid();
   }
-  
   if (App.currentSport === 'athletics') $('#showBall').checked = false;
-  
-  if (App.manualScale === null) {
-    $('#deviceSelect').value = 'auto';
-  } else {
-    $('#deviceSelect').value = String(App.manualScale);
-  }
-  
+  if (App.manualScale === null) $('#deviceSelect').value = 'auto';
+  else $('#deviceSelect').value = String(App.manualScale);
   renderScenarioButtons();
   layer.innerHTML = '';
-  
   setupBoard({ preserve: false, skipSave: restored });
-  
   if (restored) {
     applyScenarioData(App.scenarioData[App.currentScenario], { animate: false });
     if (!opts.silent) toast('Önceki çalışmanız geri yüklendi.', 'success');
-  } else {
-    saveCurrentState();
-    pushSnapshot();
-  }
-  
+  } else { saveCurrentState(); pushSnapshot(); }
   showBoardScreen();
-  
-  requestAnimationFrame(() => {
-    if (App.manualScale !== null) scalePitch(App.manualScale);
-    else scalePitch();
-  });
-  setTimeout(() => {
-    if (App.manualScale !== null) scalePitch(App.manualScale);
-    else scalePitch();
-  }, 120);
-  
+  requestAnimationFrame(() => { if (App.manualScale !== null) scalePitch(App.manualScale); else scalePitch(); });
+  setTimeout(() => { if (App.manualScale !== null) scalePitch(App.manualScale); else scalePitch(); }, 120);
   if (!opts.silent) scheduleAutosave();
+  checkPortraitHint();
 }
 
 async function goHome(){
   if (App.isSimRunning) { toast('Simülasyon çalışıyor, önce durmasını bekle.', 'warn'); return; }
   if (App.isPlaybackActiveFlag) stopPlayback();
-  
   if (document.body.classList.contains('fullscreen-pitch')) toggleFullscreen();
-  
-  saveCurrentState();
-  scheduleAutosave();
-  
+  saveCurrentState(); scheduleAutosave();
   Home.sport = App.currentSport;
   Home.playerCount = parseInt($('#playerCount').value) || 11;
   Home.rivalTeam = $('#rivalTeam').checked;
@@ -1047,11 +1136,7 @@ async function goHome(){
   Home.trainingMode = $('#trainingMode').checked;
   Home.gridMode = App.gridMode;
   Home.device = App.manualScale === null ? 'auto' : String(App.manualScale);
-  
-  renderHomeControls();
-  
-  $('#homeContinueWrap').style.display = checkAutosaveExists() ? 'block' : 'none';
-  
+  renderHomeControls(); renderHomeSections(); updateContinueButton();
   showHomeScreen();
 }
 
@@ -1073,7 +1158,6 @@ function addLine(style){
 function drawCourt(sport){
   clearCourt();
   const W = App.pitchW, H = App.pitchH;
-
   if (sport === 'football' || sport === 'hockey'){
     if (W >= H) {
       addLine({ width:'3px', height:'100%', left:'50%', top:'0', border:'none', borderLeft:'3px solid var(--line-white)' });
@@ -1135,9 +1219,8 @@ function drawCourt(sport){
     pitch.appendChild(grass);
     addLine({ width:outerW+'px', height:outerH+'px', borderRadius:'50%', top:'50%', left:'50%', transform:'translate(-50%,-50%)', border:'3px solid var(--line-white)' });
     addLine({ width:innerW+'px', height:innerH+'px', borderRadius:'50%', top:'50%', left:'50%', transform:'translate(-50%,-50%)', border:'2px solid var(--line-white)' });
-    const lanes = 8;
-    for (let i=1; i<=lanes; i++){
-      const ratio = i/lanes;
+    for (let i=1; i<=8; i++){
+      const ratio = i/8;
       const w = innerW + (outerW-innerW)*ratio;
       const h = innerH + (outerH-innerH)*ratio;
       addLine({ width:w+'px', height:h+'px', borderRadius:'50%', top:'50%', left:'50%', transform:'translate(-50%,-50%)', border:'1px dashed var(--line-white)' });
@@ -1183,24 +1266,17 @@ function getPaletteForSport(sport){
 
 function renderPalette(){
   paletteEl.innerHTML = '<div class="palette-label">📦 Eğitim Malzemeleri (Tıkla & Klonla)</div>';
-  const list = getPaletteForSport(App.currentSport);
-  list.forEach(eq => {
+  getPaletteForSport(App.currentSport).forEach(eq => {
     const div = document.createElement('div');
     div.className = 'palette-item';
     div.title = eq.name + ' (Tıkla Klonla)';
     const inner = document.createElement('div');
-    inner.className = eq.type === 'ball'
-      ? `eq-container ball sport-${eq.color}`
-      : `eq-container eq-${eq.type} eq-${eq.color}`;
+    inner.className = eq.type === 'ball' ? `eq-container ball sport-${eq.color}` : `eq-container eq-${eq.type} eq-${eq.color}`;
     if (eq.type === 'hurdle') { const b = document.createElement('div'); inner.appendChild(b); }
     div.appendChild(inner);
-    const label = document.createElement('span');
-    label.textContent = eq.name;
+    const label = document.createElement('span'); label.textContent = eq.name;
     div.appendChild(label);
-    div.onclick = () => {
-      if ($('#trainingMode').checked) cloneEquipment(eq);
-      else toast('Önce "Eğitim Modu"nu açın!', 'error');
-    };
+    div.onclick = () => { if ($('#trainingMode').checked) cloneEquipment(eq); else toast('Önce "Eğitim Modu"nu açın!', 'error'); };
     paletteEl.appendChild(div);
   });
 }
@@ -1209,9 +1285,7 @@ function cloneEquipment(eq){
   const x = 300 + Math.floor(Math.random() * (App.pitchW - 600));
   const y = 100 + Math.floor(Math.random() * (App.pitchH - 200));
   createEquipment('EQ_CLONE_' + uid(), eq.type, eq.color, x, y);
-  saveCurrentState();
-  scheduleAutosave();
-  pushSnapshot();
+  saveCurrentState(); scheduleAutosave(); pushSnapshot();
   toast(`${eq.name} klonlandı`, 'success');
 }
 
@@ -1242,9 +1316,8 @@ function createEquipment(id, type, color, x, y){
   const d = document.createElement('div');
   d.id = id; d.dataset.role = 'equipment'; d.dataset.type = type; d.dataset.color = color;
   d.dataset.rotation = '0'; d.dataset.scale = '1';
-  if (type === 'ball') {
-    d.className = `draggable draggable-eq ball sport-${color}`;
-  } else {
+  if (type === 'ball') d.className = `draggable draggable-eq ball sport-${color}`;
+  else {
     d.className = `draggable draggable-eq eq-${type} eq-${color}`;
     if (type === 'hurdle') { const b = document.createElement('div'); d.appendChild(b); }
   }
@@ -1312,6 +1385,13 @@ function setSelection(el){
   if (el) el.classList.add('selected');
 }
 
+/* =========================================================================
+   SÜRÜKLEME — v3.2 davranışı (left/top) + layout read cache
+   -------------------------------------------------------------------------
+   v3.2'deki gibi doğrudan style.left/top yazıyoruz (GPU katmanı yok, rAF yok,
+   release sıçraması yok). Tek fark: pointerdown'da ölçülen değerleri cache'e
+   alıp, pointermove sırasında getBoundingClientRect/offsetWidth ÇAĞIRMIYORUZ.
+   ========================================================================= */
 function onItemPointerDown(e){
   if (App.isPlaybackActiveFlag || App.lineMode || App.eraserMode) return;
   const item = e.currentTarget;
@@ -1319,16 +1399,26 @@ function onItemPointerDown(e){
   if (item.dataset.role === 'equipment' && !$('#trainingMode').checked) {
     toast('Ekipmanları sürüklemek için Eğitim Modu açık olmalı!', 'error'); return;
   }
-  App.activeItem = item; App.dragPointerId = e.pointerId;
+
+  App.activeItem = item;
+  App.dragPointerId = e.pointerId;
   App.isCloneDragging = item.dataset.role === 'equipment';
   setSelection(item);
 
-  const { x: px, y: py } = screenToPitch(e.clientX, e.clientY);
-  const itemLeft = parseFloat(item.style.left) || 0;
-  const itemTop = parseFloat(item.style.top) || 0;
-  App.dragOffset.x = px - itemLeft; App.dragOffset.y = py - itemTop;
-  item.style.transition = 'none';
+  // === Cache — sürükleme boyunca hiçbir layout okuması yapılmayacak ===
+  App.dragW = item.offsetWidth || 30;
+  App.dragH = item.offsetHeight || 30;
+  App.dragScale = App.currentScale || 1;
+  App.dragItemScale = parseFloat(item.dataset.scale) || 1;
+  App.dragPitchRect = pitch.getBoundingClientRect();
+  App.dragTrashRect = App.isCloneDragging ? trashBin.getBoundingClientRect() : null;
 
+  const px = (e.clientX - App.dragPitchRect.left) / App.dragScale;
+  const py = (e.clientY - App.dragPitchRect.top) / App.dragScale;
+  App.dragOffset.x = px - (parseFloat(item.style.left) || 0);
+  App.dragOffset.y = py - (parseFloat(item.style.top) || 0);
+
+  item.style.transition = 'none';
   item.setPointerCapture(e.pointerId);
   item.addEventListener('pointermove', onItemPointerMove);
   item.addEventListener('pointerup', onItemPointerUp);
@@ -1339,18 +1429,32 @@ function onItemPointerDown(e){
 function onItemPointerMove(e){
   if (!App.activeItem || e.pointerId !== App.dragPointerId) return;
   e.preventDefault();
-  const { x: px, y: py } = screenToPitch(e.clientX, e.clientY);
-  let x = px - App.dragOffset.x, y = py - App.dragOffset.y;
-  if (App.gridMode) { x = Math.round(x / CFG.GRID) * CFG.GRID; y = Math.round(y / CFG.GRID) * CFG.GRID; }
-  const w = App.activeItem.offsetWidth, h = App.activeItem.offsetHeight;
-  x = Math.max(0, Math.min(x, App.pitchW - w));
-  y = Math.max(0, Math.min(y, App.pitchH - h));
-  App.activeItem.style.left = x + 'px'; App.activeItem.style.top = y + 'px';
 
-  if (App.isCloneDragging) {
-    const tr = trashBin.getBoundingClientRect();
-    const ir = App.activeItem.getBoundingClientRect();
-    const over = ir.left < tr.right && ir.right > tr.left && ir.top < tr.bottom && ir.bottom > tr.top;
+  // Sadece cache'ten hesapla — getBoundingClientRect / offsetWidth YOK
+  const px = (e.clientX - App.dragPitchRect.left) / App.dragScale;
+  const py = (e.clientY - App.dragPitchRect.top) / App.dragScale;
+  let x = px - App.dragOffset.x;
+  let y = py - App.dragOffset.y;
+  if (App.gridMode) {
+    x = Math.round(x / CFG.GRID) * CFG.GRID;
+    y = Math.round(y / CFG.GRID) * CFG.GRID;
+  }
+  x = Math.max(0, Math.min(x, App.pitchW - App.dragW));
+  y = Math.max(0, Math.min(y, App.pitchH - App.dragH));
+
+  // Doğrudan left/top yaz — v3.2 ile aynı davranış, sıçrama yok
+  App.activeItem.style.left = x + 'px';
+  App.activeItem.style.top = y + 'px';
+
+  // Çöp kutusu üzerinde mi? Cache'lenmiş rect ile (layout okuması yok)
+  if (App.isCloneDragging && App.dragTrashRect) {
+    const tr = App.dragTrashRect;
+    const cx = App.dragPitchRect.left + (x + App.dragW / 2) * App.dragScale;
+    const cy = App.dragPitchRect.top + (y + App.dragH / 2) * App.dragScale;
+    const vw = App.dragW * App.dragScale * App.dragItemScale;
+    const vh = App.dragH * App.dragScale * App.dragItemScale;
+    const il = cx - vw / 2, ir = cx + vw / 2, it = cy - vh / 2, ib = cy + vh / 2;
+    const over = il < tr.right && ir > tr.left && it < tr.bottom && ib > tr.top;
     trashBin.classList.toggle('drag-over', over);
   }
 }
@@ -1363,14 +1467,23 @@ function onItemPointerUp(e){
   item.removeEventListener('pointercancel', onItemPointerUp);
   try { item.releasePointerCapture(e.pointerId); } catch(err){}
 
+  // Çöp kontrolü — tek sefer getBoundingClientRect, sorun değil
   if (App.isCloneDragging) {
     const tr = trashBin.getBoundingClientRect();
     const ir = item.getBoundingClientRect();
-    const over = ir.left < tr.right && ir.right > tr.left && ir.top < tr.bottom && ir.bottom > tr.top;
-    if (over) { item.remove(); toast('Ekipman çöpe atıldı!', 'success'); }
+    if (ir.left < tr.right && ir.right > tr.left && ir.top < tr.bottom && ir.bottom > tr.top) {
+      item.remove();
+      toast('Ekipman çöpe atıldı!', 'success');
+    }
   }
   trashBin.classList.remove('drag-over');
-  App.activeItem = null; App.dragPointerId = null; App.isCloneDragging = false;
+
+  App.activeItem = null;
+  App.dragPointerId = null;
+  App.isCloneDragging = false;
+  App.dragPitchRect = null;
+  App.dragTrashRect = null;
+
   saveCurrentState(); scheduleAutosave(); pushSnapshot();
 }
 
@@ -1382,7 +1495,6 @@ function setLineMode(mode){
   pitch.removeEventListener('pointermove', onPitchPointerMove);
   pitch.removeEventListener('pointerup', onPitchPointerUp);
   pitch.removeEventListener('pointercancel', onPitchPointerUp);
-
   if (mode) {
     const btn = document.querySelector(`.btn-line[data-mode="${mode}"]`);
     if (btn) btn.classList.add('active');
@@ -1405,7 +1517,9 @@ function onPitchPointerDown(e){
   if (!App.lineMode || App.eraserMode || App.isPlaybackActiveFlag) return;
   if (e.target.closest('.draggable')) return;
   e.preventDefault(); App.isDrawing = true;
-  const { x, y } = screenToPitch(e.clientX, e.clientY);
+  const rect = pitch.getBoundingClientRect();
+  const x = (e.clientX - rect.left) / App.currentScale;
+  const y = (e.clientY - rect.top) / App.currentScale;
   App.drawStartX = x; App.drawStartY = y;
   App.drawPath = `M ${x} ${y}`;
   tempSvg.innerHTML = `<path d="${App.drawPath}"/>`;
@@ -1414,7 +1528,9 @@ function onPitchPointerDown(e){
 function onPitchPointerMove(e){
   if (!App.lineMode || !App.isDrawing || App.isPlaybackActiveFlag) return;
   e.preventDefault();
-  const { x, y } = screenToPitch(e.clientX, e.clientY);
+  const rect = pitch.getBoundingClientRect();
+  const x = (e.clientX - rect.left) / App.currentScale;
+  const y = (e.clientY - rect.top) / App.currentScale;
   if (App.lineMode === 'free') App.drawPath += ` L ${x} ${y}`;
   else App.drawPath = `M ${App.drawStartX} ${App.drawStartY} L ${x} ${y}`;
   tempSvg.innerHTML = `<path d="${App.drawPath}"/>`;
@@ -1423,7 +1539,9 @@ function onPitchPointerMove(e){
 function onPitchPointerUp(e){
   if (!App.lineMode || !App.isDrawing) return;
   App.isDrawing = false;
-  const { x, y } = screenToPitch(e.clientX, e.clientY);
+  const rect = pitch.getBoundingClientRect();
+  const x = (e.clientX - rect.left) / App.currentScale;
+  const y = (e.clientY - rect.top) / App.currentScale;
   if (Math.abs(x - App.drawStartX) < 3 && Math.abs(y - App.drawStartY) < 3) { tempSvg.innerHTML = ''; return; }
   let finalPath = App.drawPath;
   if (App.lineMode === 'arrow') {
@@ -1503,9 +1621,8 @@ function scalePitch(forceScale = null){
 }
 
 function setDevice(value){
-  if (value === 'auto') {
-    App.manualScale = null; scalePitch(); toast('Otomatik ölçekleme etkin', 'info');
-  } else {
+  if (value === 'auto') { App.manualScale = null; scalePitch(); toast('Otomatik ölçekleme etkin', 'info'); }
+  else {
     const s = parseFloat(value);
     if (!isNaN(s) && s > 0) { App.manualScale = s; scalePitch(s); toast(`Ölçek ${s} olarak ayarlandı`, 'success'); }
   }
@@ -1567,8 +1684,7 @@ function rotateBoard(){
   if (App.isPlaybackActiveFlag) { toast('Önce oynatmayı durdurun.', 'error'); return; }
   if (App.isSimRunning) return;
   const W0 = App.pitchW, H0 = App.pitchH, W1 = H0, H1 = W0;
-  const items = $$('.draggable').slice();
-  items.forEach(item => {
+  $$('.draggable').slice().forEach(item => {
     const role = item.dataset.role;
     const x = parseFloat(item.style.left) || 0, y = parseFloat(item.style.top) || 0;
     const w = item.offsetWidth || 0, h = item.offsetHeight || 0;
@@ -1599,9 +1715,7 @@ function rotateBoard(){
     App.scenarioData[sn] = rotateScenarioDataCW(App.scenarioData[sn], W0, H0, App.currentSport);
   }
   scheduleAutosave(); pushSnapshot();
-  const state = (App.boardRotation === 0) ? 'yatay' :
-                (App.boardRotation === 90) ? 'dikey' :
-                (App.boardRotation === 180) ? 'yatay (ters)' : 'dikey (ters)';
+  const state = (App.boardRotation === 0) ? 'yatay' : (App.boardRotation === 90) ? 'dikey' : (App.boardRotation === 180) ? 'yatay (ters)' : 'dikey (ters)';
   toast(`Tahta 90° döndürüldü → ${state}`, 'success');
 }
 
@@ -1612,9 +1726,7 @@ function updateClipboardUI(){
     const mode = App.clipboard.mode === 'cut' ? 'kesildi' : 'kopyalandı';
     btn.classList.add('has-clip');
     btn.title = `Yapıştır — ${n} öğe (Adım ${App.clipboard.sourceScenario}'den ${mode})`;
-  } else {
-    btn.classList.remove('has-clip'); btn.title = 'Yapıştır (Ctrl+V)';
-  }
+  } else { btn.classList.remove('has-clip'); btn.title = 'Yapıştır (Ctrl+V)'; }
 }
 
 function copyBoard(cut){
@@ -1730,7 +1842,6 @@ function setupBoard(opts = {}){
   const isPortrait = App.pitchH > App.pitchW;
 
   $('#rivalCountWrap').style.display = hasRival ? 'flex' : 'none';
-
   paletteEl.style.display = hasTraining ? 'flex' : 'none';
   if (hasTraining) renderPalette();
   trashBin.style.display = hasTraining ? 'flex' : 'none';
@@ -1740,26 +1851,16 @@ function setupBoard(opts = {}){
 
   for (let i = 1; i <= count; i++) {
     const id = 'H' + i;
-    if (!document.getElementById(id)) {
-      const p = homePos(i);
-      createPlayer(id, p.x, p.y, 'home', String(i));
-    }
+    if (!document.getElementById(id)) { const p = homePos(i); createPlayer(id, p.x, p.y, 'home', String(i)); }
   }
-  for (let i = count + 1; i <= 30; i++) {
-    const el = document.getElementById('H' + i); if (el) el.remove();
-  }
+  for (let i = count + 1; i <= 30; i++) { const el = document.getElementById('H' + i); if (el) el.remove(); }
 
   if (hasRival) {
     for (let i = 1; i <= awayCount; i++) {
       const id = 'A' + i;
-      if (!document.getElementById(id)) {
-        const p = awayPos(i);
-        createPlayer(id, p.x, p.y, 'away', String(i));
-      }
+      if (!document.getElementById(id)) { const p = awayPos(i); createPlayer(id, p.x, p.y, 'away', String(i)); }
     }
-    for (let i = awayCount + 1; i <= 30; i++) {
-      const el = document.getElementById('A' + i); if (el) el.remove();
-    }
+    for (let i = awayCount + 1; i <= 30; i++) { const el = document.getElementById('A' + i); if (el) el.remove(); }
   } else {
     $$('[id^="A"]').forEach(el => { if (el.classList.contains('player')) el.remove(); });
   }
@@ -1767,9 +1868,7 @@ function setupBoard(opts = {}){
   if (hasBall) {
     if (!document.getElementById('ball-main')) createBall(Math.round(App.pitchW / 2), Math.round(App.pitchH / 2));
     else { const b = document.getElementById('ball-main'); b.className = 'draggable ball sport-' + App.currentSport; }
-  } else {
-    const b = document.getElementById('ball-main'); if (b) b.remove();
-  }
+  } else { const b = document.getElementById('ball-main'); if (b) b.remove(); }
 
   if (!opts.skipSave) { saveCurrentState(); if (App.history.length === 0) pushSnapshot(); }
   if (App.manualScale === null && !opts.skipSave) requestAnimationFrame(() => scalePitch());
@@ -1905,15 +2004,12 @@ function applyScenarioData(data, opts = {}){
   const awayCount = hasRival ? (parseInt($('#rivalCount').value) || count) : 0;
   const hasBall = SPORTS[App.currentSport].ball && $('#showBall').checked;
 
-  for (let i = count + 1; i <= 30; i++) {
-    const h = document.getElementById('H' + i); if (h) h.remove();
-  }
-  for (let i = awayCount + 1; i <= 30; i++) {
-    const a = document.getElementById('A' + i); if (a) a.remove();
-  }
+  for (let i = count + 1; i <= 30; i++) { const h = document.getElementById('H' + i); if (h) h.remove(); }
+  for (let i = awayCount + 1; i <= 30; i++) { const a = document.getElementById('A' + i); if (a) a.remove(); }
   if (!hasBall) { const b = document.getElementById('ball-main'); if (b) b.remove(); }
 
   data.forEach(pos => {
+    if (!pos || !pos.id) return;
     if (pos.id.startsWith('LINE_')) { if (pos.path) createLine(pos.id, pos.path); return; }
     if (pos.type) {
       const el = createEquipment(pos.id, pos.type, pos.color, parseInt(pos.x), parseInt(pos.y));
@@ -1965,10 +2061,7 @@ function applySnapshot(snapshot){
       if (data.dataset.role) el.dataset.role = data.dataset.role;
       bindItemEvents(el); layer.appendChild(el);
     }
-    if (el) {
-      el.style.left = data.left; el.style.top = data.top;
-      if (data.innerText && data.dataset.role === 'player') el.textContent = data.innerText;
-    }
+    if (el) { el.style.left = data.left; el.style.top = data.top; if (data.innerText && data.dataset.role === 'player') el.textContent = data.innerText; }
   });
 }
 
@@ -2039,13 +2132,14 @@ function scheduleAutosave(){
       saveCurrentState();
       const curCount = parseInt($('#playerCount').value) || 11;
       const curRivalCount = parseInt($('#rivalCount').value) || 11;
-      localStorage.setItem(CFG.AUTOSAVE_KEY, JSON.stringify({
+      const activeSec = Sections.getActive();
+      localStorage.setItem(Sections.autosaveKey(), JSON.stringify({
         scenarios: App.scenarioData, scenarioCount: App.scenarioCount, currentScenario: App.currentScenario,
         sport: App.currentSport, boardRotation: App.boardRotation,
         playerCount: curCount, rivalCount: curRivalCount,
         rivalTeam: $('#rivalTeam').checked, showBall: $('#showBall').checked,
         trainingMode: $('#trainingMode').checked, gridMode: App.gridMode,
-        timestamp: Date.now(),
+        sectionId: activeSec.id, timestamp: Date.now(),
       }));
     } catch(e){}
   }, 500);
@@ -2053,13 +2147,13 @@ function scheduleAutosave(){
 
 function restoreAutosave(){
   try {
-    const raw = localStorage.getItem(CFG.AUTOSAVE_KEY);
+    const raw = localStorage.getItem(Sections.autosaveKey());
     if (!raw) return false;
     const data = JSON.parse(raw);
     if (!data.scenarios || Object.keys(data.scenarios).length === 0) return false;
     App.scenarioData = data.scenarios;
     App.scenarioCount = data.scenarioCount || 1;
-    App.currentScenario = data.currentScenario || 1;
+    App.currentScenario = Math.max(1, Math.min(data.currentScenario || 1, App.scenarioCount));
     App.currentSport = data.sport || 'football';
     App.boardRotation = data.boardRotation || 0;
     if (App.boardRotation === 90 || App.boardRotation === 270) { App.pitchW = 900; App.pitchH = 2000; }
@@ -2102,7 +2196,7 @@ async function runSimulation(){
 
 async function toggleRecording(){
   if (App.isPlaybackActiveFlag) { toast('Önce oynatmayı durdurun.', 'error'); return; }
-  if (App.isSimRunning) return;
+  if (App.isSimRunning) { toast('Kayıt simülasyonu çalışıyor, bitince otomatik duracak. Lütfen bekleyin…', 'info', 2500); return; }
   if (App.isRecording) { App.isRecording = false; updateRecordButtons(false); await finalizeRecording(); }
   else {
     if (App.recordingSteps.length > 0) {
@@ -2139,7 +2233,8 @@ async function runSimulationAndRecord(){
 
 async function finalizeRecording(){
   if (App.recordingSteps.length === 0) { toast('Kaydedilecek adım yok. Önce simülasyonu çalıştırın.', 'error'); return; }
-  const name = await showPrompt('Kayıt Adı', `Kayıt ${new Date().toLocaleString('tr-TR')}`, 'Bu kayıt için bir isim girin:');
+  const activeSec = Sections.getActive();
+  const name = await showPrompt('Kayıt Adı', `${activeSec.name} - ${new Date().toLocaleString('tr-TR')}`, `"${activeSec.name}" bölümüne kaydedilecek:`);
   if (name === null) { App.recordingSteps = []; toast('Kayıt iptal edildi.', 'info'); return; }
   if (!dbAvailable) { toast('Kayıt sistemi kullanılamıyor (gizli mod?).', 'error'); App.recordingSteps = []; return; }
   const recording = {
@@ -2148,6 +2243,7 @@ async function finalizeRecording(){
     steps: App.recordingSteps,
     scenarioCount: App.scenarioCount,
     sport: App.currentSport,
+    sectionId: activeSec.id, sectionName: activeSec.name, sectionIcon: activeSec.icon,
     settings: {
       playerCount: parseInt($('#playerCount').value) || 11,
       rivalCount: parseInt($('#rivalCount').value) || 11,
@@ -2158,7 +2254,7 @@ async function finalizeRecording(){
       boardRotation: App.boardRotation,
     },
   };
-  try { await dbAdd(recording); toast('Kayıt başarıyla kaydedildi!', 'success'); }
+  try { await dbAdd(recording); toast(`✅ "${activeSec.name}" bölümüne kaydedildi!`, 'success'); }
   catch(e) { toast('Kayıt başarısız: ' + (e.message || e), 'error'); }
   App.recordingSteps = [];
 }
@@ -2176,47 +2272,144 @@ function getCurrentPositions(){
   });
 }
 
+let fileListCache = [];
+
 async function openFileList(){
   if (App.isPlaybackActiveFlag) { toast('Önce oynatmayı durdurun.', 'error'); return; }
   if (!dbAvailable) { try { await openDB(); } catch(e) { toast('Kayıt sistemi kullanılamıyor (gizli mod?).', 'error'); return; } }
-  const container = $('#fileListContainer');
-  container.innerHTML = '<div class="empty-msg">Yükleniyor...</div>';
-  $('#fileListModal').classList.add('active');
-  try {
-    const recs = await dbGetAll();
-    if (recs.length === 0) { container.innerHTML = '<div class="empty-msg">Henüz kayıt yok.</div>'; return; }
-    container.innerHTML = '';
-    recs.forEach(rec => {
-      const row = document.createElement('div'); row.className = 'file-list-item';
-      const nameEl = document.createElement('span'); nameEl.className = 'name'; nameEl.textContent = rec.name;
-      nameEl.onclick = () => startPlayback(rec.id); row.appendChild(nameEl);
-      const dateEl = document.createElement('span'); dateEl.className = 'date';
-      const sport = rec.sport || 'football';
-      const stepCount = rec.steps?.length || 0;
-      const pc = rec.settings?.playerCount || '?';
-      const rc = rec.settings?.rivalTeam ? rec.settings.rivalCount : 0;
-      dateEl.textContent = `${new Date(rec.date).toLocaleString('tr-TR')} · ${stepCount} adım · ${pc}${rc ? 'v' + rc : ''} ${SPORTS[sport]?.emoji || ''}`;
-      row.appendChild(dateEl);
-      const actions = document.createElement('div'); actions.className = 'actions';
-      const playBtn = document.createElement('button'); playBtn.textContent = '▶'; playBtn.title = 'Oynat';
-      playBtn.onclick = () => startPlayback(rec.id); actions.appendChild(playBtn);
-      const renameBtn = document.createElement('button'); renameBtn.textContent = '✏️'; renameBtn.title = 'Yeniden adlandır';
-      renameBtn.onclick = async () => {
-        const newName = await showPrompt('Yeniden Adlandır', rec.name);
-        if (newName && newName.trim()) { rec.name = newName.trim(); try { await dbPut(rec); toast('Adlandırıldı.', 'success'); openFileList(); } catch(e){ toast('Hata: ' + e.message, 'error'); } }
-      };
-      actions.appendChild(renameBtn);
-      const shareBtn = document.createElement('button'); shareBtn.textContent = '📤'; shareBtn.title = 'Bu kaydı JSON olarak dışa aktar';
-      shareBtn.onclick = () => exportSingleRecording(rec.id); actions.appendChild(shareBtn);
-      const delBtn = document.createElement('button'); delBtn.className = 'del'; delBtn.textContent = '🗑️'; delBtn.title = 'Sil';
-      delBtn.onclick = async () => {
-        const ok = await showConfirm('Kaydı Sil?', `"${rec.name}" kalıcı olarak silinecek.`, { danger:true, okText:'Sil' });
-        if (ok) { try { await dbDelete(rec.id); toast('Silindi.', 'success'); openFileList(); } catch(e){ toast('Hata: ' + e.message, 'error'); } }
-      };
-      actions.appendChild(delBtn);
-      row.appendChild(actions); container.appendChild(row);
+  const secFilter = $('#fileSectionFilter');
+  if (secFilter) {
+    secFilter.innerHTML = '<option value="">Tüm Bölümler</option>';
+    Sections.list.forEach(sec => {
+      const opt = document.createElement('option');
+      opt.value = sec.id;
+      opt.textContent = `${sec.icon || '📁'} ${sec.name}`;
+      secFilter.appendChild(opt);
     });
-  } catch(e) { container.innerHTML = '<div class="empty-msg">Kayıtlar yüklenemedi.</div>'; toast('Hata: ' + e.message, 'error'); }
+  }
+  $('#fileListModal').classList.add('active');
+  $('#fileListContainer').innerHTML = '<div class="empty-msg">Yükleniyor...</div>';
+  const statsBar = $('#fileStatsBar'); if (statsBar) statsBar.innerHTML = '';
+  try { fileListCache = await dbGetAll(); renderFileList(); }
+  catch(e) { $('#fileListContainer').innerHTML = '<div class="empty-msg">Kayıtlar yüklenemedi.</div>'; toast('Hata: ' + e.message, 'error'); }
+}
+
+function renderFileList(){
+  const container = $('#fileListContainer');
+  const statsBar = $('#fileStatsBar');
+  if (!container) return;
+  const search = ($('#fileSearchInput')?.value || '').toLowerCase().trim();
+  const sectionFilter = $('#fileSectionFilter')?.value || '';
+  const sort = $('#fileSortFilter')?.value || 'date-desc';
+  let recs = fileListCache.slice();
+  if (search) recs = recs.filter(r => (r.name || '').toLowerCase().includes(search) || (r.sectionName || '').toLowerCase().includes(search));
+  if (sectionFilter) recs = recs.filter(r => (r.sectionId || 'genel') === sectionFilter);
+  recs.sort((a, b) => {
+    switch (sort) {
+      case 'date-asc': return new Date(a.date) - new Date(b.date);
+      case 'name-asc': return (a.name || '').localeCompare(b.name || '', 'tr');
+      case 'name-desc': return (b.name || '').localeCompare(a.name || '', 'tr');
+      default: return new Date(b.date) - new Date(a.date);
+    }
+  });
+  if (statsBar) {
+    if (recs.length === 0) statsBar.innerHTML = `<span>📭 Kayıt bulunamadı</span>`;
+    else {
+      const totalSteps = recs.reduce((s, r) => s + (r.steps?.length || 0), 0);
+      const uniqueSections = new Set(recs.map(r => r.sectionId || 'genel')).size;
+      statsBar.innerHTML = `<span>📊 <strong>${recs.length}</strong> kayıt</span><span>🎬 <strong>${totalSteps}</strong> toplam adım</span><span>📁 <strong>${uniqueSections}</strong> bölüm</span>`;
+    }
+  }
+  if (recs.length === 0) {
+    container.innerHTML = `<div class="empty-msg">${fileListCache.length === 0 ? 'Henüz hiç kayıt yok. Simülasyon çalıştırıp 🔴 Kaydet ile kayıt al.' : 'Filtrelere uyan kayıt yok.'}</div>`;
+    return;
+  }
+  container.innerHTML = '';
+  if (!sectionFilter) {
+    const groups = {};
+    recs.forEach(r => {
+      const secId = r.sectionId || 'genel';
+      if (!groups[secId]) {
+        const sec = Sections.getById(secId);
+        groups[secId] = { name: r.sectionName || sec?.name || 'Genel', icon: r.sectionIcon || sec?.icon || '📁', items: [] };
+      }
+      groups[secId].items.push(r);
+    });
+    Object.entries(groups).forEach(([secId, group]) => {
+      const header = document.createElement('div');
+      header.className = 'file-group-header';
+      header.innerHTML = `<span>${group.icon}</span> <strong>${escapeHtml(group.name)}</strong> <span class="count">${group.items.length}</span>`;
+      container.appendChild(header);
+      group.items.forEach(rec => container.appendChild(buildFileRow(rec)));
+    });
+  } else recs.forEach(rec => container.appendChild(buildFileRow(rec)));
+}
+
+function buildFileRow(rec) {
+  const row = document.createElement('div');
+  row.className = 'file-list-item';
+  const secId = rec.sectionId || 'genel';
+  const sec = Sections.getById(secId);
+  const secName = rec.sectionName || sec?.name || 'Genel';
+  const secIcon = rec.sectionIcon || sec?.icon || '📁';
+  const sport = rec.sport || 'football';
+  const stepCount = rec.steps?.length || 0;
+  const pc = rec.settings?.playerCount || '?';
+  const rc = rec.settings?.rivalTeam ? rec.settings.rivalCount : 0;
+  row.innerHTML = `
+    <div class="file-icon">${SPORTS[sport]?.emoji || '🎬'}</div>
+    <div class="file-info">
+      <div class="file-name" title="Tıkla → oynat"></div>
+      <div class="file-details">
+        <span class="file-badge sec">${secIcon} ${escapeHtml(secName)}</span>
+        <span class="file-badge sport">${SPORTS[sport]?.emoji || ''} ${escapeHtml(SPORTS[sport]?.name || sport)}</span>
+        <span class="file-badge">👥 ${pc}${rc ? ' v ' + rc : ''}</span>
+        <span class="file-badge">🎬 ${stepCount} adım</span>
+        <span class="file-badge date">📅 ${new Date(rec.date).toLocaleString('tr-TR')}</span>
+      </div>
+    </div>
+    <div class="file-actions">
+      <button class="play" title="Oynat">▶</button>
+      <button class="rename" title="Yeniden Adlandır">✏️</button>
+      <button class="move" title="Bölüme Taşı">📁</button>
+      <button class="share" title="Dışa Aktar">📤</button>
+      <button class="del" title="Sil">🗑️</button>
+    </div>`;
+  const nameEl = row.querySelector('.file-name');
+  nameEl.textContent = rec.name || 'İsimsiz kayıt';
+  nameEl.onclick = () => startPlayback(rec.id);
+  row.querySelector('.play').onclick = () => startPlayback(rec.id);
+  row.querySelector('.rename').onclick = async () => {
+    const newName = await showPrompt('Yeniden Adlandır', rec.name);
+    if (newName && newName.trim()) {
+      rec.name = newName.trim();
+      try { await dbPut(rec); toast('Adlandırıldı.', 'success'); refreshFileList(); }
+      catch(e) { toast('Hata: ' + e.message, 'error'); }
+    }
+  };
+  row.querySelector('.move').onclick = async () => {
+    const buttons = Sections.list.map(s => ({ label: `${s.icon || '📁'} ${s.name}`, value: s.id, className: s.id === secId ? 'btn-primary' : 'btn-cancel' }));
+    const target = await showChoice('📁 Bölüme Taşı', `"${rec.name}" hangi bölüme taşınsın?`, buttons);
+    if (target && target !== secId) {
+      const targetSec = Sections.getById(target);
+      rec.sectionId = target;
+      rec.sectionName = targetSec?.name || 'Genel';
+      rec.sectionIcon = targetSec?.icon || '📁';
+      try { await dbPut(rec); toast(`"${targetSec.name}" bölümüne taşındı.`, 'success'); refreshFileList(); }
+      catch(e) { toast('Hata: ' + e.message, 'error'); }
+    }
+  };
+  row.querySelector('.share').onclick = () => exportSingleRecording(rec.id);
+  row.querySelector('.del').onclick = async () => {
+    const ok = await showConfirm('Kaydı Sil?', `"${rec.name}" kalıcı olarak silinecek.`, { danger: true, okText: 'Sil' });
+    if (ok) { try { await dbDelete(rec.id); toast('Silindi.', 'success'); refreshFileList(); } catch(e) { toast('Hata: ' + e.message, 'error'); } }
+  };
+  return row;
+}
+
+async function refreshFileList() {
+  try { fileListCache = await dbGetAll(); renderFileList(); }
+  catch(e) { toast('Yenileme hatası: ' + e.message, 'error'); }
 }
 
 function closeFileList(){ $('#fileListModal').classList.remove('active'); }
@@ -2227,9 +2420,7 @@ async function startPlayback(recId){
   try {
     const rec = await dbGet(recId);
     if (!rec) { toast('Kayıt bulunamadı.', 'error'); return; }
-    closeFileList();
-    showBoardScreen();
-    
+    closeFileList(); showBoardScreen();
     App.prePlaybackState = {
       sport: App.currentSport,
       playerCount: parseInt($('#playerCount').value) || 11,
@@ -2238,54 +2429,36 @@ async function startPlayback(recId){
       showBall: $('#showBall').checked,
       trainingMode: $('#trainingMode').checked,
       gridMode: App.gridMode,
-      pitchW: App.pitchW,
-      pitchH: App.pitchH,
+      pitchW: App.pitchW, pitchH: App.pitchH,
       boardRotation: App.boardRotation,
       currentScenario: App.currentScenario,
     };
-
     const rs = rec.settings || {};
     const playSport = rec.sport || rs.sport || 'football';
-    if (SPORTS[playSport]) {
-      App.currentSport = playSport;
-      $('#sportSelect').value = playSport;
-      pitch.style.background = SPORTS[playSport].color;
-    }
-
+    if (SPORTS[playSport]) { App.currentSport = playSport; $('#sportSelect').value = playSport; pitch.style.background = SPORTS[playSport].color; }
     let playCount = rs.playerCount;
     if (!playCount && Array.isArray(rec.steps) && rec.steps[0] && Array.isArray(rec.steps[0].positions)) {
-      rec.steps[0].positions.forEach(p => {
-        if (p.id && p.id.startsWith('H')) {
-          const n = parseInt(p.id.slice(1));
-          if (!isNaN(n) && n > (playCount || 0)) playCount = n;
-        }
-      });
+      rec.steps[0].positions.forEach(p => { if (p.id && p.id.startsWith('H')) { const n = parseInt(p.id.slice(1)); if (!isNaN(n) && n > (playCount || 0)) playCount = n; } });
     }
     if (!playCount) playCount = SPORTS[App.currentSport].players;
     playCount = Math.min(11, Math.max(1, playCount));
     $('#playerCount').value = playCount;
-
     let playRivalCount = rs.rivalCount || playCount;
     $('#rivalCount').value = playRivalCount;
     $('#rivalTeam').checked = !!rs.rivalTeam;
     $('#rivalCountWrap').style.display = $('#rivalTeam').checked ? 'flex' : 'none';
-    
     $('#showBall').checked = (rs.showBall !== false) && !!SPORTS[App.currentSport].ball;
     $('#trainingMode').checked = !!rs.trainingMode;
     if (!!rs.gridMode !== App.gridMode) toggleGrid();
-
     const rot = rs.boardRotation || 0;
     if (rot === 90 || rot === 270) { App.pitchW = 900; App.pitchH = 2000; }
     else { App.pitchW = 2000; App.pitchH = 900; }
     App.boardRotation = rot;
-    pitch.style.width = App.pitchW + 'px';
-    pitch.style.height = App.pitchH + 'px';
-
+    pitch.style.width = App.pitchW + 'px'; pitch.style.height = App.pitchH + 'px';
     drawCourt(App.currentSport);
     paletteEl.style.display = $('#trainingMode').checked ? 'flex' : 'none';
     if ($('#trainingMode').checked) renderPalette();
     trashBin.style.display = $('#trainingMode').checked ? 'flex' : 'none';
-
     App.playbackData = rec;
     App.playbackIndex = 0;
     App.isPaused = false;
@@ -2295,16 +2468,11 @@ async function startPlayback(recId){
     $('#playPauseBtn').textContent = '⏸ Duraklat';
     $('#playbackStatus').textContent = '▶️ Oynatılıyor';
     $('#restartBtn').style.display = 'none';
-
     requestAnimationFrame(() => {
       scalePitch();
-      requestAnimationFrame(() => {
-        applyPlaybackStep(App.playbackData.steps[0]);
-        scheduleNextStep();
-      });
+      requestAnimationFrame(() => { applyPlaybackStep(App.playbackData.steps[0]); scheduleNextStep(); });
     });
     setTimeout(() => { scalePitch(); }, 150);
-
     toast(`▶ ${rec.name}`, 'info');
   } catch(e) { toast('Hata: ' + e.message, 'error'); }
 }
@@ -2373,14 +2541,11 @@ function stopPlayback(){
   App.isPlaybackActiveFlag = false;
   $('#playback-controls').style.display = 'none';
   $('#restartBtn').style.display = 'none';
-
   if (App.prePlaybackState) {
     const s = App.prePlaybackState;
     App.currentSport = s.sport;
-    App.pitchW = s.pitchW;
-    App.pitchH = s.pitchH;
+    App.pitchW = s.pitchW; App.pitchH = s.pitchH;
     App.boardRotation = s.boardRotation;
-
     $('#sportSelect').value = s.sport;
     $('#playerCount').value = s.playerCount;
     $('#rivalCount').value = s.rivalCount;
@@ -2389,26 +2554,20 @@ function stopPlayback(){
     $('#showBall').checked = s.showBall;
     $('#trainingMode').checked = s.trainingMode;
     if (s.gridMode !== App.gridMode) toggleGrid();
-
     pitch.style.width = s.pitchW + 'px';
     pitch.style.height = s.pitchH + 'px';
     pitch.style.background = SPORTS[s.sport].color;
-
     paletteEl.style.display = $('#trainingMode').checked ? 'flex' : 'none';
     if ($('#trainingMode').checked) renderPalette();
     trashBin.style.display = $('#trainingMode').checked ? 'flex' : 'none';
-
     drawCourt(s.sport);
     App.currentScenario = s.currentScenario;
     App.prePlaybackState = null;
-
     renderScenarioButtons();
     scalePitch();
     applyScenarioData(App.scenarioData[App.currentScenario], { animate: false });
     toast('▶ Oynatma kapatıldı, önceki duruma dönüldü.', 'info');
-  } else {
-    applyScenarioData(App.scenarioData[App.currentScenario], { animate: false });
-  }
+  } else applyScenarioData(App.scenarioData[App.currentScenario], { animate: false });
 }
 
 async function exportVideo(){
@@ -2484,6 +2643,7 @@ async function openExportMenu(){
 async function buildProjectSnapshot(opts = {}){
   const includeRecordings = opts.includeRecordings !== false;
   saveCurrentState();
+  const activeSec = Sections.getActive();
   const snap = {
     format: EXPORT_FORMAT, version: EXPORT_VERSION, exportedAt: new Date().toISOString(),
     app: { name: 'Pro Taktik Tahtası', author: 'Osman Efe Tekinaslan' },
@@ -2498,6 +2658,7 @@ async function buildProjectSnapshot(opts = {}){
       deviceScale: App.manualScale === null ? 'auto' : String(App.manualScale),
       currentScenario: App.currentScenario,
       boardRotation: App.boardRotation,
+      sectionId: activeSec.id, sectionName: activeSec.name, sectionIcon: activeSec.icon,
     },
     scenarios: JSON.parse(JSON.stringify(App.scenarioData)),
     scenarioCount: App.scenarioCount,
@@ -2510,8 +2671,9 @@ async function buildProjectSnapshot(opts = {}){
       snap.recordings = recs.map(r => ({
         name: r.name, date: r.date, sport: r.sport || 'football',
         scenarioCount: r.scenarioCount || 1, steps: r.steps || [], settings: r.settings || null,
+        sectionId: r.sectionId || 'genel', sectionName: r.sectionName || 'Genel', sectionIcon: r.sectionIcon || '📁',
       }));
-    } catch(e) { console.warn('Kayıtlar eklenemedi:', e); }
+    } catch(e) {}
   }
   snap.meta = {
     totalScenarios: Object.keys(snap.scenarios).length,
@@ -2544,11 +2706,9 @@ async function exportSingleRecording(recId){
     const snap = {
       format: EXPORT_FORMAT, version: EXPORT_VERSION, exportedAt: new Date().toISOString(),
       app: { name: 'Pro Taktik Tahtası', author: 'Osman Efe Tekinaslan' },
-      settings: { sport: rec.sport || 'football', playerCount: 11, rivalCount: 11, rivalTeam: false,
-        showBall: true, trainingMode: false, gridMode: false, deviceScale: 'auto', currentScenario: 1, boardRotation: 0 },
+      settings: { sport: rec.sport || 'football', playerCount: 11, rivalCount: 11, rivalTeam: false, showBall: true, trainingMode: false, gridMode: false, deviceScale: 'auto', currentScenario: 1, boardRotation: 0, sectionId: rec.sectionId || 'genel', sectionName: rec.sectionName || 'Genel', sectionIcon: rec.sectionIcon || '📁' },
       scenarios: {}, scenarioCount: rec.scenarioCount || 1,
-      recordings: [{ name: rec.name, date: rec.date, sport: rec.sport || 'football',
-        scenarioCount: rec.scenarioCount || 1, steps: rec.steps || [], settings: rec.settings || null }],
+      recordings: [{ name: rec.name, date: rec.date, sport: rec.sport || 'football', scenarioCount: rec.scenarioCount || 1, steps: rec.steps || [], settings: rec.settings || null, sectionId: rec.sectionId || 'genel', sectionName: rec.sectionName || 'Genel', sectionIcon: rec.sectionIcon || '📁' }],
       meta: { totalScenarios: 0, totalRecordings: 1, totalSteps: rec.steps?.length || 0 },
     };
     const blob = new Blob([JSON.stringify(snap, null, 2)], { type: 'application/json' });
@@ -2576,9 +2736,7 @@ async function importJSON(){
         data = {
           format: EXPORT_FORMAT, version: 1, exportedAt: new Date().toISOString(),
           app: { name: 'Pro Taktik Tahtası' },
-          settings: { sport: data.sport || 'football', playerCount: 11, rivalCount: 11, rivalTeam: false,
-            showBall: true, trainingMode: false, gridMode: false, deviceScale: 'auto',
-            currentScenario: data.currentScenario || 1, boardRotation: 0 },
+          settings: { sport: data.sport || 'football', playerCount: 11, rivalCount: 11, rivalTeam: false, showBall: true, trainingMode: false, gridMode: false, deviceScale: 'auto', currentScenario: data.currentScenario || 1, boardRotation: 0 },
           scenarios: data.scenarios, scenarioCount: data.scenarioCount || 1,
           recordings: [], meta: { totalScenarios: Object.keys(data.scenarios).length, totalRecordings: 0, totalSteps: 0 },
         };
@@ -2588,6 +2746,7 @@ async function importJSON(){
       const preview = [
         `📁 Dosya: ${file.name} (${sizeStr})`,
         `📋 Format: v${data.version || 1}`,
+        `📁 Bölüm: ${data.settings?.sectionName || data.settings?.sectionId || 'bilinmiyor'}`,
         `⚽ Branş: ${SPORTS[data.settings?.sport]?.name || data.settings?.sport || 'bilinmiyor'}`,
         `📊 Senaryolar: ${Object.keys(data.scenarios || {}).length}`,
         `🎬 Kayıtlar: ${data.recordings?.length || 0}`,
@@ -2624,7 +2783,7 @@ async function importJSON(){
       switchScenario(App.currentScenario, { force: true });
       renderScenarioButtons();
       if (hasRecs) {
-        if (!dbAvailable) { try { await openDB(); } catch(e) { toast(`⚠️ ${data.recordings.length} kayıt var ama DB kullanılamıyor (gizli mod?).`, 'warn', 5000); } }
+        if (!dbAvailable) { try { await openDB(); } catch(e) { toast(`⚠️ ${data.recordings.length} kayıt var ama DB kullanılamıyor.`, 'warn', 5000); } }
         if (dbAvailable) {
           const mode = await showChoice('🎬 Kayıtlar Nasıl Eklensin?',
             `Pakette ${data.recordings.length} kayıt var.\n\n• Atla: mevcut kayıtlar korunur, paketinkiler yüklenmez\n• Ekle: mevcutlar korunur, paketinkiler eklenir\n• Değiştir: TÜM mevcut kayıtlar silinir, sadece paketinkiler kalır`,
@@ -2651,8 +2810,15 @@ async function applyRecordingImport(recordings, mode){
       const all = await dbGetAll();
       for (const r of all) { try { await dbDelete(r.id); } catch(e){} }
     }
-    let added = 0, failed = 0;
+    let added = 0, failed = 0, sectionsCreated = 0;
     for (const rec of recordings) {
+      let secId = rec.sectionId;
+      let sec = secId ? Sections.getById(secId) : null;
+      if (!sec) {
+        if (rec.sectionName) sec = Sections.list.find(s => s.name === rec.sectionName);
+        if (!sec) { secId = Sections.add(rec.sectionName || 'İçe Aktarılan', rec.sectionIcon || '📁'); sec = Sections.getById(secId); sectionsCreated++; }
+        else secId = sec.id;
+      }
       const payload = {
         name: rec.name || 'İçe aktarılan kayıt',
         date: rec.date || new Date().toISOString(),
@@ -2660,12 +2826,16 @@ async function applyRecordingImport(recordings, mode){
         scenarioCount: rec.scenarioCount || 1,
         steps: rec.steps || [],
         settings: rec.settings || null,
+        sectionId: secId,
+        sectionName: sec?.name || 'Genel',
+        sectionIcon: sec?.icon || '📁',
       };
-      try { await dbAdd(payload); added++; }
-      catch(e) { failed++; console.warn('Kayıt eklenemedi:', e); }
+      try { await dbAdd(payload); added++; } catch(e) { failed++; }
     }
-    if (added > 0) toast(`✅ ${added} kayıt eklendi${failed > 0 ? `, ${failed} başarısız` : ''}.`, 'success');
-    else if (failed > 0) toast(`❌ ${failed} kayıt eklenemedi.`, 'error');
+    if (added > 0) {
+      toast(`✅ ${added} kayıt eklendi${sectionsCreated > 0 ? `, ${sectionsCreated} yeni bölüm` : ''}${failed > 0 ? `, ${failed} başarısız` : ''}.`, 'success', 4000);
+      renderHomeSections();
+    } else if (failed > 0) toast(`❌ ${failed} kayıt eklenemedi.`, 'error');
   } catch(e) { toast('Kayıt import hatası: ' + e.message, 'error'); }
 }
 
@@ -2673,15 +2843,10 @@ async function resetAll(){
   const ok = await showConfirm('Sıfırla?', 'Tüm sahayı ve senaryoları sıfırla? Bu işlem geri alınamaz.', { danger:true, okText:'Sıfırla' });
   if (!ok) return;
   if (App.isPlaybackActiveFlag) stopPlayback();
-  App.scenarioData = {};
-  App.scenarioCount = 1;
-  App.currentScenario = 1;
-  App.history = [];
-  App.historyIndex = -1;
-  layer.innerHTML = '';
-  renderScenarioButtons();
-  App.currentSport = 'football';
-  App.pitchW = 2000; App.pitchH = 900; App.boardRotation = 0;
+  App.scenarioData = {}; App.scenarioCount = 1; App.currentScenario = 1;
+  App.history = []; App.historyIndex = -1;
+  layer.innerHTML = ''; renderScenarioButtons();
+  App.currentSport = 'football'; App.pitchW = 2000; App.pitchH = 900; App.boardRotation = 0;
   pitch.style.width = '2000px'; pitch.style.height = '900px';
   $('#sportSelect').value = 'football';
   pitch.style.background = SPORTS.football.color;
@@ -2732,34 +2897,29 @@ $$('.modal-overlay').forEach(overlay => {
 
 function initPlayerCountSelect(){
   const sel = $('#playerCount'); sel.innerHTML = '';
-  for (let i = 1; i <= 11; i++) {
-    const opt = document.createElement('option'); opt.value = i; opt.textContent = i;
-    if (i === 11) opt.selected = true;
-    sel.appendChild(opt);
-  }
+  for (let i = 1; i <= 11; i++) { const opt = document.createElement('option'); opt.value = i; opt.textContent = i; if (i === 11) opt.selected = true; sel.appendChild(opt); }
   const rsel = $('#rivalCount'); rsel.innerHTML = '';
-  for (let i = 1; i <= 11; i++) {
-    const opt = document.createElement('option'); opt.value = i; opt.textContent = i;
-    if (i === 11) opt.selected = true;
-    rsel.appendChild(opt);
-  }
+  for (let i = 1; i <= 11; i++) { const opt = document.createElement('option'); opt.value = i; opt.textContent = i; if (i === 11) opt.selected = true; rsel.appendChild(opt); }
 }
 
 window.addEventListener('resize', () => { if (App.manualScale === null && App.boardInitialized) scalePitch(); });
-window.addEventListener('orientationchange', () => {
-  setTimeout(() => { if (App.manualScale === null && App.boardInitialized) scalePitch(); }, 200);
-});
+window.addEventListener('orientationchange', () => { setTimeout(() => { if (App.manualScale === null && App.boardInitialized) scalePitch(); }, 200); });
 
 async function init(){
   initPlayerCountSelect();
+  Sections.load();
+  migrateOldAutosave();
+  loadSectionSettingsIntoHome(Sections.activeId);
   try {
     if (!localStorage.getItem(CFG.SCALE_CLEAN_KEY)) {
       localStorage.removeItem(CFG.SCALE_KEY);
       localStorage.setItem(CFG.SCALE_CLEAN_KEY, '1');
+    } else {
+      const saved = localStorage.getItem(CFG.SCALE_KEY);
+      if (saved) Home.device = saved;
     }
   } catch(e){}
-  renderHomeControls();
-  if (checkAutosaveExists()) $('#homeContinueWrap').style.display = 'block';
+  renderHomeControls(); renderHomeSections(); updateContinueButton();
   try { await openDB(); } catch(e) { dbAvailable = false; }
   showHomeScreen();
   if (typeof html2canvas === 'undefined') console.warn('html2canvas yüklenemedi, video kaydı çalışmayabilir.');
